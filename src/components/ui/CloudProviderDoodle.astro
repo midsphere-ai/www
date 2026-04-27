@@ -1,0 +1,92 @@
+---
+type Kind = 'model' | 'context' | 'paper' | 'prompt' | 'infra' | 'hire';
+
+interface Props {
+  kind: Kind;
+  width?: number;
+  height?: number;
+}
+
+const { kind, width = 120, height = kind === 'prompt' ? 60 : 78 } = Astro.props;
+const viewBox = kind === 'prompt' ? '0 0 130 64' : '0 0 130 84';
+---
+
+<svg
+  viewBox={viewBox}
+  width={width}
+  height={height}
+  fill="none"
+  stroke="#111"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {kind === 'model' && (
+    <>
+      <rect x="6" y="10" width="32" height="14" rx="2"/>
+      <rect x="6" y="34" width="32" height="14" rx="2"/>
+      <rect x="6" y="58" width="32" height="14" rx="2"/>
+      <path d="M82 26 L 102 42 L 82 58 L 62 42 Z"/>
+      <path d="M38 17 L 62 40" stroke-width="1.2"/>
+      <path d="M38 41 L 62 42" stroke-width="1.2"/>
+      <path d="M38 65 L 62 44" stroke-width="1.2"/>
+      <path d="M102 42 L 124 42" stroke-width="1.2"/>
+      <path d="M118 38 L 124 42 L 118 46" stroke-width="1.2"/>
+    </>
+  )}
+  {kind === 'context' && (
+    <>
+      <path d="M16 16 L 64 14 L 64 76 L 16 74 Z"/>
+      <path d="M64 14 L 112 16 L 112 76 L 64 76 Z"/>
+      <path d="M64 14 L 64 76" stroke-width="1.2"/>
+      <path d="M22 28 L 58 26 M 22 38 L 58 36 M 22 48 L 58 46 M 22 58 L 54 56" stroke-width="1.2"/>
+      <path d="M70 28 L 106 26 M 70 38 L 106 36 M 70 48 L 102 46" stroke-width="1.2"/>
+      <path d="M104 58 C 116 60, 122 56, 122 50 C 122 44, 116 42, 110 46" stroke-width="1.2"/>
+      <path d="M44 8 C 36 4, 26 6, 22 14" stroke-width="1.2" stroke-dasharray="2 3"/>
+      <path d="M19 10 L 22 14 L 26 11" stroke-width="1.2"/>
+    </>
+  )}
+  {kind === 'paper' && (
+    <>
+      <path d="M22 72 L 76 64 L 78 26 L 24 34 Z" style="opacity: 0.55;"/>
+      <path d="M28 66 L 82 58 L 84 22 L 30 30 Z" style="opacity: 0.8;"/>
+      <path d="M34 60 L 88 52 L 90 18 L 36 26 Z"/>
+      <path d="M44 32 L 84 26 M 44 42 L 80 36 M 44 52 L 78 46" stroke-width="1.2"/>
+      <circle cx="106" cy="22" r="14"/>
+      <path d="M106 14 L 106 22 L 114 26" stroke-width="1.4"/>
+      <circle cx="106" cy="22" r="1.4" fill="#111"/>
+    </>
+  )}
+  {kind === 'prompt' && (
+    <>
+      <path d="M14 12 L 14 52" stroke-width="1.2"/>
+      <path d="M18 12 L 18 52" stroke-width="1.2" style="opacity: 0.6;"/>
+      <path d="M14 12 L 108 12 L 108 52 L 14 52"/>
+      <path d="M22 22 L 102 22 M 22 32 L 102 32 M 22 42 L 96 42" stroke-width="1.2"/>
+      <path d="M108 12 C 118 12, 124 32, 108 52"/>
+      <path d="M118 22 L 122 32 L 118 42" stroke-width="1.2"/>
+    </>
+  )}
+  {kind === 'infra' && (
+    <>
+      <rect x="46" y="24" width="44" height="40" rx="3"/>
+      <path d="M54 32 L 82 32 M 54 40 L 82 40 M 54 48 L 72 48" stroke-width="1.2"/>
+      <circle cx="54" cy="56" r="1.6" fill="#111"/>
+      <circle cx="62" cy="56" r="1.6" fill="#111"/>
+      <path d="M46 30 C 26 24, 18 40, 32 50 C 44 56, 22 70, 36 76"/>
+      <path d="M90 32 C 110 26, 116 42, 102 52 C 88 58, 110 70, 96 76"/>
+      <path d="M58 64 C 50 76, 70 80, 72 70"/>
+      <path d="M76 64 C 84 76, 100 76, 92 66"/>
+    </>
+  )}
+  {kind === 'hire' && (
+    <>
+      <path d="M34 10 L 96 8 L 98 76 L 36 78 Z"/>
+      <path d="M44 22 L 86 20" stroke-width="1.6"/>
+      <path d="M44 34 L 86 32 M 44 44 L 82 42 M 44 54 L 86 52 M 44 64 L 76 62" stroke-width="1.2"/>
+      <path d="M22 4 L 110 80" stroke-width="2"/>
+      <path d="M22 80 L 110 4" stroke-width="2"/>
+    </>
+  )}
+</svg>

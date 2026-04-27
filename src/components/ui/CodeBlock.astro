@@ -1,0 +1,13 @@
+---
+import { cn } from '../../utils/merge';
+
+interface Props {
+  code: string;
+  variant?: 'light' | 'on-dark';
+  class?: string;
+}
+
+const { code, variant = 'light', class: className } = Astro.props;
+---
+
+<pre class={cn('codeblock', variant === 'on-dark' && 'codeblock-on-dark', className)}><code>{code}</code></pre>

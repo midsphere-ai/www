@@ -1,0 +1,52 @@
+---
+// Inverse-bg closing CTA — eyebrow, headline (slot for `.hl` styling),
+// optional body, two buttons. Default doodle is the lightning bolt; pass a
+// `doodle` slot to override.
+import Button from './Button.astro';
+import LightningDoodle from './LightningDoodle.astro';
+
+interface Props {
+  eyebrow: string;
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref: string;
+  secondaryLabel: string;
+  headingId?: string;
+  doodleWidth?: number;
+}
+
+const {
+  eyebrow,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel,
+  headingId,
+  doodleWidth = 104,
+} = Astro.props;
+---
+
+<section class="section">
+  <div class="container-x">
+    <div class="rounded-[28px] bg-inverse px-10 py-[72px] text-center text-on-inverse-1 sm:px-12">
+      <div class="mx-auto mb-4 flex justify-center">
+        <slot name="doodle">
+          <LightningDoodle variant="on-dark" width={doodleWidth} />
+        </slot>
+      </div>
+      <div class="eyebrow-on-dark">{eyebrow}</div>
+      <h2 id={headingId} class="h-display-lg mx-auto mt-4 max-w-[760px] text-on-inverse-1">
+        <slot name="headline" />
+      </h2>
+      {Astro.slots.has('body') && (
+        <p class="mx-auto mt-6 max-w-[560px]" style="font-size: 16px; line-height: 1.65; color: var(--ms-fg-on-inverse-2);">
+          <slot name="body" />
+        </p>
+      )}
+      <div class="mt-8 flex flex-wrap justify-center gap-2.5">
+        <Button href={primaryHref} variant="accent">{primaryLabel}</Button>
+        <Button href={secondaryHref} variant="ghost-on-dark">{secondaryLabel}</Button>
+      </div>
+    </div>
+  </div>
+</section>

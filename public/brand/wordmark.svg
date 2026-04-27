@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
+  <text x="0" y="28" font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace" font-size="28" font-weight="500" fill="#0B0B0B" letter-spacing="-0.5">midsphere</text>
+  <circle cx="186" cy="24" r="3" fill="#D7F25C"/>
+</svg>

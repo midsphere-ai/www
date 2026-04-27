@@ -1,0 +1,43 @@
+---
+const failures = [
+  { trigger: 'executor throws',         resp: 'knowledge manager grabs the surrounding context; the planner reworks the rest of the graph with what’s now known.' },
+  { trigger: 'tool returns nonsense',   resp: 'flagged before the executor takes it as ground truth. the bad value never ends up in step 14’s prompt.' },
+  { trigger: 'goal is unachievable',    resp: 'the planner stops and says so, with the reason. no looping toward a finish line that isn’t there.' },
+];
+---
+
+<section id="recovery" class="section">
+  <div class="container-x">
+    <div class="mx-auto flex max-w-[640px] flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
+      <div class="shrink-0" aria-hidden="true">
+        <svg viewBox="0 0 100 80" width="92" height="74" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M50 70 L 50 46"/>
+          <path d="M50 46 C 44 38, 28 30, 18 22"/>
+          <path d="M50 46 C 56 38, 72 30, 82 22"/>
+          <path d="M22 28 L 18 22 L 26 18" stroke-width="1.2"/>
+          <path d="M78 28 L 82 22 L 74 18" stroke-width="1.2"/>
+          <path d="M30 76 L 70 76" stroke-dasharray="2 4" style="opacity: 0.4;"/>
+        </svg>
+      </div>
+      <div>
+        <div class="eyebrow">when something breaks</div>
+        <h2 id="recovery-headline" class="h-section mt-3 max-w-[460px]">
+          Failures show up. Loudly.
+        </h2>
+      </div>
+    </div>
+
+    <p class="mx-auto mt-7 max-w-[600px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+      Every failure lands in the same event stream you’re already streaming. Handle it, log it, retry it, or let the agent self-correct — that’s the default, capped at a retry limit you set.
+    </p>
+
+    <ul class="mx-auto mt-8 grid max-w-[860px] grid-cols-1 gap-3">
+      {failures.map((row) => (
+        <li class="grid grid-cols-1 items-start gap-3 rounded-[12px] border border-border-subtle bg-canvas p-5 sm:grid-cols-[200px_1fr] sm:gap-6 sm:p-6">
+          <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">{row.trigger}</div>
+          <p class="text-fg-2" style="font-size: 15px; line-height: 1.6;">{row.resp}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

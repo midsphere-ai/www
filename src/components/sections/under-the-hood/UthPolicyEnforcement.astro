@@ -1,0 +1,85 @@
+---
+import CodeBlock from '../../ui/CodeBlock.astro';
+
+const policyCode = `agent.run(
+  "Draft outreach to the top 50 leads from yesterday's signups",
+  spend_cap     = "$2.00",
+  approvals     = ["send_email"],   # blocks until a human signs off
+  allowed_tools = ["search", "draft", "queue"],
+)`;
+---
+
+<section id="policy" class="section">
+  <div class="container-x">
+    <div class="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_200px] md:gap-14">
+      <div>
+        <div class="eyebrow">policies, enforced</div>
+        <h2 id="policy-headline" class="h-section mt-3 max-w-[520px]">
+          Policies are <span class="hl">injected</span>, not suggested.
+        </h2>
+        <p class="mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+          Set them on <code class="font-mono text-fg-1" style="font-size: 0.92em;">agent.run()</code> and they enter the context every time the agent considers an action. The decision-making process never sees the world without them.
+        </p>
+      </div>
+
+      <div class="hidden md:flex md:items-center md:justify-center" aria-hidden="true">
+        <svg viewBox="0 0 220 180" width="170" height="140" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 22 L 152 18 L 156 154 L 44 158 Z" style="opacity: 0.45;"/>
+          <path d="M30 32 L 142 28 L 146 164 L 34 168 Z" style="opacity: 0.7;"/>
+          <path d="M20 42 L 132 38 L 136 174 L 24 178 Z"/>
+          <path d="M34 60 L 122 58 M 34 72 L 122 70 M 34 84 L 116 82 M 34 96 L 122 94 M 34 108 L 110 106 M 34 120 L 122 118" stroke-width="1.2"/>
+          <circle cx="148" cy="78" r="28"/>
+          <circle cx="148" cy="78" r="22" stroke-width="1.2"/>
+          <path d="M138 78 L 144 84 L 158 70" stroke-width="1.4"/>
+        </svg>
+      </div>
+    </div>
+
+    <ul class="mx-auto mt-10 grid max-w-[1080px] grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+      <li class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+        <div class="flex items-start gap-3" aria-hidden="true">
+          <svg viewBox="0 0 56 56" width="48" height="48" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
+            <circle cx="28" cy="28" r="18"/>
+            <path d="M28 16 L 28 40 M 22 22 C 22 18, 34 18, 34 22 C 34 26, 22 26, 22 30 C 22 34, 34 34, 34 30" stroke-width="1.4"/>
+            <path d="M10 46 L 46 10" stroke-width="1.6"/>
+          </svg>
+          <div>
+            <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">spend cap</div>
+            <p class="mt-2 text-fg-2" style="font-size: 14px; line-height: 1.55;">Runaway loops literally cannot blow past it.</p>
+          </div>
+        </div>
+      </li>
+      <li class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+        <div class="flex items-start gap-3" aria-hidden="true">
+          <svg viewBox="0 0 56 56" width="48" height="48" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
+            <circle cx="28" cy="28" r="18"/>
+            <path d="M22 20 L 22 36 M 34 20 L 34 36" stroke-width="2"/>
+          </svg>
+          <div>
+            <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">approval gate</div>
+            <p class="mt-2 text-fg-2" style="font-size: 14px; line-height: 1.55;">Sending email always waits for a human if you said it should.</p>
+          </div>
+        </div>
+      </li>
+      <li class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+        <div class="flex items-start gap-3" aria-hidden="true">
+          <svg viewBox="0 0 56 56" width="48" height="48" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
+            <circle cx="14" cy="22" r="4"/>
+            <path d="M14 26 L 14 38 M 10 32 L 18 32 M 14 38 L 10 46 M 14 38 L 18 46"/>
+            <circle cx="42" cy="22" r="4"/>
+            <path d="M42 26 L 42 38 M 38 32 L 46 32 M 42 38 L 38 46 M 42 38 L 46 46"/>
+            <path d="M28 8 L 28 50" stroke-width="1.8" stroke-dasharray="3 3"/>
+          </svg>
+          <div>
+            <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">isolation</div>
+            <p class="mt-2 text-fg-2" style="font-size: 14px; line-height: 1.55;">Agent-A cannot reason about agent-B’s data — it isn’t even there.</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="mx-auto mt-8 max-w-[680px]">
+      <CodeBlock code={policyCode} />
+    </div>
+  </div>
+</section>

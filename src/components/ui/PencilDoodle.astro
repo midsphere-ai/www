@@ -1,0 +1,42 @@
+---
+interface Props {
+  variant?: 'light' | 'on-dark';
+  width?: number;
+  class?: string;
+}
+
+const { variant = 'light', width = 160, class: className } = Astro.props;
+const height = (width * 180) / 220;
+const stroke = variant === 'on-dark' ? 'currentColor' : '#111';
+const opacity = variant === 'on-dark' ? 0.85 : 1;
+const showSparkles = variant === 'light';
+---
+
+<svg
+  viewBox="0 0 220 180"
+  width={width}
+  height={height}
+  fill="none"
+  stroke={stroke}
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  style={`opacity: ${opacity};`}
+  class={className}
+  aria-hidden="true"
+>
+  <path d="M 156 18 L 151 23 L 143 15 L 148 10 Z" />
+  <path d="M 149 21 L 141 13" />
+  <path d="M 151 23 L 99 80 L 91 71 L 143 15 Z" />
+  <path d="M 99 80 L 83 89 L 91 71" />
+  <path d="M 95 76 L 87 84" />
+  <path d="M 83 89 L 79 93" />
+  <path d="M 83 89 C 100 110, 130 120, 150 130 C 166 137, 178 144, 188 158" />
+  {showSparkles && (
+    <>
+      <path d="M 200 40 L 206 46 M 206 40 L 200 46" />
+      <path d="M 32 102 L 38 108 M 38 102 L 32 108" />
+      <path d="M 198 110 L 204 116 M 204 110 L 198 116" />
+    </>
+  )}
+</svg>

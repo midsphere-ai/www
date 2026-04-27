@@ -1,0 +1,25 @@
+---
+interface Props {
+  width?: number;
+  opacity?: number;
+}
+
+const { width = 34, opacity = 0.55 } = Astro.props;
+const height = Math.round((width / 34) * 44);
+---
+
+<svg
+  width={width}
+  height={height}
+  viewBox="0 0 34 44"
+  fill="none"
+  stroke="#111"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  style={`opacity: ${opacity};`}
+  aria-hidden="true"
+>
+  <path d="M17 4 C 16 14, 18 24, 17 36"/>
+  <path d="M10 28 L 17 38 L 24 28"/>
+</svg>

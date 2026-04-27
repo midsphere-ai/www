@@ -1,313 +1,78 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import Button from '../components/ui/Button.astro';
+import CodeBlock from '../components/ui/CodeBlock.astro';
+import ClosingCTA from '../components/sections/ClosingCTA.astro';
 
-const breadcrumbs = [
-  { name: 'Home', url: 'https://midsphere.ai' },
-  { name: 'Orbiter', url: 'https://midsphere.ai/orbiter' },
-];
+const sample = `from orbiter import Agent
 
-const features = [
-  {
-    title: 'Single Agent Class',
-    description: 'One composable Agent — no inheritance hierarchies. Configure with models, tools, instructions, and handoffs.',
-    tag: 'Core',
-  },
-  {
-    title: 'Type-Safe Tools',
-    description: 'The @tool decorator auto-generates JSON schemas from type hints. Full validation, zero boilerplate.',
-    tag: 'DX',
-  },
-  {
-    title: 'Multi-Agent Swarms',
-    description: 'Workflow, Handoff, and Team orchestration modes for complex multi-agent coordination.',
-    tag: 'Orchestration',
-  },
-  {
-    title: 'Modular Packages',
-    description: '14 focused packages — install only what you need. From core to MCP, memory, sandbox, and more.',
-    tag: '14 packages',
-  },
-  {
-    title: 'Async-First',
-    description: 'run(), run.sync(), run.stream() — every execution mode you need, with first-class async support.',
-    tag: 'Runtime',
-  },
-  {
-    title: 'Production-Ready',
-    description: 'MCP servers, structured output, tracing, evaluation, human-in-the-loop — built for real workloads.',
-    tag: 'Enterprise',
-  },
-];
-
-const layers = [
-  { label: 'Application', packages: ['CLI', 'Server', 'Train', 'A2A', 'Eval'] },
-  { label: 'Infrastructure', packages: ['Context', 'Memory', 'MCP', 'Sandbox', 'Observability'] },
-  { label: 'Foundation', packages: ['Models', 'Core'] },
-];
-
-const swarmModes = [
-  {
-    title: 'Workflow',
-    description: 'Sequential pipeline execution with a Flow DSL. Chain agents together with deterministic ordering and data passing.',
-    tag: 'Sequential',
-  },
-  {
-    title: 'Handoff',
-    description: 'Agent-driven delegation. Agents decide which specialist to route to based on context, with automatic tool generation.',
-    tag: 'Dynamic',
-  },
-  {
-    title: 'Team',
-    description: 'Lead-worker pattern with auto-generated tools. A lead agent coordinates specialists and synthesizes results.',
-    tag: 'Parallel',
-  },
-];
-
-const codeHtml = `<span class="text-[#6A9955]"># hello.py — your first Orbiter agent</span>
-<span class="text-[#c586c0]">from</span> <span class="text-[#4ec9b0]">orbiter</span> <span class="text-[#c586c0]">import</span> Agent, tool, run
-
-<span class="text-[#dcdcaa]">@tool</span>
-<span class="text-[#c586c0]">def</span> <span class="text-[#dcdcaa]">get_weather</span>(<span class="text-[#9cdcfe]">city</span>: <span class="text-[#4ec9b0]">str</span>) -&gt; <span class="text-[#4ec9b0]">str</span>:
-    <span class="text-[#ce9178]">"""Get the current weather for a city."""</span>
-    <span class="text-[#c586c0]">return</span> <span class="text-[#ce9178]">f"It's sunny in {city}!"</span>
-
-<span class="text-[#9cdcfe]">agent</span> = <span class="text-[#4ec9b0]">Agent</span>(
-    <span class="text-[#9cdcfe]">name</span>=<span class="text-[#ce9178]">"weather-bot"</span>,
-    <span class="text-[#9cdcfe]">instructions</span>=<span class="text-[#ce9178]">"You are a helpful weather assistant."</span>,
-    <span class="text-[#9cdcfe]">tools</span>=[<span class="text-[#9cdcfe]">get_weather</span>],
+agent = Agent(
+  name="researcher",
+  tools=[search, summarize, cite],
 )
 
-<span class="text-[#9cdcfe]">result</span> = <span class="text-[#dcdcaa]">run</span>(<span class="text-[#9cdcfe]">agent</span>, <span class="text-[#ce9178]">"What's the weather in Tokyo?"</span>)
-<span class="text-[#dcdcaa]">print</span>(<span class="text-[#9cdcfe]">result</span>.output)
-<span class="text-[#6A9955]"># =&gt; It's sunny in Tokyo!</span>`;
+result = agent.run("Brief me on Q3 SaaS pricing trends")
+print(result.report)`;
 ---
 
 <PageLayout
-  title="Orbiter — Open-source multi-agent framework for Python"
-  description="Orbiter is a modular, async-first multi-agent framework for Python. Build production-grade AI agents with type-safe tools, swarm orchestration, and 14 composable packages."
-  breadcrumbs={breadcrumbs}
+  title="Orbiter — the open-source framework behind Midsphere"
+  description="Orbiter is the multi-agent framework underneath Midsphere. Open-source, MIT, yours to fork and self-host."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://midsphere.ai' },
+    { name: 'Orbiter', url: 'https://midsphere.ai/orbiter' },
+  ]}
 >
-
-  <!-- Hero -->
-  <section class="py-16 lg:py-24" aria-labelledby="orbiter-hero-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="hero-child flex mb-6" style="--hero-delay: 0;">
-        <img src="/orbiter-logo.png" alt="Orbiter" class="only-light h-16 w-auto sm:h-20" />
-        <img src="/orbiter-logo-dark.png" alt="Orbiter" class="only-dark h-16 w-auto sm:h-20" />
-      </div>
-
-      <span class="hero-child text-[12px] font-medium tracking-wide text-dark/50" style="--hero-delay: 0.5;">Open source</span>
-      <h1 id="orbiter-hero-heading" class="hero-child mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl" style="--hero-delay: 1;">
-        The open-source agent framework
+  <section class="section-tight text-center">
+    <div class="container-x">
+      <div class="eyebrow">orbiter — the framework</div>
+      <h1 id="orbiter-headline" class="h-display-lg mx-auto mt-3 max-w-[820px]">
+        The framework <span class="hl">behind</span> Midsphere.
       </h1>
-
-      <p class="hero-child mt-4 max-w-2xl text-base text-dark/60 sm:text-lg" style="--hero-delay: 2;">
-        A modular, async-first multi-agent framework for Python. Type-safe tools, swarm orchestration, and 14 composable packages — from prototype to production.
+      <p class="mx-auto mt-5 max-w-[680px] text-fg-2" style="font-size: 18px; line-height: 1.55;">
+        Open-source. Multi-agent. Built for shipping. The same engine that runs Midsphere — yours to fork, extend, and self-host.
       </p>
-
-      <div class="hero-child mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4" style="--hero-delay: 3;">
-        <Button href="https://github.com/Midsphere-AI/orbiter-ai" isPrimary target="_blank" rel="noopener noreferrer" class="text-sm py-3">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          Get Started
-        </Button>
-        <Button href="https://orbiter.midsphere.ai" isBordered target="_blank" rel="noopener noreferrer" class="text-sm py-3">
-          Read the Docs
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </Button>
+      <div class="mt-8 flex justify-center gap-2.5">
+        <Button href="https://github.com/midsphere/orbiter" variant="primary">View on GitHub</Button>
+        <Button href="https://orbiter.midsphere.ai" variant="secondary">Read the docs</Button>
       </div>
     </div>
   </section>
 
-  <!-- Why Orbiter -->
-  <section class="section-divider py-14 lg:py-20" aria-labelledby="why-orbiter-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 lg:mb-10" data-animate>
-        <span class="text-[12px] font-medium tracking-wide text-dark/50">Why Orbiter</span>
-        <h2 id="why-orbiter-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
-          Everything you need, nothing you don't
-        </h2>
-        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
-          A single Agent class that scales from quick scripts to production multi-agent systems.
-        </p>
-      </div>
+  <section class="section-tight">
+    <div class="container-x">
+      <article class="rounded-[18px] bg-inverse p-7 text-on-inverse-1">
+        <div class="font-mono text-[12px] uppercase" style="color: var(--ms-fg-on-inverse-2); letter-spacing: 0.06em;">spawn an agent</div>
+        <CodeBlock code={sample} variant="on-dark" class="mt-4" />
+      </article>
+    </div>
+  </section>
 
-      <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
-        {features.map((feature) => (
-          <div class="flex items-baseline justify-between gap-4 py-5 sm:gap-8">
-            <div class="min-w-0">
-              <h3 class="text-base font-medium sm:text-lg">{feature.title}</h3>
-              <p class="mt-1 text-sm text-dark/50">{feature.description}</p>
-            </div>
-            <span class="shrink-0 rounded-full bg-dark/[0.04] px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-dark/40">
-              {feature.tag}
-            </span>
-          </div>
+  <section class="section">
+    <div class="container-x">
+      <div class="mb-10 text-center">
+        <div class="eyebrow">what's in the box</div>
+        <h2 id="orbiter-pieces" class="h-section mx-auto mt-3 max-w-[720px]">
+          Six pieces. <span class="hl">One agent.</span>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {[
+          { eyebrow: 'steps',    body: 'Break work into ordered steps. Dependencies and parallelism declared in code, not config.' },
+          { eyebrow: 'runtimes', body: 'Run locally, in your VPC, or on managed cloud. Same agent definition, different homes.' },
+          { eyebrow: 'memory',   body: 'Short- and long-term memory backends: SQLite, Postgres, vector stores. Bring your own.' },
+          { eyebrow: 'tools',    body: '@tool decorator turns any Python function into an agent capability. Typed inputs, structured outputs.' },
+          { eyebrow: 'mcp',      body: 'First-class Model Context Protocol support. Connect to any MCP server with one line.' },
+          { eyebrow: 'streaming',body: 'Stream every event: tool calls, deltas, errors. Forward straight to your UI.' },
+        ].map((item) => (
+          <article class="card card-feature">
+            <div class="eyebrow">{item.eyebrow}</div>
+            <p class="mt-3 text-[15px] leading-relaxed text-fg-1">{item.body}</p>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Code Example -->
-  <section class="section-divider py-14 lg:py-20" aria-labelledby="code-example-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 lg:mb-10" data-animate>
-        <span class="text-[12px] font-medium tracking-wide text-dark/50">Quick start</span>
-        <h2 id="code-example-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
-          Up and running in minutes
-        </h2>
-        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
-          Define a tool, create an agent, and run it. That's it.
-        </p>
-      </div>
-
-      <div class="rounded-xl bg-[#1a1a1a] text-paper overflow-hidden" data-animate data-delay="1">
-        <!-- Window chrome -->
-        <div class="flex items-center gap-2 border-b border-white/[0.06] px-4 py-3">
-          <div class="flex gap-1.5">
-            <div class="h-3 w-3 rounded-full bg-white/10"></div>
-            <div class="h-3 w-3 rounded-full bg-white/10"></div>
-            <div class="h-3 w-3 rounded-full bg-white/10"></div>
-          </div>
-          <div class="ml-3 flex-1 rounded-md bg-white/[0.06] px-3 py-1 text-xs text-white/30">hello.py</div>
-        </div>
-        <!-- Code content -->
-        <div class="p-5 sm:p-6 overflow-x-auto">
-          <pre class="text-sm leading-relaxed font-mono"><code set:html={codeHtml} /></pre>
-        </div>
-        <!-- Terminal output bar -->
-        <div class="border-t border-white/[0.06] bg-white/[0.02] px-5 py-3 font-mono text-[11px]">
-          <div class="flex items-center gap-2 text-white/40">
-            <span class="text-white/25">$</span>
-            <span>python hello.py</span>
-          </div>
-          <div class="mt-1 flex items-center gap-2">
-            <svg class="text-mid-green" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-            <span class="text-mid-green">It's sunny in Tokyo!</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Architecture -->
-  <section class="section-divider py-14 lg:py-20" aria-labelledby="architecture-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 lg:mb-10" data-animate>
-        <span class="text-[12px] font-medium tracking-wide text-dark/50">Architecture</span>
-        <h2 id="architecture-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
-          14 packages, one ecosystem
-        </h2>
-        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
-          A layered architecture where each package has a single responsibility. Install only what you need.
-        </p>
-      </div>
-
-      <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
-        {layers.map((layer) => (
-          <div class="flex items-baseline justify-between gap-4 py-5 sm:gap-8">
-            <span class="shrink-0 text-[11px] font-medium tracking-wide text-dark/40 w-28">{layer.label}</span>
-            <div class="flex flex-1 flex-wrap gap-2">
-              {layer.packages.map((pkg) => (
-                <span class="rounded-full bg-dark/[0.04] px-3 py-1 text-sm text-dark/60 transition-colors hover:text-dark/80">
-                  {pkg}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Swarm Modes -->
-  <section class="section-divider py-14 lg:py-20" aria-labelledby="swarms-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 lg:mb-10" data-animate>
-        <span class="text-[12px] font-medium tracking-wide text-dark/50">Orchestration</span>
-        <h2 id="swarms-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
-          Built for teams of agents
-        </h2>
-        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
-          Three orchestration modes for every multi-agent pattern you need.
-        </p>
-      </div>
-
-      <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
-        {swarmModes.map((mode) => (
-          <div class="flex items-baseline justify-between gap-4 py-5 sm:gap-8">
-            <div class="min-w-0">
-              <h3 class="text-base font-medium sm:text-lg">{mode.title}</h3>
-              <p class="mt-1 text-sm text-dark/50">{mode.description}</p>
-            </div>
-            <span class="shrink-0 rounded-full bg-dark/[0.04] px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-dark/40">
-              {mode.tag}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section-divider py-14 lg:py-20" aria-labelledby="orbiter-cta-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div data-animate>
-        <span class="text-[12px] font-medium tracking-wide text-dark/50">Get started</span>
-        <h2 id="orbiter-cta-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
-          Start building with Orbiter
-        </h2>
-        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
-          Open-source, MIT licensed, and ready for production.
-        </p>
-      </div>
-
-      <!-- Install command -->
-      <div class="mt-8 max-w-md" data-animate data-delay="1">
-        <div class="flex items-center gap-3 bg-dark/[0.04] rounded-lg px-5 py-3.5">
-          <code class="flex-1 text-left text-sm text-dark/70">pip install git+https://github.com/Midsphere-AI/orbiter-ai.git</code>
-          <button
-            type="button"
-            class="orbiter-copy shrink-0 rounded-lg p-1.5 text-dark/40 hover:text-dark transition-colors"
-            aria-label="Copy install command"
-            data-copy="pip install git+https://github.com/Midsphere-AI/orbiter-ai.git"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- CTAs -->
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4" data-animate data-delay="2">
-        <Button href="https://github.com/Midsphere-AI/orbiter-ai" isPrimary target="_blank" rel="noopener noreferrer" class="text-sm py-3">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          GitHub
-        </Button>
-        <Button href="https://discord.gg/midsphere" isBordered target="_blank" rel="noopener noreferrer" class="text-sm py-3">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-          Discord Community
-        </Button>
-      </div>
-    </div>
-  </section>
-
+  <ClosingCTA />
 </PageLayout>
-
-<script>
-  function initCopyButtons() {
-    document.querySelectorAll<HTMLButtonElement>('.orbiter-copy').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const text = btn.getAttribute('data-copy');
-        if (text) {
-          navigator.clipboard.writeText(text);
-          btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
-          setTimeout(() => {
-            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
-          }, 2000);
-        }
-      });
-    });
-  }
-  initCopyButtons();
-  document.addEventListener('astro:after-swap', initCopyButtons);
-</script>

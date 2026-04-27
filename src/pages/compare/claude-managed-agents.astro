@@ -1,0 +1,229 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ManagedAgentPageDoodle from '../../components/ui/ManagedAgentPageDoodle.astro';
+import FitFramework from '../../components/ui/FitFramework.astro';
+import ClosingPanel from '../../components/ui/ClosingPanel.astro';
+
+interface Argument {
+  num: string;
+  eyebrow: string;
+  title: string;
+  bodyHtml: string;
+  doodle: 'focus' | 'work' | 'world' | 'metric' | 'support';
+  side: 'left' | 'right';
+}
+
+const args: Argument[] = [
+  {
+    num: '01',
+    eyebrow: 'argument 01 · focus',
+    title: 'Agents, only agents.',
+    bodyHtml: "Anthropic builds the strongest LLMs, runs an API, ships Claude.ai, Computer Use, Claude Code, runs the safety organization, and now Managed Agents. They're brilliant at all of it. Agents are one product inside a lab with many priorities. We do one thing. Every engineer, every roadmap meeting, every shipped change is about making the agent work for you. <span class=\"hl-soft\">A focus difference Anthropic can't match without ceasing to be Anthropic.</span>",
+    doodle: 'focus',
+    side: 'left',
+  },
+  {
+    num: '02',
+    eyebrow: 'argument 02 · the work you do',
+    title: 'A runtime, or the agent itself.',
+    bodyHtml: "Anthropic gives you a runtime. You still define the agent — system prompt, tool registration, skills, eval loops, behavior tuning, prompt drift across model versions. Real work, on your team. We give you the agent. You wire your tools, skills, and knowledge in. You set policies in plain language. The agent runs. <span class=\"hl-soft\">The same afternoon you sign up.</span>",
+    doodle: 'work',
+    side: 'right',
+  },
+  {
+    num: '03',
+    eyebrow: 'argument 03 · when the world moves',
+    title: 'Who tracks the landscape.',
+    bodyHtml: "A new model ships. Capabilities shift. Pricing moves. A paper proposes something better. On Anthropic, you decide what to do — evaluate, migrate, stay. Their incentive is for you to stay on Claude; yours is to ship the best feature. On Midsphere, the agent routes across models per task as the world changes. <span class=\"hl-soft\">You don't decide because you don't notice.</span>",
+    doodle: 'world',
+    side: 'left',
+  },
+  {
+    num: '04',
+    eyebrow: 'argument 04 · whose metric matters',
+    title: 'What counts as winning.',
+    bodyHtml: "Anthropic's success means Claude is consumed and the agent runs well on Claude. Our success means you ship your feature. Most of the time these point the same direction. Occasionally they don't. When they diverge, Anthropic will pick their direction and we'll pick ours. The product you choose is the one whose success metric aligns with yours.",
+    doodle: 'metric',
+    side: 'right',
+  },
+  {
+    num: '05',
+    eyebrow: "argument 05 · who's in the queue with you",
+    title: 'Whose attention you have when something breaks.',
+    bodyHtml: "On Anthropic, your support ticket is one of many across the entire Claude API customer base. On Midsphere, you're the customer of a team whose only job is making sure agents like yours work. <span class=\"hl-soft\">Smaller surface, more attention, faster fixes.</span> This matters more in production than it does in your evaluation.",
+    doodle: 'support',
+    side: 'left',
+  },
+];
+
+const claudeFit: string[] = [
+  "You're a Claude shop and you're staying that way.",
+  "Your product depends specifically on Claude's behavior.",
+  "You have engineers who want to design the agent themselves.",
+  "A direct relationship with Anthropic matters to your business.",
+  "You want to be on the platform built by the lab making the model.",
+];
+
+const midsphereFit: string[] = [
+  "You'd rather ship a feature than design an agent.",
+  "You don't want your product's success tied to one lab's roadmap.",
+  "You want a team whose only job is making the agent work for you.",
+  "You'd rather set policies than maintain system prompts.",
+  "You want someone who tracks the model landscape so you don't have to.",
+];
+---
+
+<PageLayout
+  title="Midsphere vs. Claude Managed Agents — Compare"
+  description="Anthropic Claude Managed Agents is a focused, well-built product. Midsphere is built for the developer, not for the model. Here's how to tell which fits — and why trying us first costs you an afternoon."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://midsphere.ai' },
+    { name: 'Compare', url: 'https://midsphere.ai/compare' },
+    { name: 'Claude Managed Agents', url: 'https://midsphere.ai/compare/claude-managed-agents' },
+  ]}
+>
+  <section id="compare-claude" class="section-tight pt-12 lg:pt-16">
+    <div class="container-x text-center">
+      <div class="eyebrow">compare · claude managed agents</div>
+      <h1 id="hero-headline" class="h-display-lg mx-auto mt-3 max-w-[860px]">
+        Two products. <span class="hl">Two different starting points</span>.
+      </h1>
+      <p class="mx-auto mt-6 max-w-[640px] text-fg-1" style="font-size: 18px; line-height: 1.65;">
+        Anthropic Claude Managed Agents is a real product. Focused, well-built, and if you want to run agents on Claude, it's the cleanest way. We're not going to tell you it isn't.
+      </p>
+      <p class="mx-auto mt-4 max-w-[600px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+        The question worth asking is whose problem each one is built to solve.
+      </p>
+      <div class="mx-auto mt-12 flex justify-center">
+        <ManagedAgentPageDoodle kind="fork" />
+      </div>
+    </div>
+  </section>
+
+  <section id="gravity" class="section">
+    <div class="container-x">
+      <div class="mx-auto max-w-[680px]">
+        <div class="text-center">
+          <div class="eyebrow">where each product starts</div>
+          <h2 id="gravity-headline" class="h-section mt-3">
+            <span class="hl">Center of gravity</span> decides the rest.
+          </h2>
+        </div>
+        <div class="mt-10 space-y-5 text-fg-1" style="font-size: 17px; line-height: 1.7;">
+          <p>
+            Anthropic is a model lab. They make Claude. Their agent product exists because Claude customers needed a way to run long agents on Claude. <span class="hl-soft">The center of gravity is the model</span> — agents are downstream.
+          </p>
+          <p>
+            Midsphere isn't a model lab. We don't make models, we don't sell tokens. We exist because product builders couldn't ship AI features without becoming agent engineers. <span class="hl-soft">The center of gravity is the developer</span> — models are downstream.
+          </p>
+        </div>
+      </div>
+
+      <figure class="mx-auto mt-16 max-w-[960px]" aria-labelledby="gravity-caption">
+        <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
+          <div class="flex flex-col items-center">
+            <ManagedAgentPageDoodle kind="orbit-model" />
+            <div class="mt-5 text-center">
+              <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.04em;">model at the center</div>
+              <div class="mt-1 font-mono text-fg-3" style="font-size: 11px; letter-spacing: 0.04em;">anthropic</div>
+            </div>
+          </div>
+          <div class="flex flex-col items-center">
+            <ManagedAgentPageDoodle kind="orbit-developer" />
+            <div class="mt-5 text-center">
+              <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.04em;">developer at the center</div>
+              <div class="mt-1 font-mono text-fg-3" style="font-size: 11px; letter-spacing: 0.04em;">midsphere</div>
+            </div>
+          </div>
+        </div>
+        <figcaption id="gravity-caption" class="mx-auto mt-10 max-w-[560px] text-center text-fg-2" style="font-size: 15px; line-height: 1.55;">
+          That difference isn't superficial. Every product decision flows from there.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="arguments" class="section border-t border-border-subtle">
+    <div class="container-x">
+      <div class="mx-auto max-w-[640px] text-center">
+        <div class="eyebrow">what that one difference does</div>
+        <h2 id="arguments-headline" class="h-section mt-3">
+          It shows up in <span class="hl">five places</span>.
+        </h2>
+        <p class="mx-auto mt-5 max-w-[560px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Each one is a structural difference, not a feature claim.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-16 flex max-w-[1080px] flex-col gap-16 md:gap-20">
+        {args.map((a) => (
+          <article class={`grid grid-cols-1 items-start gap-8 md:gap-12 ${a.side === 'left' ? 'md:grid-cols-[200px_1fr]' : 'md:grid-cols-[1fr_200px]'}`}>
+            {a.side === 'left' && (
+              <div class="flex justify-center md:justify-start">
+                <ManagedAgentPageDoodle kind={a.doodle} />
+              </div>
+            )}
+
+            <div>
+              <div class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">{a.eyebrow}</div>
+              <h3 id={`argument-${a.num}`} class="mt-3 font-medium text-fg-1" style="font-size: 26px; line-height: 1.2; letter-spacing: -0.02em;">
+                {a.title}
+              </h3>
+              <p class="mt-5 text-fg-2" style="font-size: 16px; line-height: 1.7;" set:html={a.bodyHtml} />
+            </div>
+
+            {a.side === 'right' && (
+              <div class="flex justify-center md:justify-end">
+                <ManagedAgentPageDoodle kind={a.doodle} />
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="fit" class="section border-t border-border-subtle">
+    <div class="container-x">
+      <div class="mx-auto max-w-[600px] text-center">
+        <div class="eyebrow">which one fits</div>
+        <h2 id="fit-headline" class="h-section mt-3">
+          Read both. <span class="hl">Pick the one that sounds like you</span>.
+        </h2>
+      </div>
+
+      <FitFramework
+        leftLabel="choose claude managed agents if"
+        leftItems={claudeFit}
+        rightLabel="choose midsphere if"
+        rightItems={midsphereFit}
+      >
+        <svg slot="leftIcon" viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="16" cy="16" rx="13" ry="7" stroke-dasharray="2 3" stroke-width="1.1"/>
+          <circle cx="16" cy="16" r="5" fill="#111"/>
+        </svg>
+        <svg slot="rightIcon" viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="16" cy="16" rx="13" ry="7" stroke-dasharray="2 3" stroke-width="1.1"/>
+          <rect x="11" y="11" width="10" height="10" rx="1.5"/>
+          <path d="M13 16 L 15 18 L 19 14" stroke-width="1.2"/>
+        </svg>
+      </FitFramework>
+    </div>
+  </section>
+
+  <ClosingPanel
+    eyebrow="if your job is shipping the feature"
+    primaryHref="https://platform.midsphere.ai"
+    primaryLabel="Start building"
+    secondaryHref="/docs"
+    secondaryLabel="Read the docs"
+    headingId="ship-headline"
+  >
+    <Fragment slot="headline">
+      They build for Claude.<br /><span class="hl text-on-inverse-1">We build for you</span>.
+    </Fragment>
+    <Fragment slot="body">
+      Anthropic builds excellent products for people building on Claude. We build for people building products that happen to use AI. If your job is the first, they're the right place. If your job is the second, we are.
+    </Fragment>
+  </ClosingPanel>
+</PageLayout>

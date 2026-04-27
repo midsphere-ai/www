@@ -1,0 +1,116 @@
+---
+// Hand-drawn metaphors for the "work moved off your plate" comparison
+// against agent SDKs and frameworks. Each kind illustrates one piece of
+// engineering you don't have to do on Midsphere.
+type DoodleKind =
+  | 'design'    // graph of nodes — agent architecture
+  | 'wiring'    // wrench / spanner — tool-calling glue
+  | 'memory'    // filing cabinet drawers — short/long term context
+  | 'recovery'  // fork in the road — failure paths
+  | 'prompts'   // scroll with quill — prompt engineering
+  | 'models'    // dial with tick marks — model picker
+  | 'runtime';  // server stack — deploy / scale / observe
+
+interface Props {
+  kind: DoodleKind;
+  class?: string;
+}
+
+const { kind, class: className } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 96 88"
+  width="80"
+  height="74"
+  fill="none"
+  stroke="#111"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+>
+  {kind === 'design' && (
+    <>
+      <rect x="10" y="14" width="22" height="14" rx="2"/>
+      <rect x="64" y="12" width="22" height="14" rx="2"/>
+      <rect x="10" y="58" width="22" height="14" rx="2"/>
+      <rect x="64" y="60" width="22" height="14" rx="2"/>
+      <path d="M32 21 L 64 19" />
+      <path d="M21 28 C 22 38, 20 48, 21 58" />
+      <path d="M75 26 C 76 38, 74 50, 75 60" />
+      <path d="M32 65 L 64 67" />
+      <path d="M32 26 C 50 36, 56 48, 64 60" stroke-dasharray="3 3"/>
+    </>
+  )}
+
+  {kind === 'wiring' && (
+    <>
+      <circle cx="22" cy="22" r="10"/>
+      <circle cx="22" cy="22" r="3.4"/>
+      <path d="M28 30 L 78 70 L 84 64 L 34 24" />
+      <path d="M30 28 L 36 22" stroke-width="1.2"/>
+      <path d="M62 56 L 70 64" stroke-width="1.2"/>
+    </>
+  )}
+
+  {kind === 'memory' && (
+    <>
+      <rect x="20" y="10" width="56" height="68" rx="2"/>
+      <path d="M20 30 L 76 30 M 20 52 L 76 52"/>
+      <path d="M44 20 L 52 20 M 44 42 L 52 42 M 44 64 L 52 64" stroke-width="1.4"/>
+      <circle cx="38" cy="20" r="1.5" fill="#111"/>
+      <circle cx="38" cy="42" r="1.5" fill="#111"/>
+      <circle cx="38" cy="64" r="1.5" fill="#111"/>
+    </>
+  )}
+
+  {kind === 'recovery' && (
+    <>
+      <path d="M48 10 L 48 36"/>
+      <path d="M48 36 C 36 42, 24 54, 16 72"/>
+      <path d="M48 36 C 60 42, 72 54, 80 72"/>
+      <path d="M22 64 L 16 72 L 24 74" stroke-width="1.4"/>
+      <path d="M74 64 L 80 72 L 72 74" stroke-width="1.4"/>
+      <path d="M44 22 L 48 26 L 52 22" stroke-width="1.4"/>
+    </>
+  )}
+
+  {kind === 'prompts' && (
+    <>
+      <path d="M16 16 C 10 16, 10 26, 16 26 L 70 24 C 76 24, 76 14, 70 14 Z"/>
+      <path d="M16 26 L 16 64 C 16 70, 22 70, 22 64 L 22 28"/>
+      <path d="M28 36 L 60 34 M 28 46 L 56 44 M 28 56 L 52 54" stroke-width="1.2"/>
+      <path d="M64 50 L 84 70 L 80 74 L 60 54 Z"/>
+      <path d="M58 54 L 64 50" stroke-width="1.2"/>
+    </>
+  )}
+
+  {kind === 'models' && (
+    <>
+      <circle cx="48" cy="46" r="22"/>
+      <path d="M48 46 L 48 30" stroke-width="2"/>
+      <circle cx="48" cy="46" r="2.4" fill="#111"/>
+      <path d="M48 18 L 48 22" stroke-width="1.4"/>
+      <path d="M76 46 L 72 46" stroke-width="1.4"/>
+      <path d="M20 46 L 24 46" stroke-width="1.4"/>
+      <path d="M28 26 L 31 29" stroke-width="1.4"/>
+      <path d="M68 26 L 65 29" stroke-width="1.4"/>
+      <path d="M28 66 L 31 63" stroke-width="1.4"/>
+      <path d="M68 66 L 65 63" stroke-width="1.4"/>
+    </>
+  )}
+
+  {kind === 'runtime' && (
+    <>
+      <rect x="14" y="14" width="68" height="18" rx="2"/>
+      <rect x="14" y="36" width="68" height="18" rx="2"/>
+      <rect x="14" y="58" width="68" height="18" rx="2"/>
+      <circle cx="22" cy="23" r="1.6" fill="#111"/>
+      <circle cx="22" cy="45" r="1.6" fill="#111"/>
+      <circle cx="22" cy="67" r="1.6" fill="#111"/>
+      <path d="M32 23 L 70 23 M 32 45 L 70 45 M 32 67 L 70 67" stroke-width="1.2"/>
+    </>
+  )}
+</svg>

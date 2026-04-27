@@ -1,20 +1,20 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import { cn } from '../../utils/merge';
 
-interface Props {
+type Element = 'div' | 'article' | 'section';
+
+type Props = {
   class?: string;
-  as?: 'div' | 'article' | 'section';
-  [key: string]: any;
-}
+  as?: Element;
+  hover?: boolean;
+} & Omit<HTMLAttributes<'div'>, 'class'>;
 
-const { class: className, as: Element = 'div', ...rest } = Astro.props;
+const { class: className, as: Tag = 'div', hover = true, ...rest } = Astro.props as Props;
 
-const classes = cn(
-  'rounded-xl bg-subtle/80 border border-dark/[0.08] p-5 transition-all duration-300 ease-out hover:bg-subtle hover:shadow-md hover:border-dark/[0.12] hover:-translate-y-0.5',
-  className,
-);
+const classes = cn('card', hover && 'card-hover', className);
 ---
 
-<Element class={classes} {...rest}>
+<Tag class={classes} {...rest}>
   <slot />
-</Element>
+</Tag>

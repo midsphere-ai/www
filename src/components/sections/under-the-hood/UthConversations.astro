@@ -1,0 +1,43 @@
+---
+import CodeBlock from '../../ui/CodeBlock.astro';
+
+const conversationsCode = `# first turn — start a thread
+agent.run(
+  "List the customers up for renewal next month.",
+  conversation_id="user-42",
+)
+
+# hours later — same plan state, same sandbox files, same memory
+agent.run(
+  "Now sort them by churn risk.",
+  conversation_id="user-42",
+)`;
+---
+
+<section id="conversations" class="section">
+  <div class="container-x">
+    <div class="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_200px] md:gap-14">
+      <div>
+        <div class="eyebrow">continuity</div>
+        <h2 id="conversations-headline" class="h-section mt-3 max-w-[520px]">
+          One id. The agent <span class="hl-soft">remembers</span>.
+        </h2>
+        <p class="mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+          Pass a <code class="font-mono text-fg-1" style="font-size: 0.92em;">conversation_id</code> on the run and the agent picks up exactly where it stopped — same plan state, same sandbox files, same memory of what’s been said. Chat-like experiences without re-feeding history every turn.
+        </p>
+      </div>
+
+      <div class="hidden md:flex md:items-center md:justify-center" aria-hidden="true">
+        <svg viewBox="0 0 120 140" width="116" height="136" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 14 L 98 12 L 100 132 L 24 134 Z"/>
+          <path d="M34 38 L 88 36 M 34 50 L 88 48 M 34 62 L 80 60 M 34 74 L 88 72 M 34 86 L 72 84 M 34 98 L 86 96 M 34 110 L 78 108" stroke-width="1.2"/>
+          <path d="M70 4 L 70 50 L 78 42 L 86 50 L 86 4"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-8 max-w-[680px]">
+      <CodeBlock code={conversationsCode} />
+    </div>
+  </div>
+</section>

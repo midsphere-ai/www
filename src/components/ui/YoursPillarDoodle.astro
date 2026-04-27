@@ -1,0 +1,103 @@
+---
+type DoodleKind = 'tools' | 'skills' | 'knowledge' | 'controls' | 'schedules' | 'policies';
+
+interface Props {
+  kind: DoodleKind;
+  class?: string;
+}
+
+const { kind, class: className } = Astro.props;
+
+const dimensions: Record<DoodleKind, { vb: string; w: number; h: number }> = {
+  tools:     { vb: '0 0 100 80', w: 92, h: 74 },
+  skills:    { vb: '0 0 90 80',  w: 84, h: 76 },
+  knowledge: { vb: '0 0 100 82', w: 92, h: 76 },
+  controls:  { vb: '0 0 90 80',  w: 84, h: 74 },
+  schedules: { vb: '0 0 92 80',  w: 86, h: 74 },
+  policies:  { vb: '0 0 90 80',  w: 84, h: 74 },
+};
+
+const dim = dimensions[kind];
+---
+
+<svg
+  viewBox={dim.vb}
+  width={dim.w}
+  height={dim.h}
+  fill="none"
+  stroke="#111"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+>
+  {kind === 'tools' && (
+    <>
+      <circle cx="50" cy="14" r="8"/>
+      <path d="M45 21 L 30 54"/>
+      <circle cx="26" cy="60" r="5.5"/>
+      <path d="M28 55 L 30 55 M 28 59 L 30 59"/>
+      <path d="M55 21 L 70 54"/>
+      <circle cx="74" cy="60" r="5.5"/>
+      <path d="M68 55 L 70 55 M 68 59 L 70 59"/>
+      <path d="M50 22 L 50 50"/>
+      <path d="M50 50 L 46 50 L 46 54 L 54 54"/>
+    </>
+  )}
+  {kind === 'skills' && (
+    <>
+      <path d="M16 10 L 62 8 L 76 22 L 78 76 L 18 78 Z"/>
+      <path d="M62 8 L 62 22 L 76 22"/>
+      <path d="M24 30 L 54 28" stroke-width="2.4"/>
+      <path d="M24 40 L 70 38 M 24 48 L 60 46 M 24 56 L 68 54 M 24 64 L 50 62"/>
+    </>
+  )}
+  {kind === 'knowledge' && (
+    <>
+      <path d="M14 60 L 86 54 L 88 76 L 16 80 Z"/>
+      <path d="M12 40 L 82 32 L 84 54 L 14 60 Z"/>
+      <path d="M22 16 L 80 12 L 82 36 L 24 40 Z"/>
+      <path d="M28 24 L 72 22 M 28 30 L 64 28"/>
+      <path d="M30 8 L 52 6 L 52 16 L 32 18 Z"/>
+    </>
+  )}
+  {kind === 'controls' && (
+    <>
+      <path d="M14 22 L 78 22"/>
+      <path d="M14 42 L 78 42"/>
+      <path d="M14 62 L 78 62"/>
+      <path d="M14 18 L 14 26 M 78 18 L 78 26"/>
+      <path d="M14 38 L 14 46 M 78 38 L 78 46"/>
+      <path d="M14 58 L 14 66 M 78 58 L 78 66"/>
+      <circle cx="44" cy="22" r="5"/>
+      <circle cx="60" cy="42" r="5"/>
+      <circle cx="28" cy="62" r="5"/>
+    </>
+  )}
+  {kind === 'schedules' && (
+    <>
+      <path d="M10 18 L 80 16 L 82 74 L 12 76 Z"/>
+      <path d="M11 30 L 81 28"/>
+      <path d="M24 12 L 24 22"/>
+      <path d="M66 12 L 66 22"/>
+      <path d="M22 42 L 24 42 M 34 42 L 36 42 M 46 42 L 48 42 M 58 42 L 60 42 M 70 42 L 72 42"/>
+      <path d="M22 54 L 24 54 M 34 54 L 36 54 M 58 54 L 60 54 M 70 54 L 72 54"/>
+      <path d="M22 66 L 24 66 M 34 66 L 36 66"/>
+      <circle cx="47" cy="54" r="6"/>
+    </>
+  )}
+  {kind === 'policies' && (
+    <>
+      <path d="M8 70 L 82 70"/>
+      <path d="M22 30 L 22 70"/>
+      <path d="M45 22 L 45 70"/>
+      <path d="M68 30 L 68 70"/>
+      <path d="M18 34 L 22 26 L 26 34"/>
+      <path d="M41 26 L 45 18 L 49 26"/>
+      <path d="M64 34 L 68 26 L 72 34"/>
+      <path d="M10 40 L 80 38"/>
+      <path d="M10 56 L 80 54"/>
+    </>
+  )}
+</svg>

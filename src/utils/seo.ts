@@ -13,8 +13,8 @@ export function organizationSchema() {
     name: SITE_NAME,
     url: SITE_URL,
     description:
-      'An AI agent that handles any task from a prompt. Build full apps with databases, research topics deeply, create media, or automate workflows across 500+ platforms.',
-    logo: `${SITE_URL}/logo-dark.png`,
+      'Open-source framework for shipping AI features. Internal copilots, batch report generators, voice transcribers, agent workflows.',
+    logo: `${SITE_URL}/brand/wordmark.svg`,
   };
 }
 
@@ -32,7 +32,7 @@ export function blogPostingSchema(opts: {
     '@type': 'BlogPosting',
     headline: opts.title,
     description: opts.description,
-    image: opts.image ?? `${SITE_URL}/images/og-default.png`,
+    image: opts.image ?? `${SITE_URL}/brand/mark.svg`,
     url: opts.url,
     datePublished: opts.datePublished,
     ...(opts.dateModified && { dateModified: opts.dateModified }),

@@ -1,0 +1,332 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import FrameworkWorkDoodle from '../../components/ui/FrameworkWorkDoodle.astro';
+import AgentFrameworkPageDoodle from '../../components/ui/AgentFrameworkPageDoodle.astro';
+import MarginAnnotation from '../../components/ui/MarginAnnotation.astro';
+import FitFramework from '../../components/ui/FitFramework.astro';
+import ClosingPanel from '../../components/ui/ClosingPanel.astro';
+
+interface OffPlate {
+  kind: 'design' | 'wiring' | 'recovery' | 'prompts' | 'models' | 'runtime';
+  label: string;
+  body: string;
+}
+
+// Six items in the "moved off your plate" grid. Memory was the seventh,
+// but it earned its own dedicated section — see #context below.
+const offPlate: OffPlate[] = [
+  { kind: 'design',   label: 'design the agent',                  body: 'Already built — planner, executor, the coordination logic. No graphs to draw, no state machines to debug at 2am.' },
+  { kind: 'wiring',   label: 'write tool-calling logic',          body: 'Wire the tools in. The agent picks what to call, when, and reads the response without your help.' },
+  { kind: 'recovery', label: 'write failure recovery',            body: 'No retry counters. No compensation flows. No error branches in the graph. The agent recovers itself, loudly.' },
+  { kind: 'prompts',  label: 'do prompt engineering',             body: 'Plain-language policies — spend caps, approval gates, allowed tools. You stop being a prompt librarian.' },
+  { kind: 'models',   label: 'pick, upgrade, or track models',    body: 'Router routes per task across providers. New models, breaking changes, papers worth reading — we follow them. Your code doesn’t move.' },
+  { kind: 'runtime',  label: 'run the runtime',                   body: 'Nothing to deploy, scale, or wire metrics around. One user or a million, same call.' },
+];
+
+const frameworkFit: string[] = [
+  'You have engineers who want to design the agent architecture themselves.',
+  'Your use case is unusual enough that an opinionated agent won’t fit.',
+  'You want full control over every step the agent takes.',
+  'The agent is your product, not a feature in your product.',
+  'Maximum flexibility matters more than time to ship.',
+];
+
+const midsphereFit: string[] = [
+  'You’re shipping an AI feature in a product, not building an agent product.',
+  'You don’t have AI engineers and don’t want to hire them for this.',
+  'You want to be live in days, not the months a custom build takes.',
+  'You’d rather set policies than write graphs and prompts.',
+  'You want someone else tracking model releases, papers, and architecture changes.',
+];
+---
+
+<PageLayout
+  title="Midsphere vs. agent SDKs and frameworks — Compare"
+  description="LangGraph, OpenAI Agents SDK, Microsoft Agent Framework, CrewAI and the rest are frameworks for building your own agent. Midsphere gives you one — pre-built, with file-based context that doesn’t hit the model’s window."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://midsphere.ai' },
+    { name: 'Compare', url: 'https://midsphere.ai/compare' },
+    { name: 'Agent SDKs and frameworks', url: 'https://midsphere.ai/compare/agent-frameworks' },
+  ]}
+>
+  <section id="compare-frameworks" class="section-tight pt-12 lg:pt-16">
+    <div class="container-x text-center">
+      <div class="eyebrow">compare · agent sdks &amp; frameworks</div>
+
+      <div class="relative mx-auto mt-3 max-w-[860px]">
+        <h1 id="hero-headline" class="h-display-lg">
+          Different scope. <span class="hl">Different work for you</span>.
+        </h1>
+        <MarginAnnotation
+          text="this part is the whole pitch"
+          position="right"
+          tilt={-3}
+          topOffset="-42px"
+          width="200px"
+        />
+      </div>
+
+      <p class="mx-auto mt-6 max-w-[640px] text-fg-2" style="font-size: 18px; line-height: 1.6;">
+        LangGraph, OpenAI Agents SDK, Microsoft Agent Framework, CrewAI, Pydantic AI, Mastra, AG2, Google ADK &mdash; frameworks for building your own agent. Real products, real users.
+      </p>
+
+      <figure class="mx-auto mt-12 max-w-[560px]" aria-labelledby="routes-caption">
+        <div class="flex justify-center">
+          <AgentFrameworkPageDoodle kind="routes" />
+        </div>
+        <figcaption id="routes-caption" class="mx-auto mt-3 max-w-[480px] text-center font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.04em;">
+          framework: the long way &nbsp;·&nbsp; midsphere: the dashed line
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="whats-what" class="section">
+    <div class="container-x">
+      <div class="mx-auto max-w-[640px] text-center">
+        <div class="eyebrow">what you&rsquo;re comparing</div>
+        <h2 id="whats-what-headline" class="h-section mt-3">
+          What each one <span class="hl-soft">asks of you</span>.
+        </h2>
+      </div>
+
+      <div class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
+        <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+          <div class="mb-5">
+            <AgentFrameworkPageDoodle kind="workbench" />
+          </div>
+          <div class="eyebrow">the agent frameworks</div>
+          <h3 id="frameworks-side" class="mt-3 font-medium text-fg-1" style="font-size: 22px; line-height: 1.2; letter-spacing: -0.02em;">
+            Building blocks. <span class="hl-soft">You design what gets built.</span>
+          </h3>
+          <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
+            Want to design the agent yourself &mdash; the graph, the nodes, the state, the tool-calling loop, the memory, the failure handling? Frameworks give you well-built primitives to do it.
+          </p>
+          <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
+            Right product when you have engineers whose job is to design that. <span class="hl-soft">Maximum flexibility for teams with the AI engineering capacity to use it.</span>
+          </p>
+        </article>
+
+        <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+          <div class="mb-5">
+            <AgentFrameworkPageDoodle kind="pedestal" />
+          </div>
+          <div class="eyebrow">midsphere, in contrast</div>
+          <h3 id="midsphere-side" class="mt-3 font-medium text-fg-1" style="font-size: 22px; line-height: 1.2; letter-spacing: -0.02em;">
+            A pre-built agent. <span class="hl-soft">You wire it in and run it.</span>
+          </h3>
+          <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
+            We did that engineering. Planner, executor, coordination, the memory layer, the recovery model, the runtime &mdash; built, tuned, kept current as models change.
+          </p>
+          <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
+            You wire your tools in and call <code class="font-mono text-fg-1" style="font-size: 0.92em;">agent.run</code>. <span class="hl-soft">Right product when you want the agent, not the toolkit.</span>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="off-your-plate" class="section border-t border-border-subtle">
+    <div class="container-x">
+      <div class="mx-auto mb-6 flex justify-center">
+        <AgentFrameworkPageDoodle kind="clipboard" />
+      </div>
+
+      <div class="mx-auto max-w-[680px] text-center">
+        <div class="eyebrow">the work that&rsquo;s moved off your plate</div>
+        <h2 id="off-your-plate-headline" class="h-section mt-3">
+          Six things <span class="hl">you don&rsquo;t write</span>.
+        </h2>
+        <p class="mx-auto mt-5 max-w-[560px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Read this as the negative space. Everything in the list, Midsphere does instead.
+        </p>
+      </div>
+
+      <ol class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+        {offPlate.map((item, i) => (
+          <li class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+            <div class="flex items-start justify-between gap-4">
+              <FrameworkWorkDoodle kind={item.kind} />
+              <span class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </div>
+            <h3 id={`off-${item.kind}`} class="mt-5 font-medium text-fg-1" style="font-size: 17px; line-height: 1.25; letter-spacing: -0.015em;">
+              You don&rsquo;t {item.label}.
+            </h3>
+            <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+              {item.body}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="context" class="section">
+    <div class="container-x">
+      <div class="mx-auto max-w-[720px] text-center">
+        <div class="eyebrow">and the seventh thing</div>
+        <h2 id="context-headline" class="h-section mt-3">
+          Context. <span class="hl">The window isn&rsquo;t the wall anymore</span>.
+        </h2>
+        <p class="mx-auto mt-5 max-w-[600px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Every framework, sooner or later, makes you build the memory layer. Chunking. Retrieval. Summarisation. A vector store. The strategy that decides what gets squeezed into the next prompt.
+        </p>
+        <p class="mx-auto mt-3 max-w-[520px] text-fg-1" style="font-size: 17px; line-height: 1.6;">
+          We did all of that. <span class="hl-soft">Once.</span>
+        </p>
+      </div>
+
+      <figure class="mx-auto mt-12" aria-labelledby="context-caption">
+        <div class="mx-auto flex justify-center">
+          <AgentFrameworkPageDoodle kind="context-vs-window" />
+        </div>
+        <figcaption id="context-caption" class="mx-auto mt-4 max-w-[560px] text-center font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.04em;">
+          a model&rsquo;s window &nbsp;·&nbsp; vs &nbsp;·&nbsp; sub-agents into a knowledge manager into a shared filesystem
+        </figcaption>
+      </figure>
+
+      <div class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-6 md:grid-cols-3 md:gap-7">
+        <article class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+          <div class="eyebrow">the workspace</div>
+          <h3 id="context-fs" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">A real filesystem.</h3>
+          <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+            The agent has its own disk inside its sandbox. Notes, intermediate findings, partial outputs &mdash; <span class="hl-soft">anything it&rsquo;ll need later goes into a file</span>.
+          </p>
+        </article>
+        <article class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+          <div class="eyebrow">the curator</div>
+          <h3 id="context-km" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">A knowledge manager.</h3>
+          <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+            Decides which slice of the filesystem belongs in the model at each step. Old work gets summarised, indexed, and pulled back when relevant.
+          </p>
+        </article>
+        <article class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+          <div class="eyebrow">the swarm</div>
+          <h3 id="context-swarm" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">Sub-agents in parallel.</h3>
+          <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+            For harder cases, the planner spawns sub-agents. Each runs with its own context budget. Results merge back through the same hub.
+          </p>
+        </article>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-[760px] rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+        <div class="eyebrow">in numbers</div>
+        <ul class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+          <li>
+            <div class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">a single model window</div>
+            <div class="mt-1 font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">~200k tokens</div>
+          </li>
+          <li>
+            <div class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">a midsphere run</div>
+            <div class="mt-1 font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">hours · gigabytes</div>
+          </li>
+          <li>
+            <div class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">where it caps</div>
+            <div class="mt-1 font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">your spend cap</div>
+          </li>
+        </ul>
+      </div>
+
+      <p class="mx-auto mt-8 max-w-[640px] text-center font-medium text-fg-1" style="font-size: 19px; line-height: 1.45;">
+        Effective context is bounded by <span class="hl">your wallet</span>, not by any model&rsquo;s window.
+      </p>
+      <p class="mx-auto mt-3 max-w-[600px] text-center text-fg-2" style="font-size: 14px; line-height: 1.6;">
+        If you&rsquo;ve been chunking PDFs for a year, this is the part that should sting a little.
+      </p>
+    </div>
+  </section>
+
+  <section id="fit" class="section border-t border-border-subtle">
+    <div class="container-x">
+      <div class="mx-auto max-w-[640px] text-center">
+        <div class="eyebrow">fit assessment</div>
+        <h2 id="fit-headline" class="h-section mt-3">Which one is right for you.</h2>
+        <p class="mx-auto mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Read both columns. Pick the one that sounds more like your situation.
+        </p>
+      </div>
+
+      <FitFramework
+        leftLabel="choose an agent framework if"
+        leftItems={frameworkFit}
+        rightLabel="choose midsphere if"
+        rightItems={midsphereFit}
+      >
+        <svg slot="leftIcon" viewBox="0 0 60 50" width="32" height="28" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="18" y="8" width="26" height="10" rx="1"/>
+          <path d="M31 18 L 31 44"/>
+          <path d="M27 44 L 35 44"/>
+          <path d="M22 4 L 24 8 M 38 4 L 36 8" stroke-width="1.2" style="opacity: 0.5;"/>
+        </svg>
+        <svg slot="rightIcon" viewBox="0 0 60 50" width="32" height="28" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 24 L 54 8 L 38 44 L 30 30 Z"/>
+          <path d="M30 30 L 54 8" stroke-width="1.2"/>
+          <path d="M14 36 C 18 38, 22 39, 26 38" stroke-width="1.2" style="opacity: 0.5;"/>
+        </svg>
+      </FitFramework>
+    </div>
+  </section>
+
+  <section id="scenarios" class="section">
+    <div class="container-x">
+      <div class="mx-auto max-w-[600px] text-center">
+        <div class="eyebrow">in practice</div>
+        <h2 id="scenarios-headline" class="h-section mt-3">
+          Two real situations. Two different right answers.
+        </h2>
+      </div>
+
+      <div class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+        <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+          <div class="mb-5">
+            <AgentFrameworkPageDoodle kind="browser-with-cursor" />
+          </div>
+          <div class="eyebrow">scenario 01 &middot; the agent is the product</div>
+          <h3 id="scenario-product" class="mt-3 font-medium text-fg-1" style="font-size: 20px; line-height: 1.25; letter-spacing: -0.02em;">
+            An AI-native dev tool. Custom code review agent.
+          </h3>
+          <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
+            How the agent reads diffs, weighs comments, decides what&rsquo;s worth surfacing &mdash; that&rsquo;s the differentiator. Anything generic isn&rsquo;t the product.
+          </p>
+          <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
+            <span class="hl-soft">A framework is the right call.</span> They&rsquo;re going to design the thing themselves, and that&rsquo;s the entire point.
+          </p>
+        </article>
+
+        <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+          <div class="mb-5">
+            <AgentFrameworkPageDoodle kind="browser-and-research" />
+          </div>
+          <div class="eyebrow">scenario 02 &middot; the agent is a feature</div>
+          <h3 id="scenario-feature" class="mt-3 font-medium text-fg-1" style="font-size: 20px; line-height: 1.25; letter-spacing: -0.02em;">
+            A SaaS team adding an AI research feature.
+          </h3>
+          <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
+            The agent isn&rsquo;t the product &mdash; it produces a report inside one the team already has. They want the feature to work, and to ship next week.
+          </p>
+          <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
+            <span class="hl-soft">Midsphere is the right call.</span> They want the result, not the build.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <ClosingPanel
+    eyebrow="if you’d rather ship the feature"
+    primaryHref="https://platform.midsphere.ai"
+    primaryLabel="Start building"
+    secondaryHref="/docs"
+    secondaryLabel="Read the docs"
+    headingId="ship-headline"
+  >
+    <Fragment slot="headline">
+      Frameworks give you the building blocks.<br /><span class="hl text-on-inverse-1">We give you the agent.</span>
+    </Fragment>
+    <Fragment slot="body">
+      If your job is to build the agent, frameworks are the right place. If it&rsquo;s to ship the feature, this is.
+    </Fragment>
+  </ClosingPanel>
+</PageLayout>

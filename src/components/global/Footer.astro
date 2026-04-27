@@ -1,97 +1,87 @@
 ---
+// Inverse-surface footer.
+// Brand block + 3 link columns + slim legal row.
+type FooterLink = { label: string; href: string };
+type FooterColumn = { head: string; links: FooterLink[] };
+
+const footerColumns: FooterColumn[] = [
+  { head: 'product',    links: [
+    { label: 'Features',      href: '/features' },
+    { label: 'Pricing',       href: '/pricing' },
+    { label: 'Benchmarks',    href: '/benchmarks' },
+    { label: 'Integrations',  href: '/integrations' },
+  ]},
+  { head: 'compare',    links: [
+    { label: 'Cloud-provider agents', href: '/compare/cloud-providers' },
+    { label: 'Agent SDKs & frameworks', href: '/compare/agent-frameworks' },
+    { label: 'Claude Managed Agents', href: '/compare/claude-managed-agents' },
+  ]},
+  { head: 'company',    links: [
+    { label: 'Blog',          href: '/blog' },
+    { label: 'Orbiter',       href: '/orbiter' },
+    { label: 'Contact',       href: 'mailto:hello@midsphere.ai' },
+  ]},
+];
+const year = new Date().getFullYear();
 ---
 
-<footer class="relative border-t border-paper/10 bg-dark text-paper overflow-hidden" role="contentinfo" aria-label="Site footer">
-  <div class="mx-auto max-w-7xl px-4 py-8 lg:px-8 lg:py-10">
-    <!-- Top: Brand + Sitemap columns -->
-    <div class="flex flex-col gap-8 lg:flex-row lg:justify-between lg:gap-12 mb-8 lg:mb-10">
-      <!-- Brand -->
-      <div class="shrink-0">
-        <a href="/" aria-label="Midsphere home">
-          <img src="/logo-light.png" alt="Midsphere" class="only-light h-20 w-auto logo-bold-footer" />
-          <img src="/logo-dark.png" alt="Midsphere" class="only-dark h-20 w-auto logo-bold-footer" />
+<footer class="bg-inverse text-on-inverse-1" role="contentinfo">
+  <div class="container-x py-20">
+    <div class="grid gap-12 pb-12 border-b border-border-on-inverse lg:grid-cols-[1.6fr_repeat(3,1fr)]">
+      <div class="relative">
+        <a href="/" class="flex items-center" aria-label="Midsphere home">
+          <span class="font-mono text-[24px] font-medium leading-none text-on-inverse-1">midsphere</span>
+          <span class="ml-1 h-[6px] w-[6px] translate-y-[8px] rounded-full" style="background: var(--ms-accent)" aria-hidden="true"></span>
         </a>
-        <p class="mt-3 max-w-sm text-sm leading-relaxed text-paper/60">
-          Your autonomous AI companion for everything. Built to handle complex tasks so you can focus on what matters.
+        <p class="mt-4 max-w-[320px] text-[14px]" style="color: var(--ms-fg-on-inverse-2);">
+          Built by people who got tired of agent infrastructure.
         </p>
-        <div class="mt-6">
-          <a
-            href="https://platform.midsphere.ai/login"
-            class="inline-flex items-center gap-2 rounded-xl bg-paper px-5 py-3 text-sm text-dark transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
-            aria-label="Log in to Midsphere"
-          >
-            Login
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
+
+        <!-- Tiny orbit doodle next to brand -->
+        <div class="mt-5" aria-hidden="true">
+          <svg viewBox="0 0 80 50" width="80" height="50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;">
+            <ellipse cx="40" cy="25" rx="34" ry="14" transform="rotate(-12 40 25)"/>
+            <circle cx="40" cy="25" r="4"/>
+            <circle cx="68" cy="18" r="2"/>
+          </svg>
         </div>
+
+        <nav class="mt-6 flex items-center gap-3" aria-label="Social">
+          <a href="https://discord.gg/midsphere" target="_blank" rel="noopener noreferrer" class="transition-colors duration-150 hover:opacity-80" style="color: var(--ms-fg-on-inverse-2);" aria-label="Discord">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/>
+              <path d="M7.5 7.5c3.5-1 5.5-1 9 0"/><path d="M7 16.5c3.5 1 6.5 1 10 0"/>
+              <path d="M15.5 17c.5 1 1.5 2 3 2"/><path d="M5.5 17c.5 1 1.5 2 3 2"/>
+              <path d="M8.5 22c1 0 1.5-.5 1.5-1.5V20"/><path d="M15.5 22c-1 0-1.5-.5-1.5-1.5V20"/>
+              <path d="M18 18c2-1 3-3 3-5 0-2-1.5-6-1.5-6-1-1-3-1.5-3-1.5L15 7"/>
+              <path d="M6 18c-2-1-3-3-3-5 0-2 1.5-6 1.5-6 1-1 3-1.5 3-1.5L9 7"/>
+            </svg>
+          </a>
+          <a href="https://github.com/exo-agi" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 transition-colors duration-150 hover:opacity-80" style="color: var(--ms-fg-on-inverse-2);" aria-label="Exo on GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+              <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+            <span class="font-mono text-[12px]" style="letter-spacing: 0.04em;">Exo</span>
+          </a>
+        </nav>
       </div>
 
-      <!-- Sitemap columns -->
-      <div class="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:gap-x-16">
-        <!-- About -->
-        <section aria-labelledby="footer-about">
-          <h3 id="footer-about" class="text-base font-semibold text-paper">About</h3>
-          <ul class="mt-3 flex flex-col gap-2">
-            <li><a href="/blog" class="text-sm text-paper/60 hover:text-paper transition-colors">Blog</a></li>
-            <li><a href="/pricing" class="text-sm text-paper/60 hover:text-paper transition-colors">Pricing</a></li>
-            <li><a href="/orbiter" class="text-sm text-paper/60 hover:text-paper transition-colors">Orbiter</a></li>
+      {footerColumns.map((column) => (
+        <div>
+          <div class="eyebrow-on-dark">{column.head}</div>
+          <ul class="mt-3.5 flex flex-col gap-2.5">
+            {column.links.map((link) => (
+              <li><a href={link.href} class="text-[14px] text-on-inverse-1 transition-colors duration-150 hover:opacity-80">{link.label}</a></li>
+            ))}
           </ul>
-        </section>
-
-        <!-- Get Started -->
-        <section aria-labelledby="footer-getstarted">
-          <h3 id="footer-getstarted" class="text-base font-semibold text-paper">Get Started</h3>
-          <ul class="mt-3 flex flex-col gap-2">
-            <li><a href="https://platform.midsphere.ai/login" class="text-sm text-paper/60 hover:text-paper transition-colors">Login</a></li>
-            <li><a href="/#how-it-works" class="text-sm text-paper/60 hover:text-paper transition-colors">How It Works</a></li>
-            <li><a href="/features" class="text-sm text-paper/60 hover:text-paper transition-colors">Features</a></li>
-            <li><a href="/integrations" class="text-sm text-paper/60 hover:text-paper transition-colors">Integrations</a></li>
-          </ul>
-        </section>
-
-        <!-- Get Help -->
-        <section aria-labelledby="footer-help">
-          <h3 id="footer-help" class="text-base font-semibold text-paper">Get Help</h3>
-          <ul class="mt-3 flex flex-col gap-2">
-            <li><a href="https://discord.gg/midsphere" target="_blank" rel="noopener noreferrer" class="text-sm text-paper/60 hover:text-paper transition-colors">Discord</a></li>
-            <li><a href="mailto:support@midsphere.ai" class="text-sm text-paper/60 hover:text-paper transition-colors">Contact Us</a></li>
-          </ul>
-        </section>
-      </div>
+        </div>
+      ))}
     </div>
 
-    <!-- Bottom sign-off -->
-    <div class="flex items-center justify-between">
-      <div class="text-sm text-paper/50">
-        Made with <span class="text-coral">&#10084;</span> by the <a href="/" class="text-coral hover:underline">Midsphere Team</a>
-      </div>
-      <nav class="flex items-center gap-3.5" aria-label="Social media links">
-        <a href="https://discord.gg/midsphere" target="_blank" rel="noopener noreferrer" class="text-paper/60 hover:text-paper transition-colors" aria-label="Join Midsphere on Discord">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-          </svg>
-        </a>
-        <a href="https://linkedin.com/company/midsphere" target="_blank" rel="noopener noreferrer" class="text-paper/60 hover:text-paper transition-colors" aria-label="Follow Midsphere on LinkedIn">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-          </svg>
-        </a>
-        <a href="https://youtube.com/@midsphere" target="_blank" rel="noopener noreferrer" class="text-paper/60 hover:text-paper transition-colors" aria-label="Watch Midsphere on YouTube">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-          </svg>
-        </a>
-      </nav>
-    </div>
-  </div>
-
-  <!-- Decorative circles (bottom-right) -->
-  <div class="pointer-events-none absolute -bottom-48 -right-48 hidden lg:block" aria-hidden="true">
-    <div class="relative">
-      <div class="absolute rounded-full border-[14px] border-paper/[0.18]" style="width: 151px; height: 151px; left: 50%; top: 50%; transform: translate(-50%, -50%);"></div>
-      <div class="absolute rounded-full border-[21px] border-paper/[0.18]" style="width: 277px; height: 277px; left: 50%; top: 50%; transform: translate(-50%, -50%);"></div>
-      <div class="absolute rounded-full border-[28px] border-paper/[0.18]" style="width: 403px; height: 403px; left: 50%; top: 50%; transform: translate(-50%, -50%);"></div>
-      <div class="absolute rounded-full border-[35px] border-paper/[0.18]" style="width: 529px; height: 529px; left: 50%; top: 50%; transform: translate(-50%, -50%);"></div>
+    <div class="flex flex-col items-start justify-between gap-3 pt-6 font-mono text-[12px] sm:flex-row sm:items-center" style="color: var(--ms-fg-on-inverse-2);">
+      <div>© {year} Midsphere · Open-source MIT</div>
+      <div>v1.4.2 · all systems normal</div>
     </div>
   </div>
 </footer>

@@ -1,0 +1,73 @@
+---
+interface Bullet { name: string; gist: string }
+
+const compliance: Bullet[] = [
+  { name: 'soc 2 type ii',          gist: 'audit underway. report goes public the second it lands.' },
+  { name: 'gdpr',                   gist: 'compliant by default. EU data stays in EU regions.' },
+  { name: 'conversation isolation', gist: 'the agent serving user A literally cannot reach user B.' },
+  { name: 'audit log',              gist: 'every tool call, every model call, every artifact. streamable.' },
+  { name: 'spend cap',              gist: 'per-run dollar ceilings the agent cannot exceed. even by accident.' },
+];
+
+const enterprise: Bullet[] = [
+  { name: 'byok',               gist: 'your provider keys, billed direct.' },
+  { name: 'private deployment', gist: 'the full stack inside your VPC.' },
+  { name: 'regional pinning',   gist: 'region-locked when residency is non-negotiable.' },
+  { name: 'dedicated fleet',    gist: 'separate hardware for regulated workloads.' },
+  { name: 'sso + siem',         gist: 'SAML, plus audit logs streamed to yours.' },
+];
+---
+
+<section id="compliance" class="section border-t border-border-subtle">
+  <div class="container-x">
+    <div class="mx-auto flex max-w-[680px] flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
+      <div class="shrink-0" aria-hidden="true">
+        <svg viewBox="0 0 100 80" width="88" height="70" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="22" y="34" width="40" height="34" rx="4"/>
+          <path d="M30 34 L 30 24 C 30 16, 38 12, 42 12 C 46 12, 54 16, 54 24 L 54 34"/>
+          <circle cx="42" cy="48" r="2.4" fill="#111"/>
+          <path d="M42 50 L 42 58" stroke-width="1.2"/>
+          <path d="M70 24 L 92 22 M 70 36 L 92 34 M 70 48 L 88 46 M 70 60 L 92 58" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="eyebrow">compliance &amp; ops</div>
+        <h2 id="compliance-headline" class="h-section mt-3 max-w-[520px]">
+          The list every team past five engineers eventually asks for.
+        </h2>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-10 grid max-w-[1080px] grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
+      <div>
+        <div class="eyebrow">in the box</div>
+        <ul class="mt-5 grid grid-cols-1 gap-4">
+          {compliance.map((b) => (
+            <li class="flex items-baseline gap-3">
+              <span aria-hidden="true" class="font-mono text-fg-3" style="font-size: 14px;">+</span>
+              <div class="min-w-0">
+                <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">{b.name}</div>
+                <p class="mt-1 text-fg-2" style="font-size: 14px; line-height: 1.55;">{b.gist}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <div class="eyebrow">enterprise add-ons</div>
+        <ul class="mt-5 grid grid-cols-1 gap-4">
+          {enterprise.map((b) => (
+            <li class="flex items-baseline gap-3">
+              <span aria-hidden="true" class="font-mono text-fg-3" style="font-size: 14px;">+</span>
+              <div class="min-w-0">
+                <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">{b.name}</div>
+                <p class="mt-1 text-fg-2" style="font-size: 14px; line-height: 1.55;">{b.gist}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

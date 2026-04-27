@@ -1,0 +1,85 @@
+---
+// Context management: KM hub + parallel sub-agents + shared filesystem.
+---
+
+<section id="context" class="section">
+  <div class="container-x">
+    <div class="mx-auto max-w-[640px] text-center">
+      <div class="eyebrow">context, file-based</div>
+      <h2 id="context-headline" class="h-section mt-3">
+        The context window is <span class="hl">no longer the wall</span>.
+      </h2>
+      <p class="mx-auto mt-5 max-w-[560px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+        The hard limit on long-running agents is context. Models have a window; serious tasks don’t fit. So we stopped treating the window as the workspace.
+      </p>
+    </div>
+
+    <figure class="mx-auto mt-10" aria-labelledby="context-caption">
+      <div class="mx-auto flex justify-center" aria-hidden="true">
+        <svg viewBox="0 0 360 220" width="320" height="196" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="180" cy="68" rx="44" ry="22"/>
+          <path d="M156 58 L 162 68 L 156 78 M 204 58 L 198 68 L 204 78" stroke-width="1.2"/>
+          <rect x="40" y="16" width="32" height="22" rx="3"/>
+          <path d="M46 24 L 66 24 M 46 30 L 60 30" stroke-width="1.1"/>
+          <rect x="288" y="16" width="32" height="22" rx="3"/>
+          <path d="M294 24 L 314 24 M 294 30 L 308 30" stroke-width="1.1"/>
+          <rect x="40" y="98" width="32" height="22" rx="3"/>
+          <path d="M46 106 L 66 106 M 46 112 L 60 112" stroke-width="1.1"/>
+          <rect x="288" y="98" width="32" height="22" rx="3"/>
+          <path d="M294 106 L 314 106 M 294 112 L 308 112" stroke-width="1.1"/>
+          <path d="M72 30 C 110 36, 140 50, 156 58" stroke-dasharray="3 3"/>
+          <path d="M288 30 C 250 36, 220 50, 204 58" stroke-dasharray="3 3"/>
+          <path d="M72 108 C 110 100, 140 88, 156 80" stroke-dasharray="3 3"/>
+          <path d="M288 108 C 250 100, 220 88, 204 80" stroke-dasharray="3 3"/>
+          <path d="M88 140 L 272 138 L 276 210 L 90 214 Z"/>
+          <path d="M88 162 L 274 160 M 88 184 L 276 182" stroke-width="1.2"/>
+          <circle cx="172" cy="151" r="1.6" fill="#111"/>
+          <circle cx="172" cy="173" r="1.6" fill="#111"/>
+          <circle cx="172" cy="195" r="1.6" fill="#111"/>
+          <path d="M180 92 L 180 134" stroke-width="1.2"/>
+          <path d="M174 128 L 180 136 L 186 128" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <figcaption id="context-caption" class="mx-auto mt-3 max-w-[420px] text-center font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.04em;">
+        one knowledge manager &nbsp;·&nbsp; many sub-agents &nbsp;·&nbsp; one shared filesystem
+      </figcaption>
+    </figure>
+
+    <div class="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
+      <div>
+        <div class="eyebrow">the workspace</div>
+        <p class="mt-3 text-fg-2" style="font-size: 16px; line-height: 1.65;">
+          Inside its sandbox the agent has a real filesystem. It writes notes, intermediate findings, partial outputs — anything it’ll need later goes into a file. The knowledge manager curates which slice of that filesystem is loaded into the model’s window at each step. Old work gets summarised, indexed, and pulled back when relevant.
+        </p>
+      </div>
+      <div>
+        <div class="eyebrow">the swarm</div>
+        <p class="mt-3 text-fg-2" style="font-size: 16px; line-height: 1.65;">
+          For harder cases, the planner spawns sub-agents through Exo’s swarm primitives. Each works in parallel, with its own context budget. Results merge back through the knowledge manager, which decides what becomes durable state and what gets discarded.
+        </p>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-10 max-w-[760px] rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+      <div class="eyebrow">in practice</div>
+      <ul class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+        <li>
+          <div class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">single model window</div>
+          <div class="mt-1 font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">~200k tokens</div>
+        </li>
+        <li>
+          <div class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">a midsphere run</div>
+          <div class="mt-1 font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">hours · gigabytes</div>
+        </li>
+        <li>
+          <div class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">where it caps</div>
+          <div class="mt-1 font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">your spend cap</div>
+        </li>
+      </ul>
+    </div>
+
+    <p class="mx-auto mt-8 max-w-[600px] text-center font-medium text-fg-1" style="font-size: 19px; line-height: 1.4;">
+      The effective context is bounded by <span class="hl">your wallet</span>, not by any model’s window.
+    </p>
+  </div>
+</section>

@@ -1,71 +1,112 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
-import Card from '../../components/ui/Card.astro';
-import Badge from '../../components/ui/Badge.astro';
-import { formatDate } from '../../utils/formatDate';
+import BlogDoodle from '../../components/ui/BlogDoodle.astro';
+import Button from '../../components/ui/Button.astro';
+import BlogPostCard from '../../components/blog/BlogPostCard.astro';
+import { getReadingTime } from '../../utils/formatDate';
 
 const allPosts = await getCollection('blog', ({ data }) => {
   return import.meta.env.PROD ? !data.draft : true;
 });
 
-const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((p) => ({ ...p, readingTime: getReadingTime(p.body ?? '') }));
+
+const [featured, ...rest] = posts;
 ---
 
 <PageLayout
-  title="Blog"
-  description="Insights on AI agents, automation, and building with Midsphere. Tips, benchmarks, and guides for getting the most out of autonomous AI."
+  title="Blog — Midsphere"
+  description="Field notes from the team. Guides, benchmarks, the occasional post-mortem."
   breadcrumbs={[
     { name: 'Home', url: 'https://midsphere.ai' },
     { name: 'Blog', url: 'https://midsphere.ai/blog' },
   ]}
 >
-  <!-- Hero -->
-  <section class="py-14 lg:py-20">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <span class="hero-child text-[12px] font-medium tracking-wide text-dark/50" style="--hero-delay:0">Blog</span>
-      <h1 class="hero-child mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl" style="--hero-delay:1">
-        Insights, guides, and deep dives
-      </h1>
-      <p class="hero-child mt-4 max-w-2xl text-base text-dark/60 sm:text-lg" style="--hero-delay:2">
-        Explore AI agents, automation strategies, and practical guides for getting the most out of Midsphere.
-      </p>
+  <section id="blog-hero" class="pt-12 pb-10 lg:pt-16 lg:pb-14">
+    <div class="container-x">
+      <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:gap-14">
+        <div>
+          <div class="eyebrow">blog · field notes</div>
+          <h1 id="blog-headline" class="h-display-lg mt-3 max-w-[680px]">
+            Notes from the workshop.
+          </h1>
+          <p class="mt-5 max-w-[560px] text-fg-2" style="font-size: 18px; line-height: 1.55;">
+            Guides, benchmarks, the occasional post-mortem. What we shipped, what bit us, and the bits we'd <span class="hl">do again</span>.
+          </p>
+        </div>
+        <div class="flex justify-center lg:justify-end" aria-hidden="true">
+          <BlogDoodle kind="journal" width={220} />
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 pb-20 sm:px-6 lg:px-8">
+  {featured && (
+    <section class="pb-12 border-t border-border-subtle pt-12">
+      <div class="container-x">
+        <div class="mb-6 flex items-baseline justify-between">
+          <div class="eyebrow">latest</div>
+          <span class="font-mono text-[12px] text-fg-3" style="letter-spacing: 0.06em;">
+            {posts.length} {posts.length === 1 ? 'note' : 'notes'}
+          </span>
+        </div>
 
-    {posts.length === 0 ? (
-      <p class="text-dark/60">No posts yet. Check back soon.</p>
-    ) : (
-      <div class="grid gap-8 sm:grid-cols-2">
-        {posts.map((post) => (
-          <a href={`/blog/${post.id}`} class="group block">
-            <Card as="article" class="h-full transition-shadow hover:shadow-md">
-              {post.data.tags.length > 0 && (
-                <div class="mb-3 flex flex-wrap gap-2">
-                  {post.data.tags.slice(0, 3).map((tag) => (
-                    <Badge variant="default">{tag}</Badge>
-                  ))}
-                </div>
-              )}
-              <h2 class="text-xl font-medium group-hover:text-dark/70 transition-colors">
-                {post.data.title}
-              </h2>
-              <p class="mt-2 text-sm text-dark/60 line-clamp-3">
-                {post.data.description}
-              </p>
-              <div class="mt-4 flex items-center gap-3 text-xs text-dark/50">
-                <time datetime={post.data.pubDate.toISOString()}>
-                  {formatDate(post.data.pubDate)}
-                </time>
-                <span aria-hidden="true">&middot;</span>
-                <span>{post.data.author}</span>
-              </div>
-            </Card>
-          </a>
-        ))}
+        <BlogPostCard post={featured} variant="featured" />
       </div>
-    )}
+    </section>
+  )}
+
+  {rest.length > 0 && (
+    <section class="section-tight pb-16">
+      <div class="container-x">
+        <div class="mb-6 eyebrow">earlier</div>
+        <div class="grid gap-5 md:grid-cols-2">
+          {rest.map((post) => <BlogPostCard post={post} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {posts.length === 0 && (
+    <section class="section-tight">
+      <div class="container-x text-center">
+        <p class="text-fg-2">No notes yet. Check back soon.</p>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container-x">
+      <div class="mx-auto max-w-[760px] text-center">
+        <div class="mx-auto mb-5 flex justify-center" aria-hidden="true">
+          <BlogDoodle kind="closed-book" width={140} />
+        </div>
+        <p class="font-medium text-fg-1" style="font-size: clamp(22px, 2.4vw, 28px); line-height: 1.3; letter-spacing: -0.02em; text-wrap: balance;">
+          That's what's in the journal so far. <span class="hl-soft">More when something's worth writing down.</span>
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-2.5">
+          <Button href="https://platform.midsphere.ai" variant="primary">Start building</Button>
+          <Button href="/orbiter" variant="secondary">Read the docs</Button>
+        </div>
+      </div>
+    </div>
   </section>
 </PageLayout>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  a.card { text-decoration: none; color: inherit; }
+  a.card:focus-visible {
+    outline: 2px solid var(--ms-fg-1);
+    outline-offset: 0;
+    box-shadow: 0 0 0 4px var(--ms-accent);
+  }
+</style>

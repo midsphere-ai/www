@@ -1,156 +1,129 @@
 ---
-import MobileMenu from './MobileMenu.astro';
+// Sticky top nav. Transparent at the top of the page, blurs and gains a hairline
+// border once the user has scrolled. Centered nav links, secondary + primary pill CTAs.
 import Button from '../ui/Button.astro';
 ---
 
-<nav class="bg-paper py-1 lg:py-1.5" aria-label="Main navigation">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] items-center gap-2">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 text-lg font-bold text-dark/40 hover:text-dark/60 transition-colors" aria-label="Midsphere home">
-        <img src="/logo-dark.png" alt="Midsphere" class="only-light h-6 w-auto opacity-70" />
-        <img src="/logo-light.png" alt="Midsphere" class="only-dark h-6 w-auto opacity-70" />
+<header id="site-nav" class="sticky top-0 z-50 transition-colors duration-150" aria-label="Main navigation">
+  <div class="container-x">
+    <div class="grid h-16 grid-cols-2 items-center gap-2 lg:grid-cols-[1fr_auto_1fr]">
+      <a href="/" class="flex items-center" aria-label="Midsphere home">
+        <span class="font-mono text-[22px] font-medium leading-none text-fg-1">midsphere</span>
+        <span class="ml-1 h-[6px] w-[6px] translate-y-[6px] rounded-full bg-inverse" aria-hidden="true"></span>
       </a>
 
-      <!-- Desktop Nav -->
-      <div class="hidden lg:flex items-center justify-center gap-5">
-        <!-- Product dropdown -->
-        <div class="nav-dropdown-trigger relative">
-          <button type="button" class="flex items-center gap-1 text-xs text-dark/40 hover:text-dark/70 transition-colors">
-            Product
-            <svg class="nav-chevron h-3 w-3 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-          </button>
-          <div class="nav-dropdown absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
-            <div class="w-64 rounded-lg border-2 border-dark bg-paper p-3 shadow-sm">
-              <a href="/features" class="flex flex-col rounded-md px-3 py-2 hover:bg-subtle transition-colors">
-                <span class="text-sm font-semibold text-dark">Features</span>
-                <span class="text-xs text-dark/50">Research, build, and automate</span>
-              </a>
-              <a href="/integrations" class="flex flex-col rounded-md px-3 py-2 hover:bg-subtle transition-colors">
-                <span class="text-sm font-semibold text-dark">Integrations</span>
-                <span class="text-xs text-dark/50">500+ connected platforms</span>
-              </a>
-              <a href="/benchmarks" class="flex flex-col rounded-md px-3 py-2 hover:bg-subtle transition-colors">
-                <span class="text-sm font-semibold text-dark">Benchmarks</span>
-                <span class="text-xs text-dark/50">Industry-leading performance</span>
-              </a>
-            </div>
-          </div>
-        </div>
+      <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <a href="/under-the-hood" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Under the hood</a>
+        <a href="/pricing" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Pricing</a>
+        <a href="/orbiter" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Orbiter</a>
+        <a href="/blog" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Blog</a>
+      </nav>
 
-        <!-- Resources dropdown -->
-        <div class="nav-dropdown-trigger relative">
-          <button type="button" class="flex items-center gap-1 text-xs text-dark/40 hover:text-dark/70 transition-colors">
-            Resources
-            <svg class="nav-chevron h-3 w-3 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-          </button>
-          <div class="nav-dropdown absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
-            <div class="w-56 rounded-lg border-2 border-dark bg-paper p-3 shadow-sm">
-              <a href="/blog" class="flex flex-col rounded-md px-3 py-2 hover:bg-subtle transition-colors">
-                <span class="text-sm font-semibold text-dark">Blog</span>
-                <span class="text-xs text-dark/50">Guides and updates</span>
-              </a>
-              <a href="https://discord.gg/midsphere" target="_blank" rel="noopener noreferrer" class="flex flex-col rounded-md px-3 py-2 hover:bg-subtle transition-colors">
-                <span class="text-sm font-semibold text-dark">Community</span>
-                <span class="text-xs text-dark/50">Join us on Discord</span>
-              </a>
-              <a href="https://orbiter.midsphere.ai" target="_blank" rel="noopener noreferrer" class="flex flex-col rounded-md px-3 py-2 hover:bg-subtle transition-colors">
-                <span class="text-sm font-semibold text-dark">Orbiter Docs</span>
-                <span class="text-xs text-dark/50">Framework documentation</span>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="flex items-center justify-end gap-2">
+        <Button href="/pricing" variant="secondary" class="hidden lg:inline-flex">Try for free</Button>
+        <Button href="https://platform.midsphere.ai/login" variant="primary" class="hidden lg:inline-flex">Get a demo</Button>
 
-        <a href="/pricing" class="text-xs text-dark/40 hover:text-dark/70 transition-colors">Pricing</a>
-        <a href="/orbiter" class="text-xs text-dark/40 hover:text-dark/70 transition-colors">Orbiter</a>
-      </div>
-
-      <!-- Right side -->
-      <div class="flex items-center justify-end justify-self-end gap-2">
-        <button
-          id="theme-toggle"
-          type="button"
-          class="hidden lg:flex items-center justify-center rounded-md p-1.5 text-dark/30 hover:text-dark/60 transition-colors"
-          aria-label="Toggle dark mode"
-        >
-          <svg class="theme-icon-sun hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2" /><path d="M12 20v2" />
-            <path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
-            <path d="M2 12h2" /><path d="M20 12h2" />
-            <path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
-          </svg>
-          <svg class="theme-icon-moon hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-          </svg>
-        </button>
-        <Button href="https://platform.midsphere.ai/login" class="hidden lg:flex text-[11px] py-1.5 px-3 bg-dark/5 text-dark/50 hover:bg-dark/10 hover:text-dark/70">
-          Login
-        </Button>
-        <!-- Mobile theme toggle -->
         <button
           type="button"
-          class="theme-toggle-mobile lg:hidden flex items-center justify-center rounded-md p-1.5 text-dark/30 hover:text-dark/60 transition-colors"
-          aria-label="Toggle dark mode"
+          id="mobile-menu-btn"
+          class="cursor-pointer p-2 text-fg-1 lg:hidden"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
         >
-          <svg class="theme-icon-sun hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2" /><path d="M12 20v2" />
-            <path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
-            <path d="M2 12h2" /><path d="M20 12h2" />
-            <path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
-          </svg>
-          <svg class="theme-icon-moon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-          </svg>
-        </button>
-        <!-- Mobile hamburger -->
-        <label for="mobile-menu-toggle" class="lg:hidden cursor-pointer p-1.5 text-dark/40" aria-label="Open menu">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="3" y1="6" x2="21" y2="6" />
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="7" x2="21" y2="7" />
             <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
+            <line x1="3" y1="17" x2="21" y2="17" />
           </svg>
-        </label>
+        </button>
       </div>
     </div>
   </div>
-</nav>
+</header>
 
-<MobileMenu />
+<div
+  id="mobile-menu"
+  hidden
+  class="fixed inset-0 z-40 bg-canvas px-5 pt-20 lg:hidden"
+>
+  <nav class="flex flex-col gap-1" aria-label="Mobile primary">
+    <a href="/under-the-hood" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Under the hood</a>
+    <a href="/pricing" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Pricing</a>
+    <a href="/orbiter" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Orbiter</a>
+    <a href="/blog" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Blog</a>
+    <div class="mt-6 flex flex-col gap-2 px-4">
+      <Button href="/pricing" variant="secondary" class="justify-center">Try for free</Button>
+      <Button href="https://platform.midsphere.ai/login" variant="primary" class="justify-center">Get a demo</Button>
+    </div>
+  </nav>
+</div>
+
+<style>
+  #site-nav {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+  }
+  #site-nav[data-scrolled="true"] {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-color: var(--ms-border-subtle);
+  }
+</style>
 
 <script>
-  function initDropdownClicks() {
-    document.querySelectorAll<HTMLElement>('.nav-dropdown-trigger').forEach((trigger) => {
-      const btn = trigger.querySelector('button');
-      if (!btn) return;
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const dropdown = trigger.querySelector('.nav-dropdown') as HTMLElement | null;
-        if (!dropdown) return;
-        const isOpen = dropdown.style.opacity === '1';
-        // Close all dropdowns first
-        document.querySelectorAll<HTMLElement>('.nav-dropdown').forEach((d) => {
-          d.style.opacity = '';
-          d.style.transform = '';
-          d.style.pointerEvents = '';
-        });
-        if (!isOpen) {
-          dropdown.style.opacity = '1';
-          dropdown.style.transform = 'translateY(0)';
-          dropdown.style.pointerEvents = 'auto';
+  type Cleanup = () => void;
+
+  function initNav(): Cleanup {
+    const cleanups: Cleanup[] = [];
+    const nav = document.getElementById('site-nav');
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    if (nav) {
+      const onScroll = () => { nav.dataset.scrolled = String(window.scrollY > 8); };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      cleanups.push(() => window.removeEventListener('scroll', onScroll));
+    }
+
+    if (btn && menu) {
+      const setOpen = (open: boolean) => {
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        if (open) {
+          menu.removeAttribute('hidden');
+          document.body.style.overflow = 'hidden';
+        } else {
+          menu.setAttribute('hidden', '');
+          document.body.style.overflow = '';
         }
+      };
+      const onClick = () => setOpen(btn.getAttribute('aria-expanded') !== 'true');
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') setOpen(false);
+      };
+      const onMenuClick = (e: Event) => {
+        if ((e.target as HTMLElement).tagName === 'A') setOpen(false);
+      };
+      btn.addEventListener('click', onClick);
+      document.addEventListener('keydown', onKey);
+      menu.addEventListener('click', onMenuClick);
+      cleanups.push(() => {
+        btn.removeEventListener('click', onClick);
+        document.removeEventListener('keydown', onKey);
+        menu.removeEventListener('click', onMenuClick);
+        document.body.style.overflow = '';
       });
-    });
-    document.addEventListener('click', () => {
-      document.querySelectorAll<HTMLElement>('.nav-dropdown').forEach((d) => {
-        d.style.opacity = '';
-        d.style.transform = '';
-        d.style.pointerEvents = '';
-      });
-    });
+    }
+
+    return () => cleanups.forEach((fn) => fn());
   }
-  initDropdownClicks();
-  document.addEventListener('astro:after-swap', initDropdownClicks);
+
+  let teardown: Cleanup | null = null;
+  const boot = () => { teardown?.(); teardown = initNav(); };
+  boot();
+  document.addEventListener('astro:after-swap', boot);
+  document.addEventListener('astro:before-swap', () => { teardown?.(); teardown = null; });
 </script>

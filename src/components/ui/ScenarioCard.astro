@@ -1,0 +1,36 @@
+---
+// "Two scenarios" pattern on /compare/ pages: a doodle, an eyebrow ("scenario
+// 01" / "02"), an h3 title, a body paragraph, and a verdict line where one
+// phrase is wrapped in `.hl-soft`.
+interface Props {
+  num: string;
+  title: string;
+  body: string;
+  verdict: string;
+  verdictHighlight: string;
+  headingId?: string;
+}
+
+const { num, title, body, verdict, verdictHighlight, headingId } = Astro.props;
+---
+
+<article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+  <div class="flex h-[112px] items-end justify-start" aria-hidden="true">
+    <slot name="doodle" />
+  </div>
+
+  <div class="mt-3 eyebrow">scenario {num}</div>
+  <h3
+    id={headingId}
+    class="mt-2 font-medium text-fg-1"
+    style="font-size: 20px; line-height: 1.25; letter-spacing: -0.02em;"
+  >
+    {title}
+  </h3>
+  <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
+    {body}
+  </p>
+  <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
+    <span class="hl-soft">{verdictHighlight}</span> {verdict}
+  </p>
+</article>

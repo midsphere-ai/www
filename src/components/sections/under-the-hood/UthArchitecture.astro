@@ -1,0 +1,87 @@
+---
+// Architecture: three agents diagram + role cards.
+---
+
+<section id="architecture" class="section border-t border-border-subtle">
+  <div class="container-x">
+    <div class="mx-auto max-w-[600px] text-center">
+      <div class="eyebrow">the architecture</div>
+      <h2 id="architecture-headline" class="h-section mt-3">
+        Three agents, with three different jobs.
+      </h2>
+      <p class="mx-auto mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+        A run starts when you hand the agent a goal. From there, the work moves between three components — each with one role, each watching the others.
+      </p>
+    </div>
+
+    <figure class="mx-auto mt-10" aria-labelledby="diagram-caption">
+      <div class="relative mx-auto flex max-w-[440px] justify-center" aria-hidden="true">
+        <svg viewBox="0 0 320 160" width="280" height="140" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="40" y="20" width="36" height="24" rx="3"/>
+          <path d="M46 28 L 70 28 M 46 36 L 64 36" stroke-width="1.2"/>
+          <rect x="40" y="116" width="36" height="24" rx="3"/>
+          <path d="M46 124 L 70 124 M 46 132 L 60 132" stroke-width="1.2"/>
+          <ellipse cx="246" cy="80" rx="40" ry="22"/>
+          <path d="M226 70 L 230 80 L 226 90 M 266 70 L 262 80 L 266 90" stroke-width="1.2"/>
+          <path d="M58 48 L 58 112"/>
+          <path d="M52 106 L 58 114 L 64 106"/>
+          <path d="M76 30 C 140 28, 200 50, 224 68"/>
+          <path d="M218 64 L 224 70 L 217 71"/>
+          <path d="M222 74 C 196 56, 140 36, 78 38" stroke-dasharray="3 4"/>
+          <path d="M78 124 C 140 134, 200 110, 224 92"/>
+          <path d="M217 89 L 224 90 L 218 96"/>
+          <path d="M222 86 C 196 104, 140 124, 78 132" stroke-dasharray="3 4"/>
+        </svg>
+        <div class="hidden lg:block" aria-hidden="true" style="position: absolute; top: 6px; right: calc(100% - 8px); width: 168px; transform: rotate(-3deg);">
+          <p class="font-mono" style="font-size: 12px; line-height: 1.4; color: var(--ms-fg-2); text-align: right;">goal goes in here</p>
+          <svg width="120" height="32" viewBox="0 0 120 32" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin-left: auto; margin-top: 4px;">
+            <path d="M8 6 C 32 12, 70 16, 110 22"/>
+            <path d="M102 16 L 110 22 L 102 28"/>
+          </svg>
+        </div>
+      </div>
+      <figcaption id="diagram-caption" class="mx-auto mt-4 max-w-[420px] text-center font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.04em;">
+        solid = directs &nbsp;·&nbsp; dashed = observes
+      </figcaption>
+    </figure>
+
+    <div class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+        <div class="eyebrow">01 · sets the moves</div>
+        <h3 id="agent-planner" class="mt-3 font-medium text-fg-1" style="font-size: 19px; line-height: 1.25; letter-spacing: -0.015em;">
+          The planner.
+        </h3>
+        <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.6;">
+          Decomposes the goal into a graph of steps. Re-orders when reality forces it to. Doesn’t make tool calls and doesn’t write output — <span class="hl-soft">it thinks, it doesn’t type</span>.
+        </p>
+      </article>
+
+      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+        <div class="eyebrow">02 · makes the moves</div>
+        <h3 id="agent-executor" class="mt-3 font-medium text-fg-1" style="font-size: 19px; line-height: 1.25; letter-spacing: -0.015em;">
+          The executor.
+        </h3>
+        <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.6;">
+          Picks up the next step on the graph and runs it. Tool calls, LLM calls, files written, emails sent if step 14 says so. Strategy isn’t its job. The current step is.
+        </p>
+      </article>
+
+      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+        <div class="eyebrow">03 · keeps the receipts</div>
+        <h3 id="agent-km" class="mt-3 font-medium text-fg-1" style="font-size: 19px; line-height: 1.25; letter-spacing: -0.015em;">
+          The knowledge manager.
+        </h3>
+        <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.6;">
+          The piece most stacks don’t have. Watches both, captures what’s discovered, and steers them back when the executor is about to drift, loop, or forget. Updates the plan as it learns.
+        </p>
+      </article>
+    </div>
+
+    <div class="mx-auto mt-10 max-w-[640px] rounded-[14px] bg-sunken p-7">
+      <div class="eyebrow">why three, not one</div>
+      <p class="mt-3 text-fg-1" style="font-size: 16px; line-height: 1.65;">
+        A single agent is faster on short tasks. Three add coordination overhead — but they catch the failure modes that kill long runs. Some workloads don’t need this; a chat completion is plenty. <span class="hl-soft">Midsphere is for the workloads where it isn’t.</span>
+      </p>
+    </div>
+  </div>
+</section>

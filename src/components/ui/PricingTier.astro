@@ -1,0 +1,89 @@
+---
+import Button from './Button.astro';
+import Checkmark from './Checkmark.astro';
+
+interface Props {
+  eyebrow: string;
+  price: string;
+  priceSuffix?: string;
+  body: string;
+  bullets: string[];
+  ctaHref: string;
+  ctaLabel: string;
+  ctaVariant?: 'primary' | 'secondary';
+  accent?: boolean;
+  featured?: boolean;
+  featuredLabel?: string;
+}
+
+const {
+  eyebrow,
+  price,
+  priceSuffix,
+  body,
+  bullets,
+  ctaHref,
+  ctaLabel,
+  ctaVariant = 'secondary',
+  accent = false,
+  featured = false,
+  featuredLabel,
+} = Astro.props;
+
+const baseClass = accent
+  ? 'relative flex flex-col rounded-[18px] border border-transparent p-7'
+  : 'flex flex-col rounded-[18px] border border-border-subtle p-7';
+
+const surfaceStyle = accent
+  ? 'background: var(--ms-accent); color: var(--ms-accent-ink);'
+  : 'background: var(--ms-bg-canvas);';
+
+const eyebrowClass = accent
+  ? 'eyebrow-on-accent'
+  : 'eyebrow';
+
+const priceSize = price.length > 4 ? '36px' : '56px';
+
+const checkClass = accent
+  ? 'mt-0.5 shrink-0'
+  : 'mt-0.5 shrink-0 text-fg-3';
+
+const dividerClass = accent
+  ? 'mt-6 flex flex-col gap-2.5 border-t border-black/15 pt-6 text-[13px]'
+  : 'mt-6 flex flex-col gap-2.5 border-t border-border-subtle pt-6 text-[13px]';
+---
+
+<article class={baseClass} style={surfaceStyle}>
+  {featured && featuredLabel ? (
+    <div class="flex items-center justify-between">
+      <span class={eyebrowClass}>{eyebrow}</span>
+      <span class="font-mono text-[11px]" style="letter-spacing: 0.06em; color: var(--ms-accent-ink); opacity: 0.65; text-transform: lowercase;">{featuredLabel}</span>
+    </div>
+  ) : (
+    <div class={eyebrowClass}>{eyebrow}</div>
+  )}
+
+  {Astro.slots.has('price') ? (
+    <slot name="price" />
+  ) : (
+    <div class="mt-5 flex items-baseline gap-2">
+      <span class="font-medium" style={`font-size: ${priceSize}; letter-spacing: -0.025em; line-height: 1;`}>{price}</span>
+      {priceSuffix && <span class={accent ? 'text-[14px]' : 'text-[14px] text-fg-3'}>{priceSuffix}</span>}
+    </div>
+  )}
+
+  <p class={accent ? 'mt-3 text-[14px] leading-relaxed' : 'mt-3 text-[14px] leading-relaxed text-fg-2'} style={accent ? 'opacity: 0.9;' : ''}>
+    {body}
+  </p>
+
+  <ul class={dividerClass} role="list">
+    {bullets.map((b) => (
+      <li class="flex items-start gap-2.5">
+        <Checkmark size={14} class={checkClass} />
+        <span>{b}</span>
+      </li>
+    ))}
+  </ul>
+
+  <Button href={ctaHref} variant={accent ? 'primary' : ctaVariant} class="mt-7 justify-center">{ctaLabel}</Button>
+</article>

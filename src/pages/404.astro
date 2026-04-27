@@ -3,18 +3,18 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Button from '../components/ui/Button.astro';
 ---
 
-<PageLayout title="Page not found — Midsphere" noindex>
-  <section class="flex flex-col items-center justify-center py-24 text-center lg:py-48">
-    <div class="mx-auto max-w-xl px-4 sm:px-6">
-      <p class="text-6xl font-bold text-coral">404</p>
-      <h1 class="mt-4 text-4xl font-bold sm:text-5xl">Page not found</h1>
-      <p class="mt-4 text-lg text-dark/70">
-        The page you're looking for doesn't exist or has been moved.
-      </p>
-      <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-        <Button href="/" isPrimary>Back to home</Button>
-        <Button href="/blog" isBordered>Read the blog</Button>
-      </div>
+<PageLayout title="Page not found — Midsphere" description="404 — the page you were looking for is not here." noindex>
+  <section class="flex flex-col items-center justify-center px-5 py-32 text-center">
+    <div class="font-mono text-[12px] uppercase text-fg-3" style="letter-spacing: 0.06em;">404</div>
+    <h1 id="not-found-headline" class="h-display-lg mt-4 max-w-[640px]">
+      This page <span class="hl">isn't here</span>.
+    </h1>
+    <p class="mt-5 max-w-[480px] text-fg-2" style="font-size: 16px; line-height: 1.55;">
+      It may have moved, been renamed, or never existed. The home page is a good place to start.
+    </p>
+    <div class="mt-8 flex justify-center gap-2.5">
+      <Button href="/" variant="primary">Back home</Button>
+      <Button href="/features" variant="secondary">Browse features</Button>
     </div>
   </section>
 </PageLayout>

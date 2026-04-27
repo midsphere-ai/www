@@ -1,0 +1,48 @@
+---
+// Two-column "fit assessment" cards used on every /compare/ page. Each side
+// gets an eyebrow, a small SVG icon (slot), and a checklist. The icons differ
+// per page so they live at the call-site as named slots; the rest is shared.
+import Checkmark from './Checkmark.astro';
+
+interface Props {
+  leftLabel: string;
+  leftItems: string[];
+  rightLabel: string;
+  rightItems: string[];
+  maxWidth?: string;
+}
+
+const { leftLabel, leftItems, rightLabel, rightItems, maxWidth = '1080px' } = Astro.props;
+---
+
+<div class={`mx-auto mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6`} style={`max-width: ${maxWidth};`}>
+  <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+    <div class="mb-4 flex items-center gap-3" aria-hidden="true">
+      <slot name="leftIcon" />
+      <div class="eyebrow">{leftLabel}</div>
+    </div>
+    <ul class="mt-2 flex flex-col gap-4" role="list">
+      {leftItems.map((point) => (
+        <li class="flex items-start gap-3 text-fg-1" style="font-size: 15px; line-height: 1.55;">
+          <Checkmark />
+          <span>{point}</span>
+        </li>
+      ))}
+    </ul>
+  </article>
+
+  <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+    <div class="mb-4 flex items-center gap-3" aria-hidden="true">
+      <slot name="rightIcon" />
+      <div class="eyebrow">{rightLabel}</div>
+    </div>
+    <ul class="mt-2 flex flex-col gap-4" role="list">
+      {rightItems.map((point) => (
+        <li class="flex items-start gap-3 text-fg-1" style="font-size: 15px; line-height: 1.55;">
+          <Checkmark />
+          <span>{point}</span>
+        </li>
+      ))}
+    </ul>
+  </article>
+</div>

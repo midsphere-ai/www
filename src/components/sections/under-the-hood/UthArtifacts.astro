@@ -1,0 +1,44 @@
+---
+import CodeBlock from '../../ui/CodeBlock.astro';
+
+const artifactsCode = `result = agent.run("Research Q3 SaaS pricing; deliver brief + slides")
+
+for artifact in result.artifacts():
+  artifact.download_to("./output/")`;
+---
+
+<section id="artifacts" class="section">
+  <div class="container-x">
+    <div class="grid grid-cols-1 items-start gap-10 md:grid-cols-[220px_1fr] md:gap-14">
+      <div class="hidden md:flex md:items-center md:justify-center" aria-hidden="true">
+        <svg viewBox="0 0 220 180" width="180" height="146" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 138 L 206 134 L 200 170 L 18 174 Z"/>
+          <path d="M14 138 L 18 124 L 202 120 L 206 134" stroke-width="1.4"/>
+          <path d="M30 60 L 76 56 L 80 130 L 32 134 Z"/>
+          <path d="M40 76 L 70 74 M 40 86 L 72 84 M 40 96 L 66 94 M 40 106 L 70 104" stroke-width="1.2"/>
+          <path d="M92 48 L 138 44 L 142 126 L 94 130 Z"/>
+          <path d="M132 48 L 132 56 L 142 56" stroke-width="1.2"/>
+          <path d="M104 76 L 110 80 L 104 84 M 122 74 L 128 78 L 122 82" stroke-width="1.4"/>
+          <path d="M104 100 L 130 98" stroke-width="1.2"/>
+          <path d="M154 64 L 198 60 L 202 122 L 158 126 Z"/>
+          <path d="M164 110 L 164 88 M 174 110 L 174 78 M 184 110 L 184 96 M 194 110 L 194 84" stroke-width="1.4"/>
+          <path d="M162 110 L 196 108" stroke-width="1.2"/>
+        </svg>
+      </div>
+
+      <div>
+        <div class="eyebrow">artifacts</div>
+        <h2 id="artifacts-headline" class="h-section mt-3 max-w-[520px]">
+          Runs make things. The things <span class="hl-soft">stick around</span>.
+        </h2>
+        <p class="mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+          Reports, generated code, datasets, slides — anything the run produced lives on after the sandbox shuts down. <code class="font-mono text-fg-1" style="font-size: 0.92em;">run.artifacts()</code> hands them back. Download, stream, or pass them through to your users.
+        </p>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-8 max-w-[680px]">
+      <CodeBlock code={artifactsCode} />
+    </div>
+  </div>
+</section>

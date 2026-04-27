@@ -1,0 +1,39 @@
+---
+// Hand-drawn deployment-scale slider for the Scale section. Pentagon handle
+// sits near the right end ("user 1,000,000+") because the section's claim is
+// that you can drag the runtime anywhere on this track without changing the
+// code in your editor.
+---
+
+<figure class="mx-auto mt-16 max-w-[760px]" role="group" aria-labelledby="scale-slider-caption">
+  <div class="eyebrow text-center" id="scale-slider-eyebrow">deployment scale</div>
+
+  <div class="relative mt-4">
+    <svg viewBox="0 0 600 70" width="100%" preserveAspectRatio="xMidYMid meet" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 40 L 22 35 M 14 40 L 22 45"/>
+      <path d="M586 40 L 578 35 M 586 40 L 578 45"/>
+      <path d="M28 40 C 100 38, 200 41, 300 40 S 500 40, 572 40"/>
+      <path d="M52 30 L 52 50"/>
+      <path d="M548 30 L 548 50"/>
+      <path d="M180 34 L 180 46"/>
+      <path d="M306 34 L 306 46"/>
+      <path d="M432 34 L 432 46"/>
+      <path d="M538 18 L 558 18 L 558 54 L 548 64 L 538 54 Z"/>
+      <path d="M542 26 L 554 26 M 542 34 L 554 34 M 542 42 L 554 42 M 542 50 L 554 50" stroke-width="1.2"/>
+      <path d="M548 4 L 548 14 M 544 10 L 548 14 L 552 10"/>
+    </svg>
+
+    <div class="relative mt-1 font-mono" style="font-size: 11px; height: 18px; color: var(--ms-fg-2); letter-spacing: 0.04em;">
+      <span class="absolute" style="left: 8.7%; top: 0; transform: translateX(-50%);">user 1</span>
+      <span class="absolute" style="left: 91.3%; top: 0; transform: translateX(-50%);">user 1,000,000+</span>
+    </div>
+  </div>
+
+  <figcaption
+    id="scale-slider-caption"
+    class="mx-auto mt-7 max-w-[600px] text-center font-medium text-fg-1"
+    style="font-size: 18px; line-height: 1.4; text-wrap: balance;"
+  >
+    You move that handle. <span class="hl">The code stays put.</span>
+  </figcaption>
+</figure>

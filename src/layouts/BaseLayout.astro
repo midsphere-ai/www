@@ -19,7 +19,7 @@ interface Props {
 
 const {
   title,
-  description = 'An AI agent that handles any task from a prompt. Build full apps with databases, research topics deeply, create media, or automate workflows across 500+ platforms.',
+  description = 'Ship the AI feature you sketched on Monday. Internal copilots, batch report generators, voice transcribers, agent workflows.',
   ogImage,
   canonicalURL,
   ogType,
@@ -40,7 +40,8 @@ const {
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#da755b" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <link rel="preload" href="/fonts/google-sans-flex-latin.woff2" as="font" type="font/woff2" crossorigin />
     <SEOHead
       title={title}
       description={description}
@@ -56,60 +57,95 @@ const {
     />
     <slot name="head" />
   </head>
-  <body>
-    <script is:inline>
-      (function() {
-        const stored = localStorage.getItem('theme');
-        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        const theme = stored || preferred;
-        document.documentElement.setAttribute('data-theme', theme);
-        if (theme === 'dark') document.documentElement.classList.add('dark');
-      })();
-    </script>
+  <body class="page-fade">
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <slot />
-    <script is:inline>
-      (function() {
-        function updateIcons(theme) {
-          document.querySelectorAll('.theme-icon-sun').forEach(function(el) {
-            el.classList.toggle('hidden', theme !== 'dark');
-          });
-          document.querySelectorAll('.theme-icon-moon').forEach(function(el) {
-            el.classList.toggle('hidden', theme !== 'light');
-          });
-          document.querySelectorAll('.theme-label').forEach(function(el) {
-            el.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
-          });
-        }
-        function toggleTheme() {
-          var current = document.documentElement.getAttribute('data-theme');
-          var next = current === 'dark' ? 'light' : 'dark';
-          document.documentElement.setAttribute('data-theme', next);
-          document.documentElement.classList.toggle('dark', next === 'dark');
-          localStorage.setItem('theme', next);
-          updateIcons(next);
-        }
-        var initial = document.documentElement.getAttribute('data-theme') || 'light';
-        updateIcons(initial);
-        document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
-        document.querySelectorAll('.theme-toggle-mobile').forEach(function(el) {
-          el.addEventListener('click', toggleTheme);
-        });
-      })();
-    </script>
-    <script is:inline>
-      (function() {
-        var observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
+
+    {/* Analytics bootstrap — Sentry + PostHog. Lazy-loaded on idle, never blocks
+        first paint. When env vars are unset at build time, Vite tree-shakes the
+        SDK imports entirely — zero bytes ship until `.env` is provided. */}
+    <script>
+      const dnt =
+        navigator.doNotTrack === '1' ||
+        (window as unknown as { doNotTrack?: string }).doNotTrack === '1';
+
+      const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN as string | undefined;
+      const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY as string | undefined;
+      const posthogHost = (import.meta.env.PUBLIC_POSTHOG_HOST as string | undefined) ?? 'https://us.i.posthog.com';
+      const buildSha = import.meta.env.PUBLIC_BUILD_SHA as string | undefined;
+      const isProd = import.meta.env.PROD;
+
+      if (!dnt && (sentryDsn || posthogKey)) {
+        const init = async () => {
+          if (sentryDsn) {
+            try {
+              const Sentry = await import('@sentry/browser');
+              Sentry.init({
+                dsn: sentryDsn,
+                release: buildSha || undefined,
+                environment: isProd ? 'production' : 'development',
+                tracesSampleRate: isProd ? 0.1 : 1.0,
+                beforeSend(event) {
+                  // strip likely-PII before send
+                  if (event.request?.cookies) delete event.request.cookies;
+                  if (event.user) {
+                    delete event.user.email;
+                    delete event.user.ip_address;
+                  }
+                  return event;
+                },
+              });
+            } catch {
+              /* analytics is non-blocking; never break the page */
             }
-          });
-        }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('[data-animate]').forEach(function(el) {
-          observer.observe(el);
-        });
-      })();
+          }
+
+          if (posthogKey) {
+            try {
+              const { default: posthog } = await import('posthog-js');
+              // Memory persistence: nothing written to cookies or localStorage,
+              // so no consent banner is required for this marketing surface.
+              // Trade-off: visits don't dedupe across reloads. If/when an
+              // authed product surface lands here, swap to localStorage+cookie
+              // behind an explicit consent gate.
+              posthog.init(posthogKey, {
+                api_host: posthogHost,
+                persistence: 'memory',
+                capture_pageview: true,
+                capture_pageleave: true,
+              });
+
+              // LLM-referrer capture — discovery channel attribution.
+              try {
+                const ref = document.referrer ? new URL(document.referrer).hostname : '';
+                const llmHosts: Record<string, string> = {
+                  'chat.openai.com': 'chatgpt',
+                  'chatgpt.com': 'chatgpt',
+                  'perplexity.ai': 'perplexity',
+                  'www.perplexity.ai': 'perplexity',
+                  'claude.ai': 'claude',
+                  'gemini.google.com': 'gemini',
+                };
+                const source = llmHosts[ref];
+                if (source) posthog.capture('llm_referral', { source, referrer: ref });
+              } catch {
+                /* referrer parsing is best-effort */
+              }
+            } catch {
+              /* analytics is non-blocking; never break the page */
+            }
+          }
+        };
+
+        const ric = (window as unknown as {
+          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
+        }).requestIdleCallback;
+        if (ric) {
+          ric(() => void init(), { timeout: 3000 });
+        } else {
+          window.addEventListener('load', () => setTimeout(() => void init(), 1500), { once: true });
+        }
+      }
     </script>
   </body>
 </html>

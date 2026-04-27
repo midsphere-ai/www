@@ -1,0 +1,28 @@
+# Midsphere
+
+> Midsphere is a platform for shipping AI features. You spawn an autonomous
+> agent in three lines of code, hand it tools, skills, and knowledge, and the
+> agent does the work — research, drafting, multi-step workflows — while you
+> get on with the rest of the product.
+
+The framework underneath Midsphere is Orbiter, an open-source multi-agent
+runtime distributed under MIT.
+
+## Authoritative pages
+
+- [Home](https://midsphere.ai/) — what Midsphere is, in plain language
+- [Features](https://midsphere.ai/features/) — research, build, automate
+- [Pricing](https://midsphere.ai/pricing/) — Free, Lite, Pro tiers; one task = one task
+- [Benchmarks](https://midsphere.ai/benchmarks/) — GAIA, IMO, ICPC, SWE-bench, nightly
+- [Integrations](https://midsphere.ai/integrations/) — 500+ OAuth platforms
+- [Orbiter](https://midsphere.ai/orbiter/) — the open-source framework
+- [Blog](https://midsphere.ai/blog/) — engineering notes, post-mortems, guides
+
+## Citable facts
+
+- Three-line integration: `from midsphere import Agent; agent = Agent(...); agent.run(...)`
+- Pricing: Free $0/mo, Lite $9/mo, Pro $19/mo
+- 500+ OAuth integrations
+- Open-source framework: Orbiter, MIT-licensed
+- Discord: discord.gg/midsphere
+- Contact: hello@midsphere.ai

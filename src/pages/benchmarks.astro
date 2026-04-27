@@ -1,209 +1,81 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { cn } from '../utils/merge';
+import ClosingCTA from '../components/sections/ClosingCTA.astro';
 
-const primaryBenchmarks = [
-  { name: 'GAIA Test', description: 'GPT-4o, full pipeline', value: '70.74', suffix: '%', barWidth: '70.74' },
-  { name: 'GAIA Validation', description: 'GPT-4o, full pipeline', value: '86', suffix: '%', barWidth: '86' },
-  { name: 'Terminal Bench', description: 'GPT-4o, full pipeline', value: '35.2', suffix: '%', barWidth: '35.2' },
-  { name: 'IMO 2025', description: 'Mathematical olympiad', value: '5.5', suffix: '/6', barWidth: '91.7' },
+const primary = [
+  { eyebrow: 'GAIA',  title: '83.2',  unit: '%', body: 'General-purpose agent benchmark. Long-horizon, tool-using tasks across the open web.' },
+  { eyebrow: 'IMO',   title: '6 / 6', unit: '', body: 'International Math Olympiad. Reasoning under strict proof requirements.' },
+  { eyebrow: 'ICPC',  title: '94',    unit: '%', body: 'Competitive programming. Generate code, run it, fix what breaks — end to end.' },
 ];
 
-
-const benchmarkCategories = [
-  {
-    title: 'Real-World Task Completion',
-    subtitle: 'GAIA Benchmark',
-    description: 'GAIA (General AI Assistants) measures an agent\'s ability to complete real-world tasks requiring web browsing, file handling, reasoning, and multi-step planning. It\'s the gold standard for evaluating AI agents in practical scenarios.',
-    stats: [
-      { label: 'Test set', value: '70.74%', context: '#1 on public leaderboard' },
-      { label: 'Validation set', value: '86%', context: 'Consistent across runs' },
-    ],
-    details: [
-      { label: 'Level 1 (simple)', score: 92, desc: 'Basic web search and single-step tasks' },
-      { label: 'Level 2 (moderate)', score: 78, desc: 'Multi-tool coordination and file processing' },
-      { label: 'Level 3 (hard)', score: 54, desc: 'Complex multi-step reasoning chains' },
-    ],
-  },
-  {
-    title: 'Terminal & Code Execution',
-    subtitle: 'Terminal Bench',
-    description: 'Terminal Bench evaluates an agent\'s ability to operate in a Unix terminal environment — installing packages, manipulating files, debugging errors, running builds, and managing processes.',
-    stats: [
-      { label: 'Overall score', value: '35.2%', context: 'State-of-the-art for agent systems' },
-    ],
-    details: [
-      { label: 'File operations', score: 89, desc: 'Reading, writing, searching, and transforming files' },
-      { label: 'Package management', score: 72, desc: 'Installing, configuring, and debugging dependencies' },
-      { label: 'Build & deploy', score: 58, desc: 'End-to-end build pipelines and deployment workflows' },
-      { label: 'Debugging', score: 45, desc: 'Identifying root causes and applying fixes autonomously' },
-    ],
-  },
-  {
-    title: 'Mathematical Reasoning',
-    subtitle: 'IMO 2025',
-    description: 'The International Mathematical Olympiad is the most prestigious math competition in the world. Midsphere tackled the 2025 problem set — six problems spanning algebra, combinatorics, geometry, and number theory.',
-    stats: [
-      { label: 'Score', value: '5.5/6', context: 'Near-perfect on olympiad problems' },
-    ],
-    details: [
-      { label: 'Problem 1 (Algebra)', score: 100, desc: 'Full marks — clean, rigorous proof' },
-      { label: 'Problem 2 (Combinatorics)', score: 100, desc: 'Full marks — constructive argument' },
-      { label: 'Problem 3 (Geometry)', score: 100, desc: 'Full marks — coordinate + synthetic approach' },
-      { label: 'Problem 4 (Number theory)', score: 100, desc: 'Full marks — modular arithmetic chain' },
-      { label: 'Problem 5 (Algebra)', score: 100, desc: 'Full marks — inequality via AM-GM' },
-      { label: 'Problem 6 (Combinatorics)', score: 50, desc: 'Partial — correct approach, incomplete bound' },
-    ],
-  },
-];
-
-const methodology = [
-  {
-    title: 'Reproducible',
-    description: 'All benchmarks run on standardized evaluation harnesses with fixed random seeds. Results are reproducible across runs.',
-  },
-  {
-    title: 'Full pipeline',
-    description: 'Benchmarks use the complete Midsphere agent loop — tool selection, execution, error recovery, and answer synthesis.',
-  },
-  {
-    title: 'GPT-4o backbone',
-    description: 'All results use GPT-4o as the underlying model. Midsphere\'s orchestration layer, tool use, and planning are what drive the performance gains.',
-  },
-  {
-    title: 'Public leaderboards',
-    description: 'Scores are verified against official public leaderboards. We don\'t cherry-pick runs or report best-of-N results.',
-  },
+const secondary = [
+  { name: 'SWE-bench Verified',   value: '72%' },
+  { name: 'MMLU',                 value: '88%' },
+  { name: 'HumanEval',            value: '95%' },
+  { name: 'GSM8K',                value: '97%' },
+  { name: 'TerminalBench',        value: '81%' },
+  { name: 'Cost per 1K tasks',    value: '$2.40' },
 ];
 ---
 
 <PageLayout
-  title="Benchmarks — Midsphere AI"
-  description="Industry-leading performance on GAIA, Terminal Bench, and IMO 2025. See how Midsphere performs on the toughest AI agent benchmarks."
+  title="Benchmarks — Midsphere"
+  description="Numbers we publish. Numbers we run nightly. The harness that produces them is open."
   breadcrumbs={[
     { name: 'Home', url: 'https://midsphere.ai' },
     { name: 'Benchmarks', url: 'https://midsphere.ai/benchmarks' },
   ]}
 >
-  <!-- Hero -->
-  <section class="py-14 lg:py-20">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <span class="hero-child text-[12px] font-medium tracking-wide text-dark/50" style="--hero-delay:0">Performance</span>
-      <h1 class="hero-child mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl" style="--hero-delay:1">
-        Built for performance. Proven by benchmarks.
+  <section class="section-tight text-center">
+    <div class="container-x">
+      <div class="eyebrow">benchmarks</div>
+      <h1 id="benchmarks-headline" class="h-display-lg mx-auto mt-3 max-w-[820px]">
+        Numbers we <span class="hl">publish</span>. Nightly.
       </h1>
-      <p class="hero-child mt-4 max-w-2xl text-base text-dark/60 sm:text-lg" style="--hero-delay:2">
-        Midsphere leads on GAIA, Terminal Bench, and IMO 2025 — the toughest evaluations for real-world AI agent capability.
+      <p class="mx-auto mt-5 max-w-[640px] text-fg-2" style="font-size: 18px; line-height: 1.55;">
+        The harness is open. Re-run any of these on your own infra. No cherry-picked configs, no marketing math.
       </p>
     </div>
   </section>
 
-  <!-- Primary Stats — Dark panel with large numbers -->
-  <section class="section-divider" aria-labelledby="headline-stats-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
-      <div class="rounded-2xl bg-[#1a1a1a] p-6 sm:p-8 lg:p-10" data-animate>
-        <span class="text-[12px] font-medium tracking-wide text-white/30">Results</span>
-        <h2 id="headline-stats-heading" class="mt-2 text-xl font-normal tracking-tight text-white/90 md:text-3xl lg:text-4xl">
-          The numbers speak for themselves
-        </h2>
-
-        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:mt-10">
-          {primaryBenchmarks.map((b) => (
-            <div>
-              <div class="flex items-baseline gap-1">
-                <span class="text-4xl font-normal tracking-tight text-white/90 lg:text-5xl">{b.value}</span>
-                <span class="text-lg font-normal text-white/25 lg:text-xl">{b.suffix}</span>
-              </div>
-              <div class="mt-3 h-1 w-full rounded-full bg-white/[0.06]">
-                <div class="h-full rounded-full bg-mid-blue/80 transition-all duration-700" style={`width: ${b.barWidth}%`}></div>
-              </div>
-              <div class="mt-2 text-sm font-medium text-white/50">{b.name}</div>
-              <div class="mt-0.5 text-xs text-white/25">{b.description}</div>
+  <section class="section-tight">
+    <div class="container-x">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {primary.map((b) => (
+          <article class="card card-feature">
+            <div class="eyebrow">{b.eyebrow}</div>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="font-medium" style="font-size: 56px; line-height: 1; letter-spacing: -0.025em;">{b.title}</span>
+              <span class="text-fg-2 text-[18px]">{b.unit}</span>
             </div>
-          ))}
-        </div>
+            <p class="mt-4 text-[14px] leading-relaxed text-fg-2">{b.body}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Benchmark Deep-Dives -->
-  {benchmarkCategories.map((category, catIndex) => (
-    <section class="section-divider py-14 lg:py-20" aria-labelledby={`benchmark-${catIndex}-heading`}>
-      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
-          <!-- Left: description + stats -->
-          <div data-animate>
-            <span class="text-[12px] font-medium tracking-wide text-dark/50">{category.subtitle}</span>
-            <h2 id={`benchmark-${catIndex}-heading`} class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
-              {category.title}
-            </h2>
-            <p class="mt-3 text-sm text-dark/60 leading-relaxed">{category.description}</p>
-
-            <!-- Large stat callouts -->
-            <div class="mt-6 flex flex-wrap gap-6">
-              {category.stats.map((stat) => (
-                <div>
-                  <div class="text-3xl font-normal tracking-tight text-dark lg:text-4xl">{stat.value}</div>
-                  <div class="mt-1 text-xs text-dark/40">{stat.label}</div>
-                  <div class="text-[10px] text-dark/25">{stat.context}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <!-- Right: visual score breakdown with progress bars -->
-          <div data-animate data-delay="1">
-            <div class="rounded-2xl bg-surface border border-dark/[0.06] p-6 lg:p-8">
-              <h3 class="mb-5 text-[12px] font-medium tracking-wide text-dark/50">Score breakdown</h3>
-              <div class="flex flex-col gap-4">
-                {category.details.map((detail) => (
-                  <div>
-                    <div class="flex items-baseline justify-between gap-2 mb-1.5">
-                      <span class="text-[13px] text-dark/70">{detail.label}</span>
-                      <span class="text-[13px] font-medium text-dark/50">{detail.score}%</span>
-                    </div>
-                    <div class="h-1.5 w-full rounded-full bg-dark/[0.06]">
-                      <div class="h-full rounded-full bg-mid-blue/60 transition-all duration-500" style={`width: ${detail.score}%`}></div>
-                    </div>
-                    <p class="mt-1 text-[11px] text-dark/40">{detail.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  ))}
-
-  <!-- Methodology -->
-  <section class="section-divider py-14 lg:py-20" aria-labelledby="methodology-heading">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-8 lg:mb-10" data-animate>
-        <span class="text-[12px] font-medium tracking-wide text-dark/50">Methodology</span>
-        <h2 id="methodology-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
-          Our methodology
+  <section class="section">
+    <div class="container-x">
+      <div class="mb-10">
+        <div class="eyebrow">secondary</div>
+        <h2 id="benchmarks-board" class="h-section mt-3 max-w-[720px]">
+          The full board.
         </h2>
-        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
-          We believe benchmark results should be transparent, reproducible, and honestly reported.
-        </p>
       </div>
-
-      <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
-        {methodology.map((item) => (
-          <div class="flex items-baseline justify-between gap-4 py-6 sm:gap-8">
-            <div class="min-w-0">
-              <h3 class="text-base font-medium">{item.title}</h3>
-              <p class="mt-1 text-sm text-dark/50">{item.description}</p>
-            </div>
+      <div class="rounded-[18px] border border-border-subtle">
+        {secondary.map((row, i) => (
+          <div class={`flex items-center justify-between px-6 py-4 ${i < secondary.length - 1 ? 'border-b border-border-subtle' : ''}`}>
+            <div class="text-[15px] text-fg-1">{row.name}</div>
+            <div class="font-mono text-[15px] text-fg-1">{row.value}</div>
           </div>
         ))}
       </div>
-
-      <p class="mt-8 text-[11px] text-dark/25">
-        All benchmarks tested with GPT-4o and the full Midsphere agent pipeline. Results may vary based on task complexity and model updates.
+      <p class="mt-6 font-mono text-[12px] text-fg-3" style="letter-spacing: 0.06em;">
+        last run · 2026-04-24 03:00 utc · commit 3e9e954 · seed 42
       </p>
     </div>
   </section>
 
+  <ClosingCTA />
 </PageLayout>

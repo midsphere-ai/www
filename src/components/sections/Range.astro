@@ -1,0 +1,129 @@
+---
+// Six product examples climbing from trivial to ambitious.
+// Each row pairs a doodle, plain-language description, and a
+// "you plug in / they get" recipe so the connection stays concrete.
+import RangeDoodle from '../ui/RangeDoodle.astro';
+
+type RangeExample = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  plugIn: string;
+  getOut: string;
+  doodleKind: 'notebook' | 'piggy' | 'moon' | 'ticket' | 'people' | 'house';
+};
+
+const rangeExamples: RangeExample[] = [
+  {
+    id: 'note-taking',
+    eyebrow: 'note-taking',
+    title: 'Ask my notes anything.',
+    body: "Hand the agent the user's notebook. They ask questions. It answers from what they've actually written — not what some model guessed.",
+    plugIn: "the user's notebook",
+    getOut: 'answers grounded in what they wrote',
+    doodleKind: 'notebook',
+  },
+  {
+    id: 'finance',
+    eyebrow: 'finance',
+    title: 'Weekly money review.',
+    body: "Connect the user's transactions. Drop in one file describing how your product talks about spending. Sunday morning, they get a breakdown that sounds like you.",
+    plugIn: 'their transactions + your house style',
+    getOut: 'a Sunday-morning review that sounds like you',
+    doodleKind: 'piggy',
+  },
+  {
+    id: 'research',
+    eyebrow: 'research',
+    title: 'Topic in. Report out.',
+    body: "Users describe a topic before bed. By morning, it's searched the web, read sources you trust, and written the report in the format your product is known for.",
+    plugIn: 'a topic + the sources you trust',
+    getOut: 'a report by morning, in your format',
+    doodleKind: 'moon',
+  },
+  {
+    id: 'support',
+    eyebrow: 'support',
+    title: 'Drafts the reply. Waits for you.',
+    body: "Hand it the ticket history, the runbook, and access to your logs. It investigates, drafts the response in your company's voice, and waits for a human before sending.",
+    plugIn: 'ticket history, your runbook, your logs',
+    getOut: 'a draft in your voice — a human signs off',
+    doodleKind: 'ticket',
+  },
+  {
+    id: 'multi-tenant',
+    eyebrow: 'multi-tenant',
+    title: 'Their data. Their memory. Their agent.',
+    body: "Every customer gets their own agent. Their data. Their connected apps. Their memory. You didn't build a multi-tenant agent system. You added one parameter.",
+    plugIn: 'per-user data + their connected apps',
+    getOut: 'one agent per customer — their world stays theirs',
+    doodleKind: 'people',
+  },
+  {
+    id: 'real-estate',
+    eyebrow: 'real estate',
+    title: 'Find. Tour. Offer.',
+    body: "A user says: find me three places under $X near a good school, book the tours, draft an offer on the top one. By dinner they've got tour times on their calendar and a draft offer waiting. The agent didn't sign anything without checking first.",
+    plugIn: 'the goal + listings, schools, your calendar',
+    getOut: 'tours booked, an offer drafted — asks before anything irreversible',
+    doodleKind: 'house',
+  },
+];
+---
+
+<section id="examples" class="section border-t border-border-subtle">
+  <div class="container-x">
+    <div class="mb-12 text-center">
+      <div class="eyebrow">examples</div>
+      <h2 id="examples-headline" class="h-section mx-auto mt-3 max-w-[760px]">
+        Same agent. <span class="hl-soft">Different job each time.</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-[640px] text-fg-2" style="font-size: 17px; line-height: 1.55;">
+        Six examples to make the shape concrete. The same wiring carries whatever you build next — the ones below are starting points, not the ceiling.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-5">
+      {rangeExamples.map((ex) => (
+        <article
+          id={`example-${ex.id}`}
+          class="card grid grid-cols-1 items-start gap-6 lg:grid-cols-[100px_minmax(0,1fr)_minmax(0,360px)] lg:gap-8"
+          style="padding: 28px 32px;"
+        >
+          <div class="flex justify-start lg:justify-center">
+            <RangeDoodle kind={ex.doodleKind} />
+          </div>
+
+          <div class="min-w-0">
+            <div class="eyebrow">{ex.eyebrow}</div>
+            <h3
+              id={`example-${ex.id}-title`}
+              class="mt-2 font-medium text-fg-1"
+              style="font-size: 22px; line-height: 1.25; letter-spacing: -0.015em;"
+            >
+              {ex.title}
+            </h3>
+            <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.6;">
+              {ex.body}
+            </p>
+          </div>
+
+          <div class="rounded-[12px] bg-sunken p-5">
+            <div class="font-mono text-[11px] uppercase" style="color: var(--ms-fg-2); letter-spacing: 0.08em;">what you connect</div>
+            <p class="mt-1.5 text-fg-1" style="font-size: 14px; line-height: 1.5;">{ex.plugIn}</p>
+            <div class="mt-4 font-mono text-[11px] uppercase" style="color: var(--ms-fg-2); letter-spacing: 0.08em;">what your user gets</div>
+            <p class="mt-1.5 font-medium text-fg-1" style="font-size: 14px; line-height: 1.5;">{ex.getOut}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p
+      class="mx-auto mt-14 max-w-[820px] text-center font-medium text-fg-1"
+      style="font-size: clamp(22px, 2.4vw, 28px); line-height: 1.3; letter-spacing: -0.02em; text-wrap: balance;"
+    >
+      Whatever you can describe — and connect — <span class="hl">you can ship</span>.
+    </p>
+  </div>
+</section>

@@ -1,59 +1,31 @@
 ---
-import ComposerLayout from '../layouts/ComposerLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/global/Navbar.astro';
-import ComposerStore from '../components/composer/ComposerStore.astro';
-import TypewriterGreeting from '../components/composer/TypewriterGreeting.astro';
-import DesktopComposer from '../components/composer/DesktopComposer.astro';
-import MobileComposer from '../components/composer/MobileComposer.astro';
-import TemplateCarousel from '../components/composer/TemplateCarousel.astro';
-import ExamplePrompts from '../components/composer/ExamplePrompts.astro';
-import DragDropOverlay from '../components/composer/DragDropOverlay.astro';
 import Footer from '../components/global/Footer.astro';
-import FeatureShowcase from '../components/sections/FeatureShowcase.astro';
+import Hero from '../components/sections/Hero.astro';
+import Premise from '../components/sections/Premise.astro';
+import BringYourOwn from '../components/sections/BringYourOwn.astro';
+import Range from '../components/sections/Range.astro';
+import Scale from '../components/sections/Scale.astro';
 import Pricing from '../components/sections/Pricing.astro';
-import FAQ from '../components/sections/FAQ.astro';
+import DayInLife from '../components/sections/DayInLife.astro';
+import ClosingCTA from '../components/sections/ClosingCTA.astro';
 ---
 
-<ComposerLayout
-  title="Midsphere — Your autonomous AI companion for everything"
-  description="An AI agent that handles any task from a prompt. Build full apps with databases, research topics deeply, create media, or automate workflows across 500+ platforms."
+<BaseLayout
+  title="Midsphere — ship the AI feature you sketched this morning"
+  description="Spawn autonomous agents in three lines of code. The agent you'd spend three months building, ready by afternoon."
 >
-  <!-- State store (must be first) -->
-  <ComposerStore />
-
-  <!-- First screen: navbar + composer fill exactly one viewport -->
-  <div class="flex h-dvh flex-col">
-    <Navbar />
-
-    <!-- Centered content -->
-    <div class="flex flex-1 flex-col items-center justify-center gap-6 px-4">
-      <span class="inline-flex items-center gap-1.5 rounded-full border border-coral/20 bg-coral/5 px-3 py-1 text-[11px] font-medium tracking-wide text-coral">
-        <span class="h-1.5 w-1.5 rounded-full bg-coral animate-pulse" aria-hidden="true"></span>
-        Early access
-      </span>
-      <TypewriterGreeting />
-      <DesktopComposer />
-      <TemplateCarousel class="mt-2 hidden lg:flex" />
-      <ExamplePrompts class="hidden lg:flex" />
-    </div>
-
-    <!-- Mobile: extra bottom padding to clear fixed composer -->
-    <div class="h-56 lg:hidden"></div>
-
-    <!-- Mobile composer -->
-    <MobileComposer />
-  </div>
-
-  <!-- Feature showcase carousel -->
-  <FeatureShowcase />
-
-  <!-- Pricing & FAQ -->
-  <Pricing />
-  <FAQ />
-
-  <!-- Footer revealed on scroll -->
+  <Navbar />
+  <main id="main-content">
+    <Hero />
+    <Premise />
+    <BringYourOwn />
+    <Range />
+    <Scale />
+    <Pricing />
+    <DayInLife />
+    <ClosingCTA />
+  </main>
   <Footer />
-
-  <!-- Overlays -->
-  <DragDropOverlay />
-</ComposerLayout>
+</BaseLayout>

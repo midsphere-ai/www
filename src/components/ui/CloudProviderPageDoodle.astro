@@ -1,0 +1,77 @@
+---
+// One-off illustrations for /compare/cloud-providers — none reused, but each
+// one is over the inline-SVG threshold (~12 lines). Grouping them here keeps
+// the page itself focused on copy and structure.
+type Kind = 'crates' | 'horizon' | 'tower' | 'lightbulb';
+
+interface Props {
+  kind: Kind;
+}
+
+const { kind } = Astro.props;
+---
+
+{kind === 'crates' && (
+  <svg viewBox="0 0 160 140" width="170" height="150" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M10 96 L 70 92 L 72 130 L 12 134 Z"/>
+    <path d="M28 95 L 30 132 M 50 93 L 52 131" stroke-width="1.2"/>
+    <path d="M76 88 L 142 86 L 144 126 L 78 130 Z"/>
+    <path d="M98 87 L 100 128 M 120 86 L 122 127" stroke-width="1.2"/>
+    <path d="M40 50 L 110 46 L 112 84 L 42 88 Z"/>
+    <path d="M62 48 L 64 86 M 88 47 L 90 85" stroke-width="1.2"/>
+    <path d="M62 14 L 116 12 L 118 44 L 64 46 Z"/>
+    <path d="M82 13 L 84 45 M 100 12 L 102 44" stroke-width="1.2"/>
+  </svg>
+)}
+
+{kind === 'horizon' && (
+  <svg viewBox="0 0 360 240" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="max-width: 360px;" aria-hidden="true">
+    <rect x="138" y="38" width="78" height="50" rx="4"/>
+    <path d="M148 52 L 192 50 M 148 62 L 200 60 M 148 72 L 184 70" stroke-width="1.2"/>
+    <path d="M226 64 L 234 72 L 250 56" stroke-width="1.6"/>
+    <path d="M14 124 L 346 124" stroke-dasharray="4 5"/>
+    <rect x="32" y="160" width="50" height="38" rx="3" transform="rotate(-3 57 179)"/>
+    <circle cx="42" cy="172" r="1.6" fill="#111"/>
+    <circle cx="50" cy="172" r="1.6" fill="#111"/>
+    <path d="M40 184 L 78 182 M 40 192 L 70 190" stroke-width="1.2"/>
+    <path d="M88 164 L 138 158 L 142 198 L 92 204 Z" style="opacity: 0.55;"/>
+    <path d="M84 170 L 134 164 L 138 204 L 88 210 Z" style="opacity: 0.8;"/>
+    <path d="M80 176 L 130 170 L 134 210 L 84 216 Z"/>
+    <path d="M92 184 L 124 180 M 92 194 L 124 190 M 92 204 L 118 200" stroke-width="1.2"/>
+    <circle cx="180" cy="184" r="22"/>
+    <path d="M180 168 L 180 184 L 192 190" stroke-width="1.4"/>
+    <circle cx="180" cy="184" r="1.6" fill="#111"/>
+    <path d="M222 198 C 232 168, 256 196, 270 168 C 282 144, 304 196, 318 168"/>
+    <path d="M222 184 C 236 162, 256 184, 280 158 C 300 138, 320 168, 332 152"/>
+    <rect x="230" y="200" width="22" height="14" rx="2"/>
+    <rect x="258" y="208" width="24" height="14" rx="2"/>
+    <rect x="290" y="200" width="22" height="14" rx="2"/>
+    <path d="M324 210 L 334 220 M 322 214 C 318 218, 320 224, 326 226 C 332 228, 338 222, 336 216 L 334 220" stroke-width="1.2"/>
+  </svg>
+)}
+
+{kind === 'tower' && (
+  <svg viewBox="0 0 90 110" width="90" height="110" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M16 106 L 16 28 L 44 10 L 72 28 L 72 106 Z"/>
+    <path d="M16 40 L 72 40 M 16 56 L 72 56 M 16 72 L 72 72 M 16 88 L 72 88" stroke-width="1.2"/>
+    <rect x="22" y="44" width="6" height="6"/>
+    <rect x="36" y="44" width="6" height="6"/>
+    <rect x="52" y="44" width="6" height="6"/>
+    <rect x="22" y="60" width="6" height="6"/>
+    <rect x="36" y="60" width="6" height="6"/>
+    <rect x="52" y="60" width="6" height="6"/>
+    <rect x="22" y="76" width="6" height="6"/>
+    <rect x="36" y="76" width="6" height="6"/>
+    <rect x="52" y="76" width="6" height="6"/>
+    <path d="M36 106 L 36 92 L 52 92 L 52 106"/>
+  </svg>
+)}
+
+{kind === 'lightbulb' && (
+  <svg viewBox="0 0 90 110" width="90" height="110" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M32 78 C 18 70, 18 38, 34 30 C 46 24, 56 24, 64 30 C 80 38, 80 70, 66 78"/>
+    <path d="M34 80 L 64 80 M 36 86 L 62 86 M 40 92 L 58 92"/>
+    <path d="M44 56 C 46 62, 52 62, 54 56 C 56 50, 52 50, 50 54" stroke-width="1.2"/>
+    <path d="M14 16 L 22 22 M 84 16 L 76 22 M 6 50 L 14 50 M 84 50 L 92 50 M 14 84 L 22 80 M 84 84 L 76 80" stroke-width="1.2"/>
+  </svg>
+)}

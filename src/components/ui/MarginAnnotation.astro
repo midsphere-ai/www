@@ -1,0 +1,61 @@
+---
+// Hand-drawn margin annotation: curved arrow + mono caption. Used to drop
+// copyeditor-style notes alongside hero / receipt / code blocks. Hidden under
+// `lg` by default since these annotations sit absolutely-positioned outside
+// the main column and would overflow on tighter screens.
+interface Props {
+  text: string;
+  position: 'left' | 'right';
+  tilt?: number;
+  topOffset?: string;
+  width?: string;
+  visibilityClass?: string;
+}
+
+const {
+  text,
+  position,
+  tilt = position === 'left' ? 2 : -2,
+  topOffset = '22px',
+  width = position === 'left' ? '172px' : '168px',
+  visibilityClass = 'hidden lg:block',
+} = Astro.props;
+
+const positionStyle = position === 'left'
+  ? `right: calc(100% + 28px);`
+  : `left: calc(100% + 28px);`;
+
+const align = position === 'left' ? 'right' : 'left';
+const svgMarginStyle = position === 'left' ? 'display: block; margin-left: auto;' : 'display: block;';
+const arrowPath = position === 'left'
+  ? 'M14 6 C 42 12, 76 18, 108 36'
+  : 'M108 8 C 80 14, 46 22, 14 42';
+const arrowHead = position === 'left'
+  ? 'M99 30 L 108 36 L 102 42'
+  : 'M22 36 L 14 42 L 26 46';
+const svgHeight = position === 'left' ? 46 : 52;
+---
+
+<div
+  class={visibilityClass}
+  aria-hidden="true"
+  style={`position: absolute; top: ${topOffset}; ${positionStyle} width: ${width}; transform: rotate(${tilt}deg);`}
+>
+  <svg
+    width="124"
+    height={svgHeight}
+    viewBox={`0 0 124 ${svgHeight}`}
+    fill="none"
+    stroke="#111"
+    stroke-width="1.4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    style={svgMarginStyle}
+  >
+    <path d={arrowPath}/>
+    <path d={arrowHead}/>
+  </svg>
+  <p class="font-mono mt-1" style={`font-size: 12px; line-height: 1.45; color: var(--ms-fg-2); text-align: ${align};`}>
+    {text}
+  </p>
+</div>

@@ -1,111 +1,91 @@
 ---
-import { cn } from '../../utils/merge';
-import WaitlistForm from '../ui/WaitlistForm.astro';
+import Button from '../ui/Button.astro';
+import CodeBlock from '../ui/CodeBlock.astro';
+import PencilDoodle from '../ui/PencilDoodle.astro';
+import MarginAnnotation from '../ui/MarginAnnotation.astro';
 
-interface Props {
-  class?: string;
-}
+const heroCode = `from midsphere import Agent
 
-const { class: className } = Astro.props;
+agent = Agent(tools=user.connected_apps, knowledge=user.history)
+agent.run("Plan the user's day from their inbox")`;
 ---
 
-<section id="hero" class={cn('relative flex flex-col items-center gap-4 py-10 text-center lg:gap-8 lg:py-20 overflow-hidden', className)} aria-labelledby="hero-heading">
-  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-    <h1 id="hero-heading" class="hero-child font-junicode text-4xl font-semibold leading-[0.9] text-dark md:text-6xl lg:text-7xl" style="--hero-delay: 0;">
-      Your autonomous AI <b class="italic text-coral">companion</b> for everything.
-    </h1>
-    <p class="hero-child mx-auto mt-4 max-w-2xl text-lg text-dark/70 md:mt-6 md:text-xl" style="--hero-delay: 1;">
-      An AI agent that handles any task from a prompt. Build full apps with databases, research topics deeply, create media, or automate workflows across 500+ platforms.
-    </p>
-    <div class="hero-child mt-6 w-full" style="--hero-delay: 2;">
-      <WaitlistForm />
+<section id="hero" class="pt-12 pb-16 text-center lg:pt-16 lg:pb-20">
+  <div class="container-x">
+    <div class="mx-auto flex justify-center doodle-float" aria-hidden="true">
+      <PencilDoodle width={150} />
     </div>
-  </div>
 
-  <!-- Product demo mockup -->
-  <div class="hero-child relative mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8" style="--hero-delay: 3;">
-    <div class="relative rounded-2xl overflow-hidden shadow-2xl hero-mockup-bg">
-      <div class="relative p-4 sm:p-8 lg:p-12">
-        <div class="rounded-xl bg-dark/95 backdrop-blur-sm text-paper shadow-xl overflow-hidden border border-paper/10">
-          <!-- Window chrome -->
-          <div class="flex items-center gap-2 border-b border-paper/10 px-4 py-3">
-            <div class="flex gap-1.5">
-              <div class="h-3 w-3 rounded-full bg-paper/20"></div>
-              <div class="h-3 w-3 rounded-full bg-paper/20"></div>
-              <div class="h-3 w-3 rounded-full bg-paper/20"></div>
-            </div>
-            <div class="ml-3 flex-1 rounded-md bg-paper/10 px-3 py-1 text-xs text-paper/40">platform.midsphere.ai</div>
-          </div>
-          <!-- App body with sidebar -->
-          <div class="flex" style="min-height: 280px;">
-        <!-- Sidebar -->
-        <div class="hidden sm:flex w-12 shrink-0 flex-col items-center gap-3 border-r border-paper/10 py-4 bg-paper/[0.03]">
-          <div class="w-7 h-7 rounded-lg bg-coral/80 flex items-center justify-center" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <div class="w-7 h-7 rounded-lg bg-paper/10 flex items-center justify-center text-paper/40" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-          </div>
-          <div class="w-7 h-7 rounded-lg bg-paper/10 flex items-center justify-center text-paper/40" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/></svg>
-          </div>
-          <div class="w-7 h-7 rounded-lg bg-paper/10 flex items-center justify-center text-paper/40" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-          </div>
-          <div class="mt-auto w-7 h-7 rounded-lg bg-paper/10 flex items-center justify-center text-paper/40" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/></svg>
-          </div>
-        </div>
-        <!-- Main chat area -->
-        <div class="flex-1 flex flex-col min-w-0">
-          <!-- Chat UI -->
-          <div class="flex-1 flex flex-col gap-4 p-5 sm:p-6">
-            <!-- User message -->
-            <div class="flex justify-end">
-              <div class="max-w-[80%] rounded-2xl rounded-tr-sm bg-coral/90 px-4 py-2.5 text-sm text-paper">
-                Build me a SaaS dashboard with user auth, Stripe billing, and a PostgreSQL database
-              </div>
-            </div>
-            <!-- Agent response -->
-            <div class="flex flex-col gap-3">
-              <div class="max-w-[80%] rounded-2xl rounded-tl-sm bg-paper/10 px-4 py-2.5 text-sm text-paper/90">
-                On it. Here's my plan:
-              </div>
-              <!-- Task progress -->
-              <div class="flex flex-col gap-2 pl-2 text-xs text-paper/60">
-                <div class="flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="text-mid-green" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-                  <span>Scaffolded Next.js project with TypeScript</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="text-mid-green" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-                  <span>Set up Supabase auth + PostgreSQL schema</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="text-mid-green" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-                  <span>Integrated Stripe checkout + webhooks</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <div class="h-3.5 w-3.5 animate-spin rounded-full border-2 border-coral border-t-transparent" aria-hidden="true"></div>
-                  <span class="text-paper/80">Deploying to Vercel...</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Input bar -->
-          <div class="border-t border-paper/10 px-4 py-3">
-            <div class="flex items-center gap-2 rounded-xl bg-paper/[0.06] px-3 py-2.5">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-paper/30 shrink-0" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-              <span class="text-xs text-paper/30 truncate">Ask Midsphere anything...</span>
-              <div class="ml-auto h-7 w-7 rounded-lg bg-coral/80 flex items-center justify-center shrink-0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        </div>
-      </div>
+    <h1
+      id="hero-headline"
+      class="h-display mx-auto mt-5 max-w-[880px] text-fg-1"
+    ><span class="hero-line">Ship the AI feature </span><span class="hero-line hero-line-rotator"><span class="rotating-phrase" aria-live="polite"><span class="hl rotating-ghost" aria-hidden="true"></span><span class="rotating-stack"><span class="hl rotating-item">you sketched this morning</span></span></span> </span><span class="hero-line">in an afternoon.</span></h1>
+
+    <!-- Morning → afternoon sun-arc: the headline's time claim, made visual.
+         Two suns book-end an arc, one rising, one settling. -->
+    <div class="mx-auto mt-5 flex justify-center" aria-hidden="true">
+      <svg viewBox="0 0 112 36" width="100" height="32" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 28 L 108 28" stroke-dasharray="2 3" style="opacity: 0.45;"/>
+        <circle cx="14" cy="28" r="4.5"/>
+        <path d="M14 21 L 14 17 M 6 28 L 2 28 M 8.5 23 L 5.5 20"/>
+        <path d="M16 26 C 30 6, 82 6, 96 26" stroke-dasharray="3 3"/>
+        <circle cx="98" cy="28" r="4.5"/>
+        <path d="M98 21 L 98 17 M 106 28 L 110 28 M 103 23 L 106 20"/>
+      </svg>
+    </div>
+
+    <p
+      class="mx-auto mt-5 max-w-[680px] text-fg-2"
+      style="font-size: 18px; line-height: 1.55; text-wrap: pretty;"
+    >
+      The autonomous agent you'd spend three months building. In <span class="hl-soft">three lines of code</span>.
+    </p>
+
+    <div class="relative mx-auto mt-9 max-w-[640px] text-left">
+      <CodeBlock code={heroCode} />
+
+      <MarginAnnotation
+        text="user's apps · not your code."
+        position="left"
+        topOffset="56px"
+      />
+      <MarginAnnotation
+        text="no init. no auth dance."
+        position="right"
+        topOffset="22px"
+      />
+    </div>
+
+    <div class="mt-9 flex flex-wrap justify-center gap-2.5">
+      <Button href="https://platform.midsphere.ai" variant="primary">Start building</Button>
+      <Button href="/orbiter" variant="secondary">Read the docs</Button>
+    </div>
+
+    <!-- Closing flourish: hand-drawn check + small caption.
+         Punctuates the hero — what you'd write at the end of a sketchbook page. -->
+    <div class="mt-6 flex items-center justify-center gap-2" style="opacity: 0.7;">
+      <svg width="18" height="14" viewBox="0 0 20 16" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2 9 L 8 14 L 18 2"/>
+      </svg>
+      <span class="font-mono" style="font-size: 11px; letter-spacing: 0.06em; color: var(--ms-fg-2);">
+        free credits · no card · no setup file
+      </span>
     </div>
   </div>
 </section>
+
+<script>
+  import { initRotatingPhrase } from '../../scripts/rotatingPhrase';
+
+  const variants = [
+    'you sketched this morning',
+    'you owe your team',
+    'users keep asking for',
+    "your competitors haven't",
+  ];
+
+  const start = () => initRotatingPhrase({ rootSelector: '#hero', variants });
+  let dispose: (() => void) | null = start();
+  document.addEventListener('astro:before-swap', () => { dispose?.(); dispose = null; });
+  document.addEventListener('astro:after-swap', () => { dispose = start(); });
+</script>

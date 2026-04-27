@@ -1,55 +1,32 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import { cn } from '../../utils/merge';
 
-interface Props {
-  href?: string;
-  isPrimary?: boolean;
-  isBordered?: boolean;
-  class?: string;
-  disabled?: boolean;
-  [key: string]: any;
-}
+type Variant = 'primary' | 'secondary' | 'accent' | 'ghost' | 'ghost-on-dark';
 
-const { href, isPrimary = false, isBordered = false, class: className, disabled = false, ...rest } = Astro.props;
+type Props =
+  | ({ href: string; variant?: Variant; class?: string } & Omit<HTMLAttributes<'a'>, 'class'>)
+  | ({ href?: undefined; variant?: Variant; class?: string; disabled?: boolean } & Omit<HTMLAttributes<'button'>, 'class'>);
 
-const isLink = !!href;
+const { href, variant = 'primary', class: className, ...rest } = Astro.props as Props & { href?: string; variant?: Variant; class?: string };
 
-const baseLink = 'flex items-center justify-center gap-2 rounded-xl px-6 py-4 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]';
-const baseButton = 'flex items-center justify-center gap-2 rounded-lg px-6 py-3 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]';
+const variantClass: Record<Variant, string> = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  accent: 'btn-accent',
+  ghost: 'btn-ghost',
+  'ghost-on-dark': 'btn-ghost-on-dark',
+};
 
-const variantClasses = isPrimary
-  ? isLink
-    ? 'bg-dark text-paper shadow-lg hover:shadow-xl hover:bg-dark/90'
-    : 'bg-dark text-paper shadow-md hover:shadow-lg hover:bg-dark/90'
-  : isBordered
-    ? 'border-2 border-dark/80 hover:border-dark hover:bg-dark hover:text-paper hover:shadow-sm'
-    : isLink
-      ? 'bg-subtle'
-      : '';
-
-const classes = cn(
-  isLink ? baseLink : baseButton,
-  variantClasses,
-  className,
-);
+const classes = cn('btn', variantClass[variant], className);
 ---
 
-{isLink ? (
-  <a href={href} class={classes} {...rest}>
+{href ? (
+  <a href={href} class={classes} {...rest as HTMLAttributes<'a'>}>
     <slot />
   </a>
 ) : (
-  <button class={classes} disabled={disabled} {...rest}>
+  <button type="button" class={classes} {...rest as HTMLAttributes<'button'>}>
     <slot />
   </button>
 )}
-
-<style>
-  button, a {
-    font-size: 0.9rem;
-  }
-  button[disabled], a[disabled] {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-</style>

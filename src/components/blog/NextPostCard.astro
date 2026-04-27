@@ -1,0 +1,49 @@
+---
+import BlogDoodle from '../ui/BlogDoodle.astro';
+
+interface NextPost {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+interface Props {
+  post: NextPost;
+}
+
+const { post } = Astro.props;
+---
+
+<section class="pb-16">
+  <div class="container-x">
+    <div class="mx-auto max-w-[720px]">
+      <div class="mb-5 flex items-center gap-3">
+        <span class="lime-square" aria-hidden="true"></span>
+        <span class="eyebrow">read next</span>
+      </div>
+
+      <a href={`/blog/${post.id}`} class="card card-hover grid grid-cols-1 items-start gap-5 lg:grid-cols-[80px_minmax(0,1fr)_auto] lg:gap-8" style="padding: 26px 28px;">
+        <div class="flex justify-start lg:justify-center" aria-hidden="true">
+          <BlogDoodle kind="paper-stack" width={64} />
+        </div>
+        <div class="min-w-0">
+          {post.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {post.tags.slice(0, 2).map((tag) => <span class="chip">{tag}</span>)}
+            </div>
+          )}
+          <h2 id={`next-${post.id}`} class="mt-3 font-medium text-fg-1" style="font-size: 20px; line-height: 1.25; letter-spacing: -0.02em; text-wrap: balance;">
+            {post.title}
+          </h2>
+          <p class="mt-2 text-[14px] leading-relaxed text-fg-2 line-clamp-2">
+            {post.description}
+          </p>
+        </div>
+        <span class="self-end font-mono text-[13px] text-fg-1 whitespace-nowrap" style="letter-spacing: 0.02em;">
+          the next note <span aria-hidden="true">→</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>

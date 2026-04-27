@@ -1,0 +1,86 @@
+---
+import BlogDoodle from '../ui/BlogDoodle.astro';
+import { formatDate } from '../../utils/formatDate';
+
+interface PostSummary {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    tags: string[];
+  };
+  readingTime: number;
+}
+
+interface Props {
+  post: PostSummary;
+  variant?: 'featured' | 'compact';
+}
+
+const { post, variant = 'compact' } = Astro.props;
+---
+
+{variant === 'featured' ? (
+  <a
+    href={`/blog/${post.id}`}
+    class="card card-hover grid grid-cols-1 items-start gap-6 lg:grid-cols-[110px_minmax(0,1fr)_minmax(0,260px)] lg:gap-10"
+    style="padding: 32px;"
+  >
+    <div class="flex justify-start lg:justify-center" aria-hidden="true">
+      <BlogDoodle kind="paper-stack" width={96} />
+    </div>
+
+    <div class="min-w-0">
+      {post.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.slice(0, 3).map((tag) => <span class="chip">{tag}</span>)}
+        </div>
+      )}
+      <h2
+        id={`post-${post.id}`}
+        class="mt-3 font-medium text-fg-1"
+        style="font-size: clamp(24px, 2.4vw, 30px); line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance;"
+      >
+        {post.data.title}
+      </h2>
+      <p class="mt-3 text-fg-2" style="font-size: 16px; line-height: 1.55;">
+        {post.data.description}
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <div class="font-mono text-[12px] text-fg-3" style="letter-spacing: 0.06em;">
+        <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+        <span class="middot" aria-hidden="true">·</span>
+        <span>{post.readingTime} min</span>
+      </div>
+      <span class="font-mono text-[13px] text-fg-1" style="letter-spacing: 0.02em;">
+        read the note <span aria-hidden="true">→</span>
+      </span>
+    </div>
+  </a>
+) : (
+  <a href={`/blog/${post.id}`} class="card card-hover flex flex-col">
+    {post.data.tags.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {post.data.tags.slice(0, 3).map((tag) => <span class="chip">{tag}</span>)}
+      </div>
+    )}
+    <h3
+      id={`post-${post.id}`}
+      class="mt-4 font-medium text-fg-1"
+      style="font-size: 20px; line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance;"
+    >
+      {post.data.title}
+    </h3>
+    <p class="mt-3 text-[14px] leading-relaxed text-fg-2 line-clamp-3">
+      {post.data.description}
+    </p>
+    <div class="mt-5 flex items-center font-mono text-[12px] text-fg-3" style="letter-spacing: 0.04em;">
+      <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+      <span class="middot" aria-hidden="true">·</span>
+      <span>{post.readingTime} min</span>
+    </div>
+  </a>
+)}

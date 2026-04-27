@@ -1,0 +1,57 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ClosingPanel from '../components/ui/ClosingPanel.astro';
+
+import UthHero from '../components/sections/under-the-hood/UthHero.astro';
+import UthArchitecture from '../components/sections/under-the-hood/UthArchitecture.astro';
+import UthPlanAct from '../components/sections/under-the-hood/UthPlanAct.astro';
+import UthContextManagement from '../components/sections/under-the-hood/UthContextManagement.astro';
+import UthDomainLayer from '../components/sections/under-the-hood/UthDomainLayer.astro';
+import UthPolicyEnforcement from '../components/sections/under-the-hood/UthPolicyEnforcement.astro';
+import UthArtifacts from '../components/sections/under-the-hood/UthArtifacts.astro';
+import UthConversations from '../components/sections/under-the-hood/UthConversations.astro';
+import UthModelsRouting from '../components/sections/under-the-hood/UthModelsRouting.astro';
+import UthSandboxing from '../components/sections/under-the-hood/UthSandboxing.astro';
+import UthRecovery from '../components/sections/under-the-hood/UthRecovery.astro';
+import UthCompliance from '../components/sections/under-the-hood/UthCompliance.astro';
+import UthBuiltOnExo from '../components/sections/under-the-hood/UthBuiltOnExo.astro';
+---
+
+<PageLayout
+  title="Under the hood — Midsphere"
+  description="The three-agent architecture, plan-act loop, file-based context, model routing, Firecracker sandboxes, and the recovery model that lets long agent runs actually finish."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://midsphere.ai' },
+    { name: 'Under the hood', url: 'https://midsphere.ai/under-the-hood' },
+  ]}
+>
+  <UthHero />
+  <UthArchitecture />
+  <UthPlanAct />
+  <UthContextManagement />
+  <UthDomainLayer />
+  <UthPolicyEnforcement />
+  <UthArtifacts />
+  <UthConversations />
+  <UthModelsRouting />
+  <UthSandboxing />
+  <UthRecovery />
+  <UthCompliance />
+  <UthBuiltOnExo />
+
+  <ClosingPanel
+    eyebrow="try it on a long one"
+    primaryHref="https://platform.midsphere.ai"
+    primaryLabel="Start building"
+    secondaryHref="/orbiter"
+    secondaryLabel="Read the API reference"
+    headingId="ship-headline"
+  >
+    <Fragment slot="headline">
+      You’ve read the architecture.<br /><span class="hl text-on-inverse-1">Now point it at something hard</span>.
+    </Fragment>
+    <Fragment slot="body">
+      Three agents, a plan-act loop, file-based context, a router, a sandbox, a recovery model — none of it magic. Engineering we did so you don’t have to. The integration is three lines. Hand it the kind of task that would melt a single-agent system around minute thirty.
+    </Fragment>
+  </ClosingPanel>
+</PageLayout>

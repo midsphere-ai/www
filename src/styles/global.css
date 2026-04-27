@@ -1,335 +1,525 @@
 @import "tailwindcss";
 
+/* Self-hosted Latin subset — single woff2 per family, weight range covers all
+   used weights. Each font ships ~30–45KB. font-display: swap avoids FOIT. */
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('/fonts/google-sans-flex-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fuzzy Bubbles';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/fuzzy-bubbles-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+
 @theme {
   --font-sans: var(--ms-font-sans);
-  --font-junicode: var(--ms-font-display);
+  --font-mono: var(--ms-font-mono);
+  --font-display: var(--ms-font-display);
 
-  --color-paper: var(--ms-paper);
-  --color-dark: var(--ms-dark);
-  --color-muted: var(--ms-muted);
-  --color-subtle: var(--ms-subtle);
-  --color-coral: var(--ms-coral);
-  --color-mid-blue: var(--ms-blue);
-  --color-mid-green: var(--ms-green);
-  --color-surface: var(--ms-surface);
-  --color-elevated: var(--ms-elevated);
-  --color-accent: var(--ms-accent);
-  --color-border: var(--ms-border);
+  --color-canvas: var(--ms-bg-canvas);
+  --color-surface: var(--ms-bg-surface);
+  --color-sunken: var(--ms-bg-sunken);
+  --color-inverse: var(--ms-bg-inverse);
+
+  --color-fg-1: var(--ms-fg-1);
+  --color-fg-2: var(--ms-fg-2);
+  --color-fg-3: var(--ms-fg-3);
+  --color-on-inverse-1: var(--ms-fg-on-inverse-1);
+  --color-on-inverse-2: var(--ms-fg-on-inverse-2);
+
   --color-border-subtle: var(--ms-border-subtle);
+  --color-border-default: var(--ms-border-default);
   --color-border-strong: var(--ms-border-strong);
-  --color-danger: var(--ms-danger);
+  --color-border-on-inverse: var(--ms-border-on-inverse);
 
-  @keyframes zenReveal {
-    from {
-      opacity: 0;
-      filter: blur(4px);
-      transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0px);
-      transform: translateY(0);
-    }
-  }
+  --color-accent: var(--ms-accent);
+  --color-accent-soft: var(--ms-accent-soft);
+  --color-accent-ink: var(--ms-accent-ink);
 
-  @keyframes zenFade {
-    from {
-      opacity: 0;
-      filter: blur(4px);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0px);
-    }
-  }
+  --color-ok: var(--ms-ok);
+  --color-ok-soft: var(--ms-ok-soft);
+  --color-warn: var(--ms-warn);
+  --color-warn-soft: var(--ms-warn-soft);
+  --color-err: var(--ms-err);
+  --color-err-soft: var(--ms-err-soft);
 
-  @keyframes zenScale {
-    from {
-      opacity: 0;
-      filter: blur(4px);
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0px);
-      transform: scale(1);
-    }
-  }
-
-  @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  @keyframes heroEntrance {
-    from {
-      opacity: 0;
-      filter: blur(6px);
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0px);
-      transform: translateY(0);
-    }
-  }
-
+  --radius-pill: 9999px;
 }
 
 :root {
-  --ms-font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --ms-font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --ms-paper: #f8f8f7;
-  --ms-dark: #1a1a1a;
-  --ms-muted: rgba(0, 0, 0, 0.03);
-  --ms-subtle: rgba(0, 0, 0, 0.04);
-  --ms-surface: #f2f2f1;
-  --ms-elevated: #eaeae9;
-  --ms-accent: #1a1a1a;
-  --ms-border: rgba(0, 0, 0, 0.08);
-  --ms-border-subtle: rgba(0, 0, 0, 0.04);
-  --ms-border-strong: rgba(0, 0, 0, 0.15);
-  --ms-coral: #1a1a1a;
-  --ms-blue: #0081f2;
-  --ms-green: #0081f2;
-  --ms-panel-dark: #111111;
-  --ms-danger: #e53e3e;
-}
+  /* Type — Google Sans Flex is the workhorse; Fuzzy Bubbles is reserved
+     for the .hl / .hl-soft highlighter spans so the hand-drawn letterforms
+     show up only on the single phrase per paragraph that already carries
+     the lime accent — reinforcing the site's hand-drawn doodle voice. */
+  --ms-font-sans: 'Google Sans Flex', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ms-font-display: 'Fuzzy Bubbles', 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
+  --ms-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-[data-theme="dark"] .only-light { display: none !important; }
-html:not([data-theme="dark"]) .only-dark { display: none !important; }
+  /* Surface — pure white, no warmth */
+  --ms-bg-canvas:  #FFFFFF;
+  --ms-bg-surface: #FFFFFF;
+  --ms-bg-sunken:  #F4F4F4;
+  --ms-bg-inverse: #0B0B0B;
 
-.logo-bold-dark {
-  filter:
-    drop-shadow(0.5px 0 0 var(--ms-dark)) drop-shadow(-0.5px 0 0 var(--ms-dark))
-    drop-shadow(0 0.5px 0 var(--ms-dark)) drop-shadow(0 -0.5px 0 var(--ms-dark));
-}
-.logo-bold-light {
-  filter:
-    drop-shadow(0.5px 0 0 var(--ms-dark)) drop-shadow(-0.5px 0 0 var(--ms-dark))
-    drop-shadow(0 0.5px 0 var(--ms-dark)) drop-shadow(0 -0.5px 0 var(--ms-dark));
-}
-.logo-bold-footer {
-  filter:
-    drop-shadow(0.5px 0 0 var(--ms-paper)) drop-shadow(-0.5px 0 0 var(--ms-paper))
-    drop-shadow(0 0.5px 0 var(--ms-paper)) drop-shadow(0 -0.5px 0 var(--ms-paper));
-}
+  /* Foreground */
+  --ms-fg-1: #111111;
+  --ms-fg-2: #555555;
+  --ms-fg-3: #8A8A8A;
+  --ms-fg-on-inverse-1: #FFFFFF;
+  --ms-fg-on-inverse-2: #B5B5B5;
 
-[data-theme="dark"] {
-  --ms-paper: #111111;
-  --ms-dark: #e8e8e6;
-  --ms-muted: rgba(255, 255, 255, 0.03);
-  --ms-subtle: rgba(255, 255, 255, 0.05);
-  --ms-surface: #1a1a1a;
-  --ms-elevated: #222222;
-  --ms-accent: #e8e8e6;
-  --ms-coral: #e8e8e6;
-  --ms-blue: #4da6ff;
-  --ms-green: #4da6ff;
-  --ms-panel-dark: #0a0a0a;
-  --ms-border: rgba(255, 255, 255, 0.08);
-  --ms-border-subtle: rgba(255, 255, 255, 0.05);
-  --ms-border-strong: rgba(255, 255, 255, 0.15);
-  --ms-danger: #fc8181;
-}
+  /* Border */
+  --ms-border-subtle:    rgba(0, 0, 0, 0.08);
+  --ms-border-default:   rgba(0, 0, 0, 0.14);
+  --ms-border-strong:    rgba(0, 0, 0, 0.28);
+  --ms-border-on-inverse: rgba(255, 255, 255, 0.12);
 
+  /* Accent — lime/chartreuse highlighter */
+  --ms-accent:      #D7F25C;
+  --ms-accent-soft: #ECF7B3;
+  --ms-accent-ink:  #2E3A0A;
+
+  /* Semantic — low saturation, in-product status only */
+  --ms-ok:        #3F7A4B;
+  --ms-ok-soft:   #DEEBE0;
+  --ms-warn:      #B8862B;
+  --ms-warn-soft: #F2E6C7;
+  --ms-err:       #B23A2C;
+  --ms-err-soft:  #F1D8D2;
+
+  /* Spacing scale (4px base) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+
+  /* Radii */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 28px;
+  --r-pill: 9999px;
+
+  /* Shadows — neutral gray, never pure black */
+  --shadow-1: 0 1px 0 rgba(14,14,12,0.04), 0 1px 2px rgba(14,14,12,0.04);
+  --shadow-2: 0 2px 4px rgba(14,14,12,0.04), 0 8px 24px rgba(14,14,12,0.06);
+  --shadow-3: 0 12px 32px rgba(14,14,12,0.10), 0 2px 6px rgba(14,14,12,0.05);
+
+  /* Motion */
+  --ease-out:    cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-color:     150ms;
+  --t-transform: 200ms;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-pad: 32px;
+}
 
 @layer base {
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
   }
 
-  body,
-  body > * {
-    font-family: var(--ms-font-sans);
-    font-style: normal;
-    font-weight: 500;
-  }
-
   body {
-    min-height: max(100dvh, 64rem);
+    font-family: var(--ms-font-sans);
+    font-weight: 400;
+    background: var(--ms-bg-canvas);
+    color: var(--ms-fg-1);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
-    text-wrap: balance;
-    background-color: var(--ms-paper);
-    color: var(--ms-dark);
   }
 
-  h1 .italic {
+  ::selection {
+    background: var(--ms-accent);
+    color: var(--ms-accent-ink);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--ms-font-sans);
+    font-weight: 500;
+    color: var(--ms-fg-1);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+}
+
+@layer components {
+  /* Container */
+  .container-x {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+  }
+  @media (max-width: 768px) { .container-x { padding-inline: 20px; } }
+  @media (min-width: 769px) and (max-width: 1024px) { .container-x { padding-inline: 24px; } }
+
+  /* Eyebrow / kicker */
+  .eyebrow {
+    font-family: var(--ms-font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ms-fg-3);
+    text-transform: lowercase;
+    font-weight: 400;
+  }
+
+  /* Eyebrow on dark (inverse-surface) */
+  .eyebrow-on-dark {
+    font-family: var(--ms-font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ms-fg-on-inverse-2);
+    text-transform: lowercase;
+    font-weight: 400;
+  }
+
+  /* Eyebrow on accent (lime) — dark ink, muted */
+  .eyebrow-on-accent {
+    font-family: var(--ms-font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ms-accent-ink);
+    text-transform: lowercase;
+    font-weight: 400;
+    opacity: 0.65;
+  }
+
+  /* Lime highlighter span — Fuzzy Bubbles' hand-drawn letterforms echo the
+     site's doodle voice on the single phrase per paragraph that already
+     carries the lime accent. Fuzzy Bubbles runs taller and rounder than
+     Google Sans Flex, so we hold the size down and tighten tracking to
+     keep the highlighter pill from breaking the host line's rhythm. */
+  .hl,
+  .hl-soft {
     font-family: var(--ms-font-display);
     font-weight: 400;
-    font-style: italic;
+    font-size: 0.9em;
+    letter-spacing: -0.01em;
+  }
+  .hl {
+    background: linear-gradient(transparent 58%, var(--ms-accent) 58%);
+    padding: 0 5px;
+    border-radius: 3px;
+  }
+  .hl-soft {
+    background: linear-gradient(transparent 58%, var(--ms-accent-soft) 58%);
+    padding: 0 4px;
+    border-radius: 3px;
   }
 
-  .mid-link {
-    color: var(--color-coral, #F76F53);
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  /* Buttons — full pill, the only soft element */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--ms-font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    padding: 10px 18px;
+    border-radius: var(--r-pill);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      background var(--t-color) var(--ease-out),
+      color var(--t-color) var(--ease-out),
+      border-color var(--t-color) var(--ease-out);
+  }
+  .btn-primary { background: var(--ms-bg-inverse); color: var(--ms-fg-on-inverse-1); }
+  .btn-primary:hover { background: #222; }
+  .btn-secondary { background: var(--ms-bg-canvas); color: var(--ms-fg-1); border-color: var(--ms-border-default); }
+  .btn-secondary:hover { background: var(--ms-bg-sunken); }
+  .btn-accent { background: var(--ms-accent); color: var(--ms-accent-ink); }
+  .btn-accent:hover { background: #C7E150; }
+  .btn-inverse { background: var(--ms-bg-canvas); color: var(--ms-fg-1); }
+  .btn-inverse:hover { background: var(--ms-bg-sunken); }
+  .btn-ghost { background: transparent; color: var(--ms-fg-1); }
+  .btn-ghost:hover { background: var(--ms-bg-sunken); }
+  .btn-ghost-on-dark { background: transparent; color: var(--ms-fg-on-inverse-1); border-color: rgba(255,255,255,0.18); }
+  .btn-ghost-on-dark:hover { background: rgba(255,255,255,0.08); }
+
+  /* Focus ring — black inner outline (carries 3:1 contrast on every surface)
+     plus a lime halo via box-shadow (carries the brand). The same treatment
+     reads on canvas, sunken, inverse, and accent backgrounds. */
+  .btn:focus-visible {
+    outline: 2px solid var(--ms-fg-1);
+    outline-offset: 0;
+    box-shadow: 0 0 0 4px var(--ms-accent);
+  }
+  .btn-ghost-on-dark:focus-visible,
+  .btn-inverse:focus-visible {
+    outline-color: var(--ms-fg-on-inverse-1);
   }
 
-  /* Scroll-triggered animations */
-  [data-animate] {
-    opacity: 0;
-    filter: blur(4px);
-    transform: translateY(24px);
+  /* Card */
+  .card {
+    background: var(--ms-bg-canvas);
+    border: 1px solid var(--ms-border-subtle);
+    border-radius: var(--r-md);
+    padding: var(--space-5);
+    transition: transform var(--t-transform) var(--ease-out), box-shadow var(--t-color) var(--ease-out);
+  }
+  .card-feature { padding: var(--space-6); border-radius: var(--r-lg); }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
   }
 
-  [data-animate="fade"] {
-    transform: none;
+  /* Chip / tag */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--ms-font-mono);
+    font-size: 12px;
+    background: var(--ms-bg-sunken);
+    color: var(--ms-fg-2);
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+    line-height: 1.2;
+  }
+  .chip-accent { background: var(--ms-accent); color: var(--ms-accent-ink); }
+  .chip-soft   { background: var(--ms-accent-soft); color: var(--ms-accent-ink); }
+  .chip-ok     { background: var(--ms-ok-soft); color: var(--ms-ok); }
+  .chip-warn   { background: var(--ms-warn-soft); color: #7a5a1c; }
+
+  /* Inputs */
+  .input {
+    font-family: var(--ms-font-sans);
+    font-size: 14px;
+    padding: 10px 14px;
+    background: var(--ms-bg-canvas);
+    color: var(--ms-fg-1);
+    border: 1px solid var(--ms-border-default);
+    border-radius: var(--r-sm);
+    box-shadow: var(--shadow-1);
+    transition: border-color var(--t-color) var(--ease-out);
+  }
+  .input:focus-visible {
+    outline: 2px solid var(--ms-fg-1);
+    outline-offset: 0;
+    box-shadow: 0 0 0 4px var(--ms-accent);
+    border-color: var(--ms-border-strong);
   }
 
-  [data-animate="scale"] {
-    transform: scale(0.95);
-  }
+  /* Section */
+  .section { padding-block: var(--space-9); }
+  .section-tight { padding-block: var(--space-7); }
 
-  [data-animate].is-visible {
-    animation: zenReveal 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-  }
+  /* Hero headline line — promotes the wrapping spans inside #hero-headline
+     to block-level so the static parts and the rotating phrase each get
+     their own line. Without this, the wide rotator forces a wrap that
+     orphans the period at the start of the trailing static line.
+     The rotator's line additionally needs nowrap so the period stays
+     glued to the rotator instead of wrapping when the rotator hits
+     max-width. */
+  .hero-line { display: block; }
+  .hero-line-rotator { white-space: nowrap; }
 
-  [data-animate="fade"].is-visible {
-    animation-name: zenFade;
-  }
-
-  [data-animate="scale"].is-visible {
-    animation-name: zenScale;
-  }
-
-  [data-animate][data-delay="1"] { animation-delay: 0.15s; }
-  [data-animate][data-delay="2"] { animation-delay: 0.3s; }
-  [data-animate][data-delay="3"] { animation-delay: 0.45s; }
-  [data-animate][data-delay="4"] { animation-delay: 0.6s; }
-  [data-animate][data-delay="5"] { animation-delay: 0.75s; }
-  [data-animate][data-delay="6"] { animation-delay: 0.9s; }
-
-  /* Hero entrance (plays on page load, not scroll-triggered) */
-  .hero-child {
-    opacity: 0;
-    filter: blur(6px);
-    transform: translateY(20px);
-    animation: heroEntrance 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-    animation-delay: calc(var(--hero-delay, 0) * 0.15s + 0.1s);
-  }
-
-  /* Section divider */
-  .section-divider {
+  /* Rotating headline phrase. The ghost reserves layout width for the
+     longest variant (kept in CSS via ::before so the h1's actual text
+     content stays canonical for SEO). The stack overlays the ghost and
+     translates Y to slide between variants. The phrase, ghost, and item
+     all use a 0.9em line-height — matching the .hl font-size — so the
+     clip area is exactly one item tall. Otherwise the surrounding h1's
+     1.05 line-height would make the strut taller than each item, leaking
+     the next item into view both at rest and during the slide. */
+  .rotating-phrase {
+    display: inline-block;
     position: relative;
+    vertical-align: baseline;
+    overflow: hidden;
+    max-width: 100%;
+    /* Sized by ghost. Ghost is allowed to wrap, so the clip area grows
+       to fit the longest variant's wrapped height — and stays that size
+       for shorter variants too, so the static text never reflows. */
+    line-height: 1.15;
   }
-
-  .section-divider::before {
-    content: '';
+  .rotating-ghost {
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+    line-height: 1.15;
+  }
+  .rotating-ghost::before {
+    content: "you sketched this morning";
+  }
+  .rotating-stack {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(100%, 800px);
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--ms-dark) 50%, transparent);
-    opacity: 0.08;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    will-change: transform;
   }
-
-  /* Feature panel transitions */
-  .feature-panel {
-    opacity: 0;
-    transform: scale(0.97);
-    transition: opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-    pointer-events: none;
+  .rotating-item {
+    flex-shrink: 0;
+    line-height: 1.15;
+    text-align: center;
+    /* Each item fills the full clip height so a shorter variant cannot
+       leave a vertical gap for the next item to peek through. The CSS
+       var is set by the rotator script after measuring the ghost. */
+    min-height: var(--rotator-clip-height, auto);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-
-  .feature-panel[data-active="true"] {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
+  @media (max-width: 640px) {
+    .hero-line-rotator { white-space: normal; }
+    .rotating-phrase {
+      display: block;
+      margin-inline: auto;
+    }
   }
-
-  /* Navbar dropdown */
-  .nav-dropdown {
-    opacity: 0;
-    transform: translateY(-4px);
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-
-  .nav-dropdown-trigger:hover .nav-dropdown,
-  .nav-dropdown:hover {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  .nav-dropdown-trigger:hover .nav-chevron {
-    transform: rotate(180deg);
-  }
-
-  .nav-chevron {
-    transition: transform 0.2s ease;
-  }
-
-  /* Dark mode shadow overrides */
-  [data-theme="dark"] .shadow-sm { --tw-shadow-color: rgba(0, 0, 0, 0.3); }
-  [data-theme="dark"] .shadow-lg { --tw-shadow-color: rgba(0, 0, 0, 0.4); }
-  [data-theme="dark"] .shadow-xl { --tw-shadow-color: rgba(0, 0, 0, 0.5); }
-
   @media (prefers-reduced-motion: reduce) {
-    [data-animate],
-    [data-animate="fade"],
-    [data-animate="scale"] {
-      opacity: 1;
-      filter: none;
-      transform: none;
-      animation: none !important;
-    }
-
-    .hero-child {
-      opacity: 1;
-      filter: none;
-      transform: none;
-      animation: none !important;
-    }
-
-    .feature-panel {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-
-    .nav-dropdown {
-      transition: none;
+    .rotating-stack {
+      transition: none !important;
+      transform: none !important;
     }
   }
 
-  /* Homepage hero mockup frame */
-  .hero-mockup-bg {
-    background:
-      radial-gradient(ellipse at 30% 70%, color-mix(in srgb, var(--ms-coral) 18%, transparent), transparent 50%),
-      radial-gradient(ellipse at 70% 30%, color-mix(in srgb, var(--ms-blue) 14%, transparent), transparent 50%),
-      radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--ms-green) 6%, transparent), transparent 60%),
-      var(--ms-panel-dark);
-  }
-
-  /* Per-feature panel backgrounds */
-  .feature-bg-0 { background: radial-gradient(ellipse at 60% 40%, color-mix(in srgb, var(--ms-coral) 16%, transparent), transparent 50%), radial-gradient(ellipse at 30% 70%, color-mix(in srgb, var(--ms-blue) 8%, transparent), transparent 50%), var(--ms-panel-dark); }
-  .feature-bg-1 { background: radial-gradient(ellipse at 40% 60%, color-mix(in srgb, var(--ms-blue) 16%, transparent), transparent 50%), radial-gradient(ellipse at 70% 30%, color-mix(in srgb, var(--ms-coral) 8%, transparent), transparent 50%), var(--ms-panel-dark); }
-  .feature-bg-2 { background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--ms-green) 14%, transparent), transparent 50%), radial-gradient(ellipse at 30% 70%, color-mix(in srgb, var(--ms-blue) 8%, transparent), transparent 50%), var(--ms-panel-dark); }
-  .feature-bg-3 { background: radial-gradient(ellipse at 30% 50%, color-mix(in srgb, var(--ms-blue) 14%, transparent), transparent 50%), radial-gradient(ellipse at 70% 50%, color-mix(in srgb, var(--ms-coral) 12%, transparent), transparent 50%), var(--ms-panel-dark); }
-  .feature-bg-4 { background: radial-gradient(ellipse at 60% 60%, color-mix(in srgb, var(--ms-green) 12%, transparent), transparent 50%), radial-gradient(ellipse at 40% 30%, color-mix(in srgb, var(--ms-blue) 12%, transparent), transparent 50%), var(--ms-panel-dark); }
-
-  /* Dot grid texture overlay */
-  .hero-dot-grid {
-    position: relative;
-  }
-
-  .hero-dot-grid::after {
-    content: '';
+  /* Skip-to-content link — lives in BaseLayout, hidden until focused. */
+  .skip-link {
     position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-    background-size: 24px 24px;
-    pointer-events: none;
+    top: -40px;
+    left: 16px;
+    z-index: 80;
+    padding: 10px 16px;
+    background: var(--ms-bg-inverse);
+    color: var(--ms-fg-on-inverse-1);
+    font-family: var(--ms-font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--r-pill);
+    text-decoration: none;
+    transition: top var(--t-color) var(--ease-out);
   }
+  .skip-link:focus,
+  .skip-link:focus-visible { top: 16px; }
+
+  /* Mono tag (e.g. "$ midsphere deploy") */
+  .mono-tag {
+    font-family: var(--ms-font-mono);
+    font-size: 12px;
+    padding: 8px 12px;
+    background: var(--ms-bg-canvas);
+    border: 1px solid var(--ms-border-subtle);
+    border-radius: var(--r-sm);
+    white-space: nowrap;
+  }
+  .mono-tag-on-dark {
+    color: var(--ms-fg-on-inverse-1);
+    background: transparent;
+    border-color: var(--ms-border-on-inverse);
+  }
+
+  /* Middle dot separator */
+  .middot { color: var(--ms-fg-3); margin-inline: 10px; }
+
+  /* Code block — shared component for all inline code samples */
+  .codeblock {
+    font-family: var(--ms-font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    padding: 20px;
+    border-radius: var(--r-md);
+    overflow-x: auto;
+    white-space: pre;
+    background: var(--ms-bg-sunken);
+    border: 1px solid var(--ms-border-subtle);
+    color: var(--ms-fg-1);
+    margin: 0;
+  }
+  .codeblock code {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background: transparent;
+    padding: 0;
+  }
+  .codeblock-on-dark {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--ms-border-on-inverse);
+    color: var(--ms-fg-on-inverse-1);
+  }
+
+  /* Section heading — shared sizing for h2 across landing sections */
+  .h-section {
+    font-weight: 500;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  /* Display heading — hero h1 size */
+  .h-display {
+    font-weight: 500;
+    font-size: clamp(40px, 5.4vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  /* Display heading — closing-CTA size (between section and display) */
+  .h-display-lg {
+    font-weight: 500;
+    font-size: clamp(36px, 4.2vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+}
+
+/* Page-level entry: opacity-only fade, the entire entry vocabulary */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-fade { animation: pageFadeIn 200ms var(--ease-out) both; }
+
+/* Hand-drawn doodle animation: tiny float, never bouncy */
+@keyframes doodleFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+.doodle-float { animation: doodleFloat 4.5s var(--ease-out) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-fade, .doodle-float { animation: none !important; }
+  .card-hover:hover { transform: none; }
 }

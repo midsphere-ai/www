@@ -1,0 +1,38 @@
+---
+import Button from '../../ui/Button.astro';
+---
+
+<section id="exo" class="section border-t border-border-subtle">
+  <div class="container-x">
+    <div class="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_200px] md:gap-14">
+      <div>
+        <div class="eyebrow">open source</div>
+        <h2 id="exo-headline" class="h-section mt-3 max-w-[520px]">
+          All of it sits on Exo.
+        </h2>
+        <p class="mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+          Exo is the agent framework we maintain in the open. The primitives — context engine, orchestration, memory, multi-agent coordination, MCP — all live in the Exo repo. Read them, fork them, send patches.
+        </p>
+        <p class="mt-4 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+          Midsphere adds the production runtime: Firecracker, warm pools, billing, lifecycle, observability, compliance. None of it is hidden — it’s just <span class="hl-soft">operationally annoying</span>, and most teams would rather not run it.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-2.5">
+          <Button href="/orbiter" variant="secondary">About Exo</Button>
+          <Button href="https://github.com/exo-agi" variant="ghost">GitHub →</Button>
+        </div>
+      </div>
+
+      <div class="hidden md:flex md:items-center md:justify-center" aria-hidden="true">
+        <svg viewBox="0 0 200 160" width="170" height="136" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 44 L 96 32 L 100 36 L 100 132 L 96 136 L 16 124 Z"/>
+          <path d="M184 44 L 104 32 L 100 36 L 100 132 L 104 136 L 184 124 Z"/>
+          <path d="M100 36 L 100 132"/>
+          <path d="M30 60 L 88 54 M 30 72 L 88 66 M 30 84 L 80 78" stroke-width="1.2"/>
+          <path d="M118 58 L 124 64 L 118 70" stroke-width="1.4"/>
+          <path d="M130 70 L 162 70" stroke-width="1.4"/>
+          <path d="M114 90 L 168 86 M 114 102 L 158 98 M 114 114 L 168 110" stroke-width="1.2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

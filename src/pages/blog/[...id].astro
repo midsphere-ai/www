@@ -15,8 +15,32 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const readingTime = getReadingTime(post.body ?? '');
+
+const tocHeadings = headings
+  .filter((h) => h.depth === 2)
+  .map((h) => ({ slug: h.slug, text: h.text }));
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
+
+// Sort newest first so "N°01" is the latest note and "next note" walks backwards in time.
+const sorted = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const totalNotes = sorted.length;
+const currentIdx = sorted.findIndex((p) => p.id === post.id);
+const noteNumber = currentIdx + 1;
+
+const nextSource = sorted[currentIdx + 1] ?? sorted[0];
+const nextPost = nextSource && nextSource.id !== post.id
+  ? {
+      id: nextSource.id,
+      title: nextSource.data.title,
+      description: nextSource.data.description,
+      tags: nextSource.data.tags,
+    }
+  : null;
 ---
 
 <BlogLayout
@@ -28,6 +52,10 @@ const readingTime = getReadingTime(post.body ?? '');
   image={post.data.image}
   tags={post.data.tags}
   readingTime={readingTime}
+  noteNumber={noteNumber}
+  totalNotes={totalNotes}
+  nextPost={nextPost}
+  tocHeadings={tocHeadings}
 >
   <Content />
 </BlogLayout>

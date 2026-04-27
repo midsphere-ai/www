@@ -1,0 +1,55 @@
+---
+const routingRoles = [
+  { role: 'planner',           note: 'long-context. has to hold the whole graph in mind.' },
+  { role: 'executor',          note: 'fast and cheap on mechanical steps. bigger model when the step earns it.' },
+  { role: 'knowledge manager', note: 'whatever handles structured information well. usually a smaller one.' },
+];
+---
+
+<section id="models" class="section border-t border-border-subtle">
+  <div class="container-x">
+    <div class="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_220px] md:gap-14">
+      <div>
+        <div class="eyebrow">models &amp; routing</div>
+        <h2 id="models-headline" class="h-section mt-3 max-w-[520px]">
+          Each role wants a different kind of model.
+        </h2>
+        <p class="mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+          Picking the right model per role is the kind of plumbing that quietly eats a week of someone’s time. The router does it per call — based on what the role needs and which provider has its act together that minute. <span class="hl-soft">You don’t configure it.</span>
+        </p>
+      </div>
+
+      <div class="hidden md:flex md:items-center md:justify-center" aria-hidden="true">
+        <svg viewBox="0 0 220 160" width="180" height="132" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 18 L 206 16 L 208 144 L 16 146 Z" stroke-width="1.4"/>
+          <circle cx="40" cy="44" r="6"/>
+          <circle cx="40" cy="80" r="6"/>
+          <circle cx="40" cy="116" r="6"/>
+          <circle cx="180" cy="38" r="5"/>
+          <circle cx="180" cy="68" r="5"/>
+          <circle cx="180" cy="98" r="5"/>
+          <circle cx="180" cy="128" r="5"/>
+          <path d="M46 44 C 100 46, 130 38, 174 38"/>
+          <path d="M46 80 C 100 78, 130 66, 174 68"/>
+          <path d="M46 80 C 100 90, 130 96, 174 98" style="opacity: 0.55;"/>
+          <path d="M46 116 C 100 118, 130 124, 174 128"/>
+        </svg>
+      </div>
+    </div>
+
+    <ul class="mx-auto mt-10 grid max-w-[860px] grid-cols-1 gap-3 md:grid-cols-3">
+      {routingRoles.map((r) => (
+        <li class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+          <div class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">{r.role}</div>
+          <p class="mt-2 text-fg-2" style="font-size: 14px; line-height: 1.55;">{r.note}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mx-auto mt-8 max-w-[640px] rounded-[14px] bg-sunken p-7">
+      <p class="text-fg-1" style="font-size: 16px; line-height: 1.65;">
+        Bills are per-run, not per-token, so the routing decisions don’t end up on your invoice. Provider outage? The router picks the next-best fit and the run keeps going. Better model ships? We start using it. Your code stays put.
+      </p>
+    </div>
+  </div>
+</section>
