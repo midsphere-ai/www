@@ -6,7 +6,7 @@ spec:
         branch: master
         repo_clone_url: https://github.com/Midsphere-AI/www.git
       build_command: npm install && npm run build
-      run_command: node dist/server/entry.mjs
+      run_command: node server.mjs
       environment_slug: node-js
       instance_size_slug: apps-s-1vcpu-0.5gb
       instance_count: 1

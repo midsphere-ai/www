@@ -15,11 +15,11 @@ interface OffPlate {
 // Six items in the "moved off your plate" grid. Memory was the seventh,
 // but it earned its own dedicated section — see #context below.
 const offPlate: OffPlate[] = [
-  { kind: 'design',   label: 'design the agent',                  body: 'Already built — planner, executor, the coordination logic. No graphs to draw, no state machines to debug at 2am.' },
+  { kind: 'design',   label: 'design the agent',                  body: 'The coordination logic is already built. No graphs to draw, no state machines to debug at 2am.' },
   { kind: 'wiring',   label: 'write tool-calling logic',          body: 'Wire the tools in. The agent picks what to call, when, and reads the response without your help.' },
   { kind: 'recovery', label: 'write failure recovery',            body: 'No retry counters. No compensation flows. No error branches in the graph. The agent recovers itself, loudly.' },
-  { kind: 'prompts',  label: 'do prompt engineering',             body: 'Plain-language policies — spend caps, approval gates, allowed tools. You stop being a prompt librarian.' },
-  { kind: 'models',   label: 'pick, upgrade, or track models',    body: 'Router routes per task across providers. New models, breaking changes, papers worth reading — we follow them. Your code doesn’t move.' },
+  { kind: 'prompts',  label: 'do prompt engineering',             body: 'Policies in plain language. Spend caps, approval gates, allowed tools. You stop being a prompt librarian.' },
+  { kind: 'models',   label: 'pick, upgrade, or track models',    body: 'Routing happens per task across providers. New models, breaking changes, papers worth reading. We follow them so your code doesn’t move.' },
   { kind: 'runtime',  label: 'run the runtime',                   body: 'Nothing to deploy, scale, or wire metrics around. One user or a million, same call.' },
 ];
 
@@ -41,8 +41,8 @@ const midsphereFit: string[] = [
 ---
 
 <PageLayout
-  title="Midsphere vs. agent SDKs and frameworks — Compare"
-  description="LangGraph, OpenAI Agents SDK, Microsoft Agent Framework, CrewAI and the rest are frameworks for building your own agent. Midsphere gives you one — pre-built, with file-based context that doesn’t hit the model’s window."
+  title="Midsphere vs. agent SDKs and frameworks · Compare"
+  description="LangGraph, OpenAI Agents SDK, Microsoft Agent Framework, CrewAI and the rest are frameworks for building your own agent. Midsphere gives you one pre-built, with file-based context that doesn’t hit the model’s window."
   breadcrumbs={[
     { name: 'Home', url: 'https://midsphere.ai' },
     { name: 'Compare', url: 'https://midsphere.ai/compare' },
@@ -55,7 +55,7 @@ const midsphereFit: string[] = [
 
       <div class="relative mx-auto mt-3 max-w-[860px]">
         <h1 id="hero-headline" class="h-display-lg">
-          Different scope. <span class="hl">Different work for you</span>.
+          They give you parts. <span class="hl">We hand you the agent</span>.
         </h1>
         <MarginAnnotation
           text="this part is the whole pitch"
@@ -67,7 +67,7 @@ const midsphereFit: string[] = [
       </div>
 
       <p class="mx-auto mt-6 max-w-[640px] text-fg-2" style="font-size: 18px; line-height: 1.6;">
-        LangGraph, OpenAI Agents SDK, Microsoft Agent Framework, CrewAI, Pydantic AI, Mastra, AG2, Google ADK &mdash; frameworks for building your own agent. Real products, real users.
+        LangGraph, OpenAI Agents SDK, Microsoft Agent Framework, CrewAI, Pydantic AI, Mastra, AG2, Google ADK. All frameworks for building your own agent. Real products, real users.
       </p>
 
       <figure class="mx-auto mt-12 max-w-[560px]" aria-labelledby="routes-caption">
@@ -100,7 +100,7 @@ const midsphereFit: string[] = [
             Building blocks. <span class="hl-soft">You design what gets built.</span>
           </h3>
           <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
-            Want to design the agent yourself &mdash; the graph, the nodes, the state, the tool-calling loop, the memory, the failure handling? Frameworks give you well-built primitives to do it.
+            Want to design the agent yourself? The graph, the nodes, the state, the tool-calling loop, the memory, the failure handling. Frameworks give you well-built primitives to do it.
           </p>
           <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
             Right product when you have engineers whose job is to design that. <span class="hl-soft">Maximum flexibility for teams with the AI engineering capacity to use it.</span>
@@ -116,7 +116,7 @@ const midsphereFit: string[] = [
             A pre-built agent. <span class="hl-soft">You wire it in and run it.</span>
           </h3>
           <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
-            We did that engineering. Planner, executor, coordination, the memory layer, the recovery model, the runtime &mdash; built, tuned, kept current as models change.
+            We did that engineering. Coordination, memory, the recovery model, the runtime. Built once, tuned, kept current as models change.
           </p>
           <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
             You wire your tools in and call <code class="font-mono text-fg-1" style="font-size: 0.92em;">agent.run</code>. <span class="hl-soft">Right product when you want the agent, not the toolkit.</span>
@@ -144,7 +144,7 @@ const midsphereFit: string[] = [
 
       <ol class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         {offPlate.map((item, i) => (
-          <li class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+          <li class="card p-7">
             <div class="flex items-start justify-between gap-4">
               <FrameworkWorkDoodle kind={item.kind} />
               <span class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">
@@ -188,25 +188,25 @@ const midsphereFit: string[] = [
       </figure>
 
       <div class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-6 md:grid-cols-3 md:gap-7">
-        <article class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+        <article class="card p-6">
           <div class="eyebrow">the workspace</div>
           <h3 id="context-fs" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">A real filesystem.</h3>
           <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
-            The agent has its own disk inside its sandbox. Notes, intermediate findings, partial outputs &mdash; <span class="hl-soft">anything it&rsquo;ll need later goes into a file</span>.
+            The agent has its own disk. Notes, intermediate findings, partial outputs. <span class="hl-soft">Anything it&rsquo;ll need later goes into a file.</span>
           </p>
         </article>
-        <article class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+        <article class="card p-6">
           <div class="eyebrow">the curator</div>
-          <h3 id="context-km" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">A knowledge manager.</h3>
+          <h3 id="context-km" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">Old work, kept findable.</h3>
           <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
-            Decides which slice of the filesystem belongs in the model at each step. Old work gets summarised, indexed, and pulled back when relevant.
+            Old work gets summarised, indexed, and pulled back when it&rsquo;s relevant again. The next step gets the slice that matters, not the whole transcript.
           </p>
         </article>
-        <article class="rounded-[12px] border border-border-subtle bg-canvas p-6">
+        <article class="card p-6">
           <div class="eyebrow">the swarm</div>
-          <h3 id="context-swarm" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">Sub-agents in parallel.</h3>
+          <h3 id="context-swarm" class="mt-3 font-medium text-fg-1" style="font-size: 17px; letter-spacing: -0.015em;">Hard work, split in parallel.</h3>
           <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
-            For harder cases, the planner spawns sub-agents. Each runs with its own context budget. Results merge back through the same hub.
+            On harder cases the work fans out. Each branch gets its own budget. Results merge back. <span class="hl-soft">No threading code on your side.</span>
           </p>
         </article>
       </div>
@@ -288,7 +288,7 @@ const midsphereFit: string[] = [
             An AI-native dev tool. Custom code review agent.
           </h3>
           <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
-            How the agent reads diffs, weighs comments, decides what&rsquo;s worth surfacing &mdash; that&rsquo;s the differentiator. Anything generic isn&rsquo;t the product.
+            How the agent reads diffs, weighs comments, decides what&rsquo;s worth surfacing. That&rsquo;s the differentiator. Anything generic isn&rsquo;t the product.
           </p>
           <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
             <span class="hl-soft">A framework is the right call.</span> They&rsquo;re going to design the thing themselves, and that&rsquo;s the entire point.
@@ -304,7 +304,7 @@ const midsphereFit: string[] = [
             A SaaS team adding an AI research feature.
           </h3>
           <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.65;">
-            The agent isn&rsquo;t the product &mdash; it produces a report inside one the team already has. They want the feature to work, and to ship next week.
+            The agent isn&rsquo;t the product. It produces a report inside one the team already has. They want the feature to work, and to ship next week.
           </p>
           <p class="mt-4 text-fg-1" style="font-size: 16px; line-height: 1.65;">
             <span class="hl-soft">Midsphere is the right call.</span> They want the result, not the build.

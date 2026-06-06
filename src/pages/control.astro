@@ -1,0 +1,326 @@
+---
+// /control — the business layer of Midsphere.
+// Two halves: the controls developers configure for their users, and the
+// insights they get back. Both halves matter equally. The page extends the
+// per-user surface that BringYourOwn and Scale tease on the homepage.
+import PageLayout from '../layouts/PageLayout.astro';
+import ClosingPanel from '../components/ui/ClosingPanel.astro';
+
+type Control = { n: string; title: string; body: string };
+
+const limits: Control[] = [
+  {
+    n: '01',
+    title: 'Per-user credits.',
+    body: "Set how many credits each user has. Subtracts as the agent runs. Hits zero, the agent stops.",
+  },
+  {
+    n: '02',
+    title: 'Run counts and rate limits.',
+    body: 'Daily, weekly, monthly caps per user or tier. Free user gets 5 a day, Pro gets 100, Enterprise unlimited.',
+  },
+  {
+    n: '03',
+    title: 'Wallet refresh schedules.',
+    body: 'Credits and run counts refresh on a schedule. Daily, weekly, monthly, or custom.',
+  },
+  {
+    n: '04',
+    title: 'Sandbox time.',
+    body: 'How long an individual run can execute. Free 5 minutes, Pro 30, Enterprise hours.',
+  },
+  {
+    n: '05',
+    title: 'Concurrency caps.',
+    body: 'How many runs a user can have in flight at once. Free 1, Pro 3, Enterprise unlimited.',
+  },
+];
+
+const access: Control[] = [
+  {
+    n: '06',
+    title: 'Model tier access.',
+    body: 'Which models the agent uses for each tier. Cheaper for free users, frontier for paid.',
+  },
+  {
+    n: '07',
+    title: 'Tool access.',
+    body: 'Which tools the agent can call per tier. Restrict the expensive ones to paying users.',
+  },
+  {
+    n: '08',
+    title: 'Knowledge access.',
+    body: 'Which knowledge bases each user can read from.',
+  },
+  {
+    n: '09',
+    title: 'Scoping and policies.',
+    body: "What the agent is and isn't allowed to do, enforced at the context level instead of with `if` checks.",
+  },
+  {
+    n: '10',
+    title: 'Approval flows.',
+    body: 'Sensitive actions wait for the user to confirm. Configurable per action.',
+  },
+];
+
+const observability = [
+  {
+    title: 'Per-user session logs.',
+    body: 'Every conversation, every tool call, every result. Searchable, filterable, full detail.',
+  },
+  {
+    title: 'Cost and usage analytics.',
+    body: 'Per user, per agent, per tool, per time period. Costs broken down by model and tool, never just a total.',
+  },
+  {
+    title: 'User satisfaction tracking.',
+    body: '1-to-5 ratings, trends over time, correlations with task type, model, or tier.',
+  },
+  {
+    title: 'Run history and debugging.',
+    body: 'Replay any run end to end. Step through the plan, the tool calls, the recovery moments.',
+  },
+];
+---
+
+<PageLayout
+  title="Control · Midsphere"
+  description="The business layer most agent platforms forget. Per-user limits, model and tool access, approval flows, and an analytics agent that reads your logs so you don't have to."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://midsphere.ai' },
+    { name: 'Control', url: 'https://midsphere.ai/control' },
+  ]}
+>
+  <!-- Hero -->
+  <section id="control-hero" class="section-tight text-center">
+    <div class="container-x">
+      <!-- Hero doodle: a small dashboard panel. Left half holds a dial with a
+           tick mark (the controls). Right half holds a tiny climbing line
+           chart (the insights). One image, both halves of the page. -->
+      <div class="mx-auto flex justify-center doodle-float" aria-hidden="true">
+        <svg viewBox="0 0 180 84" width="160" height="74" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="10" width="168" height="64" rx="6"/>
+          <path d="M88 14 L 88 70" stroke-dasharray="2 3" style="opacity: 0.45;"/>
+          <!-- left half: dial -->
+          <circle cx="44" cy="42" r="20"/>
+          <path d="M44 42 L 56 30" stroke-width="1.8"/>
+          <circle cx="44" cy="42" r="2.2" fill="#111"/>
+          <path d="M28 60 C 36 64, 52 64, 60 60" stroke-dasharray="2 3"/>
+          <!-- right half: climbing chart -->
+          <path d="M100 60 L 122 50 L 138 56 L 154 36 L 168 30"/>
+          <circle cx="168" cy="30" r="2.2" fill="#D7F25C" stroke="#111"/>
+          <path d="M100 68 L 168 68" style="opacity: 0.4;"/>
+        </svg>
+      </div>
+
+      <div class="eyebrow mt-6">control</div>
+      <h1 id="control-headline" class="h-display-lg mx-auto mt-3 max-w-[820px] text-fg-1">
+        Run it like <span class="hl">a business</span>.
+      </h1>
+      <p class="mx-auto mt-5 max-w-[640px] text-fg-2" style="font-size: 18px; line-height: 1.55;">
+        An agent in production needs more than infrastructure. You set what each user gets, what they can do, and what costs you'll allow. And you see what's actually happening when they use it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <section id="controls" class="section border-t border-border-subtle">
+    <div class="container-x">
+      <div class="mb-10 text-center">
+        <div class="eyebrow">controls</div>
+        <h2 id="controls-headline" class="h-section mx-auto mt-3 max-w-[760px]">
+          Configure how your agent works <span class="hl-soft">for each of your users</span>.
+        </h2>
+        <p class="mx-auto mt-5 max-w-[640px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Per-user credits, run caps, schedules, sandbox time, model and tool access. All of it as config. You don't write a quota system for the third time.
+        </p>
+      </div>
+
+      <!-- Limits & quotas bank -->
+      <div class="mx-auto mb-3 max-w-[1080px] text-center sm:text-left">
+        <div class="eyebrow">limits and quotas</div>
+      </div>
+      <div class="mx-auto mb-10 grid max-w-[1080px] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+        {limits.map((c) => (
+          <article class="card flex flex-col p-6">
+            <div class="font-mono" style="font-size: 11px; letter-spacing: 0.08em; color: var(--ms-fg-3);">{c.n}</div>
+            <h3 id={`control-${c.n}`} class="mt-2 font-medium text-fg-1" style="font-size: 16px; line-height: 1.3; letter-spacing: -0.01em;">{c.title}</h3>
+            <p class="mt-2 text-fg-2" style="font-size: 14px; line-height: 1.55;">{c.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <!-- Access & policies bank -->
+      <div class="mx-auto mb-3 max-w-[1080px] text-center sm:text-left">
+        <div class="eyebrow">access and policies</div>
+      </div>
+      <div class="mx-auto mb-8 grid max-w-[1080px] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+        {access.map((c) => (
+          <article class="card flex flex-col p-6">
+            <div class="font-mono" style="font-size: 11px; letter-spacing: 0.08em; color: var(--ms-fg-3);">{c.n}</div>
+            <h3 id={`control-${c.n}`} class="mt-2 font-medium text-fg-1" style="font-size: 16px; line-height: 1.3; letter-spacing: -0.01em;">{c.title}</h3>
+            <p class="mt-2 text-fg-2" style="font-size: 14px; line-height: 1.55;">{c.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <p class="mx-auto mt-10 max-w-[640px] text-center text-fg-2" style="font-size: 15px; line-height: 1.55;">
+        All of this is config. SDK if you want it in code, dashboard if a non-engineer on your team should be able to raise the cap without a redeploy.
+      </p>
+    </div>
+  </section>
+
+  <!-- Insights -->
+  <section id="insights" class="section border-t border-border-subtle">
+    <div class="container-x">
+      <!-- Anchor doodle: magnifying glass over a stack of lines. The agent
+           reading the logs for you. -->
+      <div class="mx-auto mb-6 flex justify-center" aria-hidden="true">
+        <svg viewBox="0 0 140 100" width="124" height="90" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <!-- log lines -->
+          <path d="M14 22 L 96 20"/>
+          <path d="M14 32 L 88 30"/>
+          <path d="M14 42 L 92 40"/>
+          <path d="M14 52 L 80 50"/>
+          <path d="M14 62 L 90 60"/>
+          <path d="M14 72 L 78 70"/>
+          <!-- magnifying glass -->
+          <circle cx="92" cy="58" r="18" fill="#FFFFFF"/>
+          <circle cx="92" cy="58" r="18"/>
+          <path d="M84 58 L 100 56 M 84 64 L 96 62" stroke-width="1.4" style="opacity: 0.6;"/>
+          <path d="M105 71 L 124 88" stroke-width="2"/>
+          <!-- lime spark indicating "found something" -->
+          <circle cx="118" cy="22" r="3" fill="#D7F25C" stroke="#111"/>
+          <path d="M122 18 L 126 14 M 122 26 L 126 30 M 114 22 L 110 22" stroke-width="1.2"/>
+        </svg>
+      </div>
+
+      <div class="mb-8 text-center">
+        <div class="eyebrow">insights</div>
+        <h2 id="insights-headline" class="h-section mx-auto mt-3 max-w-[820px]">
+          See what's actually happening. <span class="hl">And what to do about it.</span>
+        </h2>
+        <p class="mx-auto mt-5 max-w-[680px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Per-user session logs are useful. Not enough. With thousands of users running agents, no one is reading 50,000 log lines. The analytics agent reads them for you. Watches logs, ratings, costs, and usage patterns. Surfaces what matters.
+        </p>
+      </div>
+
+      <!-- The 4 notification-style insight cards. Stacked single-column so each
+           reads as a real surfaced finding, not a marketing bullet. Lime dot
+           and mono header sell the "the agent just told you this" feel. -->
+      <div class="mx-auto mt-10 flex max-w-[760px] flex-col gap-4">
+        <article class="card p-7" id="insight-1">
+          <div class="mb-3 flex items-center gap-2.5">
+            <span aria-hidden="true" class="block h-2 w-2 rounded-full" style="background: var(--ms-accent); box-shadow: 0 0 0 3px rgba(215, 242, 92, 0.25);"></span>
+            <span class="font-mono uppercase" style="font-size: 11px; letter-spacing: 0.06em; color: var(--ms-fg-3);">the analytics agent · 2h ago</span>
+          </div>
+          <p class="text-fg-1" style="font-size: 16px; line-height: 1.55;">
+            <span class="hl-soft">47 of your users</span> tried to attach files this week. The agent could handle them. You just don't surface the capability in your UI. Here are the user IDs and conversations.
+          </p>
+        </article>
+
+        <article class="card p-7" id="insight-2">
+          <div class="mb-3 flex items-center gap-2.5">
+            <span aria-hidden="true" class="block h-2 w-2 rounded-full" style="background: var(--ms-accent); box-shadow: 0 0 0 3px rgba(215, 242, 92, 0.25);"></span>
+            <span class="font-mono uppercase" style="font-size: 11px; letter-spacing: 0.06em; color: var(--ms-fg-3);">the analytics agent · this morning</span>
+          </div>
+          <p class="text-fg-1" style="font-size: 16px; line-height: 1.55;">
+            <span class="hl-soft">73 of your free-tier users</span> hit their daily run cap and didn't upgrade. Your free tier may be too restrictive for conversion. Consider raising it from 5 to 10 daily runs.
+          </p>
+        </article>
+
+        <article class="card p-7" id="insight-3">
+          <div class="mb-3 flex items-center gap-2.5">
+            <span aria-hidden="true" class="block h-2 w-2 rounded-full" style="background: var(--ms-accent); box-shadow: 0 0 0 3px rgba(215, 242, 92, 0.25);"></span>
+            <span class="font-mono uppercase" style="font-size: 11px; letter-spacing: 0.06em; color: var(--ms-fg-3);">the analytics agent · yesterday</span>
+          </div>
+          <p class="text-fg-1" style="font-size: 16px; line-height: 1.55;">
+            Tasks of type <span class="font-mono" style="font-size: 14px; background: var(--ms-bg-sunken); padding: 1px 6px; border-radius: 4px;">competitive_analysis</span> cost <span class="hl-soft">8x more than average</span> and have 60% lower satisfaction ratings. Something may be failing silently in the agent's workflow.
+          </p>
+        </article>
+
+        <article class="card p-7" id="insight-4">
+          <div class="mb-3 flex items-center gap-2.5">
+            <span aria-hidden="true" class="block h-2 w-2 rounded-full" style="background: var(--ms-accent); box-shadow: 0 0 0 3px rgba(215, 242, 92, 0.25);"></span>
+            <span class="font-mono uppercase" style="font-size: 11px; letter-spacing: 0.06em; color: var(--ms-fg-3);">the analytics agent · last Sunday</span>
+          </div>
+          <p class="text-fg-1" style="font-size: 16px; line-height: 1.55;">
+            Your scheduled weekly digest agent has run for 6 weeks. Average user engagement with the output dropped from <span class="hl-soft">80% to 30%</span>. The format may need updating.
+          </p>
+        </article>
+      </div>
+
+      <!-- Observability surface — what's underneath the analytics agent. -->
+      <div class="mx-auto mt-16 max-w-[1080px]">
+        <div class="mb-6 text-center">
+          <div class="eyebrow">underneath</div>
+          <h3 id="observability-headline" class="mx-auto mt-2 font-medium text-fg-1" style="font-size: clamp(22px, 2.4vw, 28px); line-height: 1.25; letter-spacing: -0.02em;">
+            Plus everything you'd expect.
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6">
+          {observability.map((o) => (
+            <article class="rounded-[12px] bg-sunken p-6">
+              <h4 class="font-medium text-fg-1" style="font-size: 16px; line-height: 1.3; letter-spacing: -0.01em;">{o.title}</h4>
+              <p class="mt-2 text-fg-2" style="font-size: 14px; line-height: 1.55;">{o.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it pairs -->
+  <section id="pairs" class="section">
+    <div class="container-x">
+      <!-- Loop doodle: controls feed insights, insights feed controls. -->
+      <div class="mx-auto mb-6 flex justify-center" aria-hidden="true">
+        <svg viewBox="0 0 200 100" width="180" height="92" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <!-- left node: dial -->
+          <circle cx="38" cy="50" r="16"/>
+          <path d="M38 50 L 48 42" stroke-width="1.6"/>
+          <circle cx="38" cy="50" r="1.6" fill="#111"/>
+          <!-- right node: chart -->
+          <rect x="146" y="32" width="36" height="36" rx="3"/>
+          <path d="M152 60 L 160 52 L 168 56 L 178 42"/>
+          <!-- top arc, left → right -->
+          <path d="M52 36 C 90 14, 130 14, 148 36" stroke-dasharray="3 3"/>
+          <path d="M142 32 L 148 36 L 142 40"/>
+          <!-- bottom arc, right → left -->
+          <path d="M148 64 C 130 86, 90 86, 52 64" stroke-dasharray="3 3"/>
+          <path d="M58 60 L 52 64 L 58 68"/>
+          <!-- tiny lime spark at the top of the loop -->
+          <circle cx="100" cy="14" r="2.6" fill="#D7F25C" stroke="#111"/>
+        </svg>
+      </div>
+
+      <div class="mx-auto max-w-[760px] text-center">
+        <div class="eyebrow">how it pairs</div>
+        <h2 id="pairs-headline" class="h-section mx-auto mt-3 max-w-[680px]">
+          Controls in code. <span class="hl-soft">Insights from an agent</span>.
+        </h2>
+        <p class="mx-auto mt-5 text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          The two halves close the loop. The analytics agent finds <em>your free tier is too restrictive</em>, and you raise the daily cap in the dashboard the same hour. It finds <em>tasks of type X are failing</em>, and you update the tool definition without a redeploy. One side describes the rules. The other side reads the data. Together they keep the product on the rails while you ship the next thing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <ClosingPanel
+    eyebrow="run it well"
+    primaryHref="https://platform.midsphere.ai"
+    primaryLabel="Start building"
+    secondaryHref="/pricing"
+    secondaryLabel="See pricing"
+    headingId="control-ship-headline"
+  >
+    <Fragment slot="headline">
+      Ship the agent.<br /><span class="hl text-on-inverse-1">Run it well</span>.
+    </Fragment>
+    <Fragment slot="body">
+      Limits, quotas, schedules, scopes, approvals. And an agent watching the rest. Both halves of running an agent product, both already built.
+    </Fragment>
+  </ClosingPanel>
+</PageLayout>

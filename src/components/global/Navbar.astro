@@ -8,20 +8,19 @@ import Button from '../ui/Button.astro';
   <div class="container-x">
     <div class="grid h-16 grid-cols-2 items-center gap-2 lg:grid-cols-[1fr_auto_1fr]">
       <a href="/" class="flex items-center" aria-label="Midsphere home">
-        <span class="font-mono text-[22px] font-medium leading-none text-fg-1">midsphere</span>
-        <span class="ml-1 h-[6px] w-[6px] translate-y-[6px] rounded-full bg-inverse" aria-hidden="true"></span>
+        <span class="text-[22px] font-medium leading-none tracking-tight text-fg-1">midsphere</span>
       </a>
 
       <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <a href="/for-vibe-coders" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Vibe coders</a>
         <a href="/under-the-hood" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Under the hood</a>
         <a href="/pricing" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Pricing</a>
-        <a href="/orbiter" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Orbiter</a>
+        <a href="/exo" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Exo</a>
         <a href="/blog" class="rounded-pill px-3.5 py-2 text-[14px] text-fg-1 transition-colors duration-150 hover:bg-sunken">Blog</a>
       </nav>
 
       <div class="flex items-center justify-end gap-2">
-        <Button href="/pricing" variant="secondary" class="hidden lg:inline-flex">Try for free</Button>
-        <Button href="https://platform.midsphere.ai/login" variant="primary" class="hidden lg:inline-flex">Get a demo</Button>
+        <Button href="https://platform.midsphere.ai/login" variant="primary" class="hidden lg:inline-flex">Start building</Button>
 
         <button
           type="button"
@@ -48,13 +47,13 @@ import Button from '../ui/Button.astro';
   class="fixed inset-0 z-40 bg-canvas px-5 pt-20 lg:hidden"
 >
   <nav class="flex flex-col gap-1" aria-label="Mobile primary">
+    <a href="/for-vibe-coders" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Vibe coders</a>
     <a href="/under-the-hood" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Under the hood</a>
     <a href="/pricing" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Pricing</a>
-    <a href="/orbiter" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Orbiter</a>
+    <a href="/exo" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Exo</a>
     <a href="/blog" class="rounded-pill px-4 py-3 text-[18px] text-fg-1">Blog</a>
     <div class="mt-6 flex flex-col gap-2 px-4">
-      <Button href="/pricing" variant="secondary" class="justify-center">Try for free</Button>
-      <Button href="https://platform.midsphere.ai/login" variant="primary" class="justify-center">Get a demo</Button>
+      <Button href="https://platform.midsphere.ai/login" variant="primary" class="justify-center">Start building</Button>
     </div>
   </nav>
 </div>

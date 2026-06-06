@@ -46,6 +46,7 @@ Navbar
  → BringYourOwn    (Tools / Skills / Knowledge → flow card)
  → Range           (six product examples climbing in ambition)
  → Scale           (build for one, ship for everyone + policy guard rails)
+ → Stack           (bring your stack — or borrow ours: SDK + starter)
  → Pricing         (free credits / usage / caps / volume tiles)
  → DayInLife       (timestamped steps + payoff paragraphs)
  → ClosingCTA      (dark inverse panel + lightning doodle)
@@ -55,7 +56,7 @@ Footer
 **Section-divider rhythm.** Borders bracket conceptual chapters, not every section:
 - Hero · Premise · BringYourOwn  → intro (no internal borders)
 - Range  → gallery (border-t)
-- Scale · Pricing  → technical + cost (Scale border-t, Pricing border-b)
+- Scale · Stack · Pricing  → technical + cost (Scale border-t, Pricing border-b; Stack carries no border so the chapter stays bracketed)
 - DayInLife · ClosingCTA  → payoff (no internal borders)
 
 When you remove a section, move its `border-t` onto the next chapter opener so chapters stay bracketed — don't leave the rhythm broken.
@@ -93,14 +94,14 @@ Uses `@tailwindcss/vite` plugin (**not** `@astrojs/tailwind`). All design tokens
 | `--ms-bg-inverse` | `#0B0B0B` | Dark CTA panel, footer, single feature tile |
 | `--ms-fg-1` | `#111111` | Primary text |
 | `--ms-fg-2` | `#555555` | Secondary text — body prose passes WCAG AA |
-| `--ms-fg-3` | `#8A8A8A` | Tertiary — labels only, **fails AA on canvas as body text** |
+| `--ms-fg-3` | `#6B6B6B` | Tertiary — eyebrows, mono captions, plus-signs, breadcrumbs |
 | `--ms-fg-on-inverse-1` | `#FFFFFF` | Primary text on dark |
 | `--ms-fg-on-inverse-2` | `#B5B5B5` | Secondary text on dark |
 | `--ms-accent` (lime) | `#D7F25C` | The only accent — sparing use |
 | `--ms-accent-soft` | `#ECF7B3` | Softer highlighter |
 | `--ms-accent-ink` | `#2E3A0A` | Dark text on lime tiles |
 
-**Contrast caution.** `text-fg-3` on canvas is 3.48:1 — passes for small decorative labels (eyebrows, time stamps) but fails AA for body prose. Use `text-fg-2` for any paragraph text. `text-fg-3` on inverse passes (5.49:1).
+**Contrast.** `text-fg-3` is 5.27:1 on canvas and 4.79:1 on `bg-sunken` — passes WCAG AA for small text on both light surfaces. Reserve it for muted labels (eyebrows, mono captions, footnotes); body prose still uses `text-fg-1` or `text-fg-2` for hierarchy. On inverse, use `text-on-inverse-2` (#B5B5B5) for muted text.
 
 **Focus ring.** `.btn` and `.input` use a 2px solid `var(--ms-fg-1)` (black) inner outline + 4px `var(--ms-accent)` (lime) `box-shadow` halo. The black inner carries the 3:1 contrast on every surface; the lime halo carries the brand. On dark surfaces (`btn-ghost-on-dark`, `btn-inverse`), the inner outline flips to `var(--ms-fg-on-inverse-1)` (white). Lime alone fails 3:1 on canvas — never use it as the sole focus indicator.
 
@@ -171,10 +172,23 @@ The playfulness is specifically *anti-corporate*, not *cute*. A sketchbook sits 
 
 The site's visual personality is hand-drawn line art, not iconography.
 
+### Doodles are illustrative guidance, not decoration
+
+This is the load-bearing rule. A doodle's job is to **make an abstract idea concrete and graspable**. Before you reach for an SVG, ask: what is the reader supposed to understand from this image that the words alone aren't carrying? If the answer is "nothing, it just looks nice," do not add the doodle.
+
+Concrete consequences of this rule:
+
+- **The concept comes first, then the metaphor.** Tools is a key ring because you hand the agent the keys to your systems. Skills is a runbook with a folded corner because the team's procedure goes in once and gets reused. Knowledge is a stack of papers because it's the homework the agent did before starting. Each metaphor was chosen to make the copy land harder, not because it looks cute next to a heading.
+- **No filler icons.** Generic gear / globe / cloud / sparkle icons are worse than nothing here. They're decoration pretending to be communication. If you can't explain what idea the doodle is illustrating in one sentence, cut it.
+- **One doodle per idea, not one per heading.** Sections that already land their point with words and structure don't need a sketched accent. Adding one dilutes the doodles that *are* doing real explanatory work.
+- **The doodle and the copy say the same thing.** If the heading says "Three agents, each with one role" and the doodle is three nodes connected by arrows, those are two views of one idea. If the doodle is a coffee cup, it's decoration. Cut it.
+- **Doodles can replace prose.** When a metaphor lands visually, the paragraph next to it can shrink. The yours-vs-ours horizon doodle on `/compare/cloud-providers` does more than the surrounding sentences could on their own. Use this trade actively: fewer words, sharper image.
+
+### Mechanical conventions
+
 - Stroke `#111` (or `currentColor` on dark surfaces), `stroke-width="1.6"`, `stroke-linecap="round"`, `stroke-linejoin="round"`, `fill="none"`
 - Slight asymmetry / jitter in paths so they read hand-drawn, not vector-perfect
 - All decorative SVGs: `aria-hidden="true"`
-- Doodles should **explain** the concept, not decorate. Tools = a key ring (you hand the agent the keys). Skills = a runbook with folded corner. Knowledge = a stack of papers / homework. Choose the metaphor that grounds the copy.
 - **Never use `<text>` inside an SVG for content the user might read in flow.** Document text-order includes SVG text nodes, so a stray `?` or `"on it."` inside an illustration appears as an orphan fragment when the page is read top-to-bottom or extracted by SEO crawlers. Replace with paths (curve a `?` glyph) or shapes (3 short lines = "speech bubble has writing").
 - Sizing: 80–120px for inline icons in cards, 140–220px for hero/anchor doodles, 60–80px for marginal flourishes (arrows, checks).
 - Character doodles (chatbot face / agent figure) > abstract diagrams (loops/lines) for landing personality. The audience remembers a sketched stick figure better than a Venn diagram.
@@ -193,6 +207,46 @@ These words must not appear anywhere in marketing copy:
 grep -niE "powerful|revolutionary|seamless|cutting-edge|leverage|empower|unlock|magical|robust|scalable|innovative|intelligent" src/path/to/file.astro
 ```
 
+### Banned punctuation
+
+Em-dashes (`—`, `&mdash;`) and semicolons (`;`) must not appear in any user-visible marketing prose. They read as AI-written. The ban applies to: body copy, headlines, eyebrows, frontmatter `description`, page `<title>` strings, list items, figcaptions, alt text, `bodyHtml` strings in component data.
+
+Three replacement patterns cover almost every em-dash you'll find:
+
+```
+parenthetical aside    → split into two sentences, OR (parentheses), OR colon-list
+appositive on the end  → comma, OR new sentence
+"and the punchline"    → period
+```
+
+Allowed exceptions: code comments (`// …`, `/* … */`), TypeScript type literal comments, the Pricing receipt `—` symbols (intentional "no value" markers on a sketched receipt, not punctuation).
+
+SEO `<title>` separator is `·`, not `—`. Convention is `Page name · Midsphere`.
+
+Watch out: prose tends to come back. When you rewrite a section that was previously cleaned, em-dashes feel natural and slip back in. Re-grep before shipping.
+
+```bash
+grep -rn "—\|&mdash;\|;" src/pages src/components/sections src/content
+# any hit outside code comments or the Pricing receipt is a bug
+```
+
+### AI rhythm tells
+
+These cadences read AI-written even after vocabulary and punctuation are clean. Catch them on the plain-text read-through:
+
+- **"Not X. Y." flips.** "Because an agent isn't a chatbot." / "Different scope. Different work for you." / "Two products. Two different starting points." Once on a page is voice. Four landings across the site is template. Pick one canonical home, rewrite the rest into a different shape.
+- **Anaphora walls.** Three or more consecutive sentences starting with the same words ("You don't X. You don't Y. You don't Z."). Convert to a bullet list or compress into one sentence with the items inside.
+- **Mirror sentences.** Pairs that invert each other ("The center of gravity is the model. Agents are downstream." / "The center of gravity is the developer. Models are downstream."). Keep one, rewrite the other in a fresh shape.
+- **Abstract-noun finales.** Sections ending with a pithy abstract noun cap ("…your wallet", "…the workloads where it isn't", "…deciding what to ship first"). The ChatGPT signature. Land on a concrete moment instead, or trim the cap entirely.
+- **Forced symmetry across cards.** Two compare scenarios with identical structure (doodle → eyebrow → headline → two paragraphs → lime closer) read AI. Make one card shorter than the other. Asymmetry reads written.
+- **Triplet-rhythm overuse.** "X. Y. Z." parallel three-beat sentences are fine once or twice per page. More than that and the page reads as bullet-points dressed up as prose.
+
+### Text-wall heuristic
+
+Any paragraph longer than 3 sentences with no list, no doodle, and no break is a bounce point. The reader skims past it. Fix by splitting into two paragraphs, converting to a bulleted list, or moving some content into a sidebar or eyebrow.
+
+Worst form: a 4+ sentence paragraph buried inside a card that already has a heading and a doodle. Two visual elements have already used the reader's attention budget. They will not also absorb four sentences.
+
 ### No mechanics talk
 
 The marketing surface never describes how the agent works internally:
@@ -205,7 +259,7 @@ These are real concepts in the framework but they belong in `/docs`, not in copy
 
 - **Direct, second-person, conversational.** "You" as much as possible. Short sentences. Asides and parentheticals for texture.
 - **Specific moments beat abstract claims.** "Sunday morning" lands harder than "weekly." "Eight hours" lands harder than "long-running."
-- **Avoid AI-tells.** Triplet rhythms ("X. Y. Z. — clean parallel") read AI-written if used too often. Vary sentence length. Asymmetric clauses feel human.
+- **Avoid AI-tells.** Triplet rhythms ("X. Y. Z., clean parallel") read AI-written if used too often. Vary sentence length. Asymmetric clauses feel human. See "AI rhythm tells" above for the specific patterns to grep for before shipping.
 - **Sketchbook voice, grown-up content.** The site has hand-drawn doodles, marker-pen highlights, and pull-quote asides — but the prose underneath stays direct and technical. The personality lives in the *visuals* and in *which* sentence gets emphasis, not in childish word choice. Playful captions like "Polite. Limited. Sleeps between turns." land because they're matter-of-fact descriptions made into a rhythm. "An agent that does the thing 🚀" does not.
 - **No exclamation points. No emoji. No mascot characters.** The typography is allowed to feel like a sketchbook; the words are not.
 - **Code samples appear in Hero only.** Other sections explain via prose, doodles, and labeled visuals. Code in every section reads as documentation, not marketing.

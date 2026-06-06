@@ -1,45 +1,69 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ScrollDownArrow from '../../components/ui/ScrollDownArrow.astro';
-import StopDoingCard from '../../components/ui/StopDoingCard.astro';
-import CloudProviderDoodle from '../../components/ui/CloudProviderDoodle.astro';
 import CloudProviderPageDoodle from '../../components/ui/CloudProviderPageDoodle.astro';
+import CloudPlatformLayerDoodle from '../../components/ui/CloudPlatformLayerDoodle.astro';
 import FitFramework from '../../components/ui/FitFramework.astro';
 import ScenarioCard from '../../components/ui/ScenarioCard.astro';
 import ClosingPanel from '../../components/ui/ClosingPanel.astro';
 
-interface Stop {
+interface PlatformPiece {
   num: string;
   title: string;
   body: string;
-  doodle: 'model' | 'context' | 'paper' | 'prompt' | 'infra' | 'hire';
+  doodle: 'controls' | 'schedule' | 'analytics' | 'definitions' | 'components';
 }
 
-const stops: Stop[] = [
-  { num: '01', title: 'Pick a model.',         body: 'We route across providers per call. A better model ships? We start using it. Your code doesn’t move.',                  doodle: 'model'   },
-  { num: '02', title: 'Manage context.',       body: 'The agent decides what to keep, what to summarise, what to recall. Window overflow isn’t on your roadmap.',                doodle: 'context' },
-  { num: '03', title: 'Read the latest paper.', body: 'New techniques, new architectures, new tricks. We absorb them into the same SDK call.',                                    doodle: 'paper'   },
-  { num: '04', title: 'Write system prompts.', body: 'Set policies — spend caps, approvals, allowed tools. The agent reads them as constraints, not suggestions.',               doodle: 'prompt'  },
-  { num: '05', title: 'Run infrastructure.',   body: 'No sandboxes, no state to manage, no recovery to wire. The agent runs and recovers from its own failures.',                doodle: 'infra'   },
-  { num: '06', title: 'Hire AI engineers.',    body: 'The agent is the product, not the project. Three lines of code and you’re shipping the feature.',                          doodle: 'hire'    },
+// The five platform-layer pieces a managed runtime won’t ship for you.
+const platformLayer: PlatformPiece[] = [
+  {
+    num: '01',
+    title: 'Per-user controls.',
+    body: 'Credits, rate limits, sandbox time, model tier access, tool access. Set once, applied per user. Every product surface needs this layer and no managed runtime ships it for you.',
+    doodle: 'controls',
+  },
+  {
+    num: '02',
+    title: 'Scheduled runs.',
+    body: 'The agent fires on a cron, not just on a button click. The Sunday-morning report. The end-of-month digest. The 6am inbox sweep that lands before the customer is awake.',
+    doodle: 'schedule',
+  },
+  {
+    num: '03',
+    title: 'An analytics agent.',
+    body: 'A second agent reads your logs, ratings, and cost data and tells you which runs are working and which aren’t. The dashboard you’d otherwise build yourself, watching itself.',
+    doodle: 'analytics',
+  },
+  {
+    num: '04',
+    title: 'Centralized definitions.',
+    body: 'Tools and knowledge live in one editable surface. A non-engineer can correct a tool description or update a knowledge file without a deploy.',
+    doodle: 'definitions',
+  },
+  {
+    num: '05',
+    title: 'UI components.',
+    body: 'A small component library for the agent surface. Conversation, attachments, run history, approval prompts. So your team isn’t pixel-pushing chat bubbles in week one.',
+    doodle: 'components',
+  },
 ];
 
 const cloudFit: string[] = [
-  'You have engineers who want to own the agent’s design — models, context, prompts, all of it.',
-  'You’re already deep on AWS, Azure, or GCP and want vertical integration.',
-  'The agent is one piece of a broader internal platform.',
+  'You’re already deeply committed to a cloud and want agent compute on the same bill.',
+  'You want to write the agent loop yourself and have the engineering team to do it.',
+  'You need procurement, compliance, and security review specific to that cloud.',
 ];
 
 const midsphereFit: string[] = [
-  'You don’t have AI engineers and don’t plan to hire any.',
-  'You want the feature live this month, not the quarter your platform team takes.',
-  'You’d rather not read papers and pick models for a living.',
+  'You want to ship an agent feature without writing an agent.',
+  'You want per-user controls, analytics, and UI components shipped alongside the agent.',
+  'You’d rather focus on your product than on the agent infrastructure around it.',
 ];
 ---
 
 <PageLayout
-  title="Midsphere vs. cloud-provider agents — Compare"
-  description="AWS Bedrock Agents, Azure AI Foundry Agent Service, and Google Vertex AI Agents are toolkits for teams building their own agent. Midsphere is the agent. Here's how to tell which fits."
+  title="Midsphere vs. managed agent runtimes · Compare"
+  description="AWS Bedrock AgentCore, Azure AI Foundry, Google Vertex AI Agent Builder, and Anthropic Claude Managed Agents are managed runtimes for the agent your team writes. Midsphere ships the agent itself, plus the platform to run it as a product. Here’s how to tell which fits."
   breadcrumbs={[
     { name: 'Home', url: 'https://midsphere.ai' },
     { name: 'Compare', url: 'https://midsphere.ai/compare' },
@@ -48,88 +72,135 @@ const midsphereFit: string[] = [
 >
   <section id="compare-cloud" class="section-tight pt-12 lg:pt-16">
     <div class="container-x text-center">
-      <div class="eyebrow">compare · cloud-provider agents</div>
-      <h1 id="hero-headline" class="h-display-lg mx-auto mt-3 max-w-[820px]">
-        Skip the agent. <span class="hl">Ship the feature</span>.
+      <div class="eyebrow">compare · managed agent runtimes</div>
+      <h1 id="hero-headline" class="h-display-lg mx-auto mt-3 max-w-[860px]">
+        They host your agent. <span class="hl">We ship the agent</span>.
       </h1>
-      <p class="mx-auto mt-6 max-w-[600px] text-fg-2" style="font-size: 18px; line-height: 1.6;">
-        AWS Bedrock Agents, Azure AI Foundry Agent Service, and Google Vertex AI Agents give you the parts to build a production agent. We give you the agent.
+      <p class="mx-auto mt-6 max-w-[660px] text-fg-1" style="font-size: 18px; line-height: 1.65;">
+        AWS Bedrock AgentCore, Azure AI Foundry, Google Vertex AI Agent Builder, and Anthropic Claude Managed Agents are managed runtimes for the agent your team writes.
       </p>
-      <div class="mx-auto mt-10 flex justify-center">
+      <p class="mx-auto mt-4 max-w-[600px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
+        Midsphere is a different category. We ship the agent itself, plus the platform to run it as a product.
+      </p>
+      <div class="mx-auto mt-12 flex justify-center">
         <ScrollDownArrow />
       </div>
     </div>
   </section>
 
-  <section id="cloud-side" class="section">
+  <section id="strengths" class="section">
     <div class="container-x">
-      <div class="mx-auto grid max-w-[1080px] grid-cols-1 items-center gap-10 md:grid-cols-[1fr_220px] md:gap-14">
+      <div class="mx-auto max-w-[680px] text-center">
+        <div class="eyebrow">the managed-runtime category</div>
+        <h2 id="strengths-headline" class="h-section mt-3">
+          What these platforms <span class="hl-soft">do well</span>.
+        </h2>
+        <p class="mx-auto mt-5 max-w-[600px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Real products, built by serious teams. If your situation lines up, they’re reasonable choices.
+        </p>
+      </div>
+
+      <ul class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-4" role="list">
+        <li class="rounded-[14px] border border-border-subtle bg-canvas p-6">
+          <div class="eyebrow">cloud integration</div>
+          <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+            If you’re already on AWS, Azure, or GCP, the agent runs next to the data warehouse, identity, and network you already use.
+          </p>
+        </li>
+        <li class="rounded-[14px] border border-border-subtle bg-canvas p-6">
+          <div class="eyebrow">enterprise compliance</div>
+          <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+            Mature security review, regional deployment, audit logging, and the procurement paperwork your CISO wants on file.
+          </p>
+        </li>
+        <li class="rounded-[14px] border border-border-subtle bg-canvas p-6">
+          <div class="eyebrow">engineering scale</div>
+          <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+            Hyperscaler engineering and balance sheets behind the runtime. The platforms aren’t going anywhere.
+          </p>
+        </li>
+        <li class="rounded-[14px] border border-border-subtle bg-canvas p-6">
+          <div class="eyebrow">existing relationship</div>
+          <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">
+            If your account team already knows your spend, the agent runtime drops into a conversation that’s already happening.
+          </p>
+        </li>
+      </ul>
+
+      <div class="mx-auto mt-10 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+        <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+          <div class="eyebrow">specifically · agentcore</div>
+          <h3 id="agentcore-note" class="mt-3 font-medium text-fg-1" style="font-size: 19px; line-height: 1.25; letter-spacing: -0.02em;">
+            Multi-framework by design.
+          </h3>
+          <p class="mt-3 text-fg-2" style="font-size: 15.5px; line-height: 1.65;">
+            AgentCore runs LangGraph, CrewAI, Strands, and the OpenAI Agents SDK side by side. <span class="hl-soft">If you’re writing your own agent and want a runtime that doesn’t lock you in</span>, that’s a real argument.
+          </p>
+        </article>
+        <article class="rounded-[14px] border border-border-subtle bg-canvas p-7 sm:p-8">
+          <div class="eyebrow">specifically · claude managed agents</div>
+          <h3 id="claude-note" class="mt-3 font-medium text-fg-1" style="font-size: 19px; line-height: 1.25; letter-spacing: -0.02em;">
+            Per-session pricing, tight Claude integration.
+          </h3>
+          <p class="mt-3 text-fg-2" style="font-size: 15.5px; line-height: 1.65;">
+            Pricing maps cleanly to your existing Anthropic API spend, and the agent rides the same model your team is already evaluating against. <a href="/compare/claude-managed-agents" class="text-fg-1 underline decoration-fg-3 underline-offset-2 hover:decoration-fg-1">Deeper read on the Anthropic question →</a>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="midsphere-side" class="section border-t border-border-subtle">
+    <div class="container-x">
+      <div class="mx-auto max-w-[700px] text-center">
+        <div class="eyebrow">a different category</div>
+        <h2 id="midsphere-headline" class="h-section mt-3">
+          We are the agent. <span class="hl">And the platform around it</span>.
+        </h2>
+      </div>
+
+      <div class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 items-center gap-10 md:grid-cols-[1fr_320px] md:gap-14">
         <div>
-          <div class="eyebrow">the cloud-provider services</div>
-          <h2 id="cloud-headline" class="h-section mt-3 max-w-[520px]">
-            Toolkits for teams who want the parts.
-          </h2>
-          <p class="mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.65;">
-            Models, runtime, identity, governance, deep ties into the cloud you already run. Your team designs and operates <span class="hl-soft">the agent itself</span>.
+          <p class="text-fg-1" style="font-size: 17px; line-height: 1.7;">
+            Midsphere isn’t where you host the agent you wrote. It is the agent. A multi-agent system that already does the long-running work, picks tools, recovers from its own failures, and lets you steer it mid-run.
           </p>
-          <p class="mt-4 max-w-[520px] text-fg-1" style="font-size: 17px; line-height: 1.65;">
-            That’s a real product. It’s just a different one.
+          <p class="mt-4 text-fg-2" style="font-size: 16px; line-height: 1.7;">
+            You don’t write the agent loop. You wire your tools and knowledge in, set policies in plain language, and call <code class="font-mono text-fg-1" style="font-size: 0.92em;">agent.run</code>. <span class="hl-soft">Same afternoon you sign up.</span>
           </p>
         </div>
-        <div class="hidden md:flex md:items-center md:justify-center">
-          <CloudProviderPageDoodle kind="crates" />
-        </div>
+        <figure class="flex justify-center" aria-labelledby="horizon-caption">
+          <CloudProviderPageDoodle kind="horizon" />
+        </figure>
       </div>
-    </div>
-  </section>
+      <p id="horizon-caption" class="mx-auto mt-6 max-w-[560px] text-center font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.04em;">
+        above the line: your product · below the line: the agent and the platform around it
+      </p>
 
-  <section id="horizon" class="section border-t border-border-subtle">
-    <div class="container-x">
-      <div class="mx-auto max-w-[640px] text-center">
-        <div class="eyebrow">where the work lives</div>
-        <h2 id="horizon-headline" class="h-section mt-3">
-          Above the line is yours. <span class="hl">Below is ours</span>.
-        </h2>
-      </div>
-
-      <figure class="mx-auto mt-12 max-w-[760px]" aria-labelledby="horizon-caption">
-        <div class="grid grid-cols-1 items-center gap-4 md:grid-cols-[120px_1fr_120px] md:gap-6">
-          <div class="hidden md:block text-right" aria-hidden="true">
-            <div class="font-mono text-fg-1" style="font-size: 12px; letter-spacing: 0.04em;">your product</div>
-            <div class="mt-1 font-mono text-fg-3" style="font-size: 11px; letter-spacing: 0.04em;">you ship this</div>
-          </div>
-          <div class="flex justify-center">
-            <CloudProviderPageDoodle kind="horizon" />
-          </div>
-          <div class="hidden md:block" aria-hidden="true">
-            <div class="font-mono text-fg-1" style="font-size: 12px; letter-spacing: 0.04em;">everything else</div>
-            <div class="mt-1 font-mono text-fg-3" style="font-size: 11px; letter-spacing: 0.04em;">we run this</div>
-          </div>
-        </div>
-        <figcaption id="horizon-caption" class="mx-auto mt-6 max-w-[520px] text-center text-fg-2" style="font-size: 15px; line-height: 1.55;">
-          The cloud-provider model lets you reach below the line. We don’t make you go down there.
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="stop-doing" class="section">
-    <div class="container-x">
-      <div class="mx-auto max-w-[640px] text-center">
-        <div class="eyebrow">what you stop doing</div>
-        <h2 id="stop-doing-headline" class="h-section mt-3">
-          Six things <span class="hl">you don’t have to do</span>.
-        </h2>
-        <p class="mx-auto mt-5 max-w-[560px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
-          Each one is real engineering work. Build the agent yourself and it lands on your team.
+      <div class="mx-auto mt-20 max-w-[680px] text-center">
+        <div class="eyebrow">the platform around the agent</div>
+        <h3 id="platform-headline" class="h-section mt-3">
+          Five things <span class="hl">a runtime won’t ship for you</span>.
+        </h3>
+        <p class="mx-auto mt-5 max-w-[600px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
+          Cloud runtimes don’t ship these because they sell compute, and compute doesn’t need any of it. The pieces below are the difference between hosting an agent and shipping an agent product.
         </p>
       </div>
 
       <ul class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3" role="list">
-        {stops.map((s) => (
-          <StopDoingCard num={s.num} title={s.title} body={s.body} headingId={`stop-${s.num}`}>
-            <CloudProviderDoodle slot="doodle" kind={s.doodle} />
-          </StopDoingCard>
+        {platformLayer.map((p) => (
+          <li class="rounded-[14px] border border-border-subtle bg-canvas p-6 sm:p-7">
+            <div class="flex h-[88px] items-center" aria-hidden="true">
+              <CloudPlatformLayerDoodle kind={p.doodle} />
+            </div>
+            <div class="mt-4 flex items-baseline gap-3">
+              <span class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">{p.num}</span>
+              <span class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">we ship</span>
+            </div>
+            <h4 id={`platform-${p.num}`} class="mt-2 font-medium text-fg-1" style="font-size: 19px; letter-spacing: -0.02em;">
+              {p.title}
+            </h4>
+            <p class="mt-3 text-fg-2" style="font-size: 14.5px; line-height: 1.6;">{p.body}</p>
+          </li>
         ))}
       </ul>
     </div>
@@ -140,12 +211,12 @@ const midsphereFit: string[] = [
       <div class="mx-auto max-w-[600px] text-center">
         <div class="eyebrow">which one fits</div>
         <h2 id="fit-headline" class="h-section mt-3">
-          Read both. Pick the one that sounds like you.
+          Pick the column that <span class="hl">sounds like your team</span>.
         </h2>
       </div>
 
       <FitFramework
-        leftLabel="choose a cloud-provider service if"
+        leftLabel="choose a managed runtime if"
         leftItems={cloudFit}
         rightLabel="choose midsphere if"
         rightItems={midsphereFit}
@@ -164,20 +235,20 @@ const midsphereFit: string[] = [
 
   <section id="scenarios" class="section">
     <div class="container-x">
-      <div class="mx-auto max-w-[600px] text-center">
+      <div class="mx-auto max-w-[640px] text-center">
         <div class="eyebrow">in practice</div>
         <h2 id="scenarios-headline" class="h-section mt-3">
-          Two real situations. Two different right answers.
+          How this lands for <span class="hl-soft">two different teams</span>.
         </h2>
       </div>
 
       <div class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
         <ScenarioCard
           num="01"
-          title="500-person company on AWS. Internal agent service."
-          body="Platform team with AI engineers and a multi-year AWS contract. They want to own the agent’s design and tie it into the data warehouse they already run."
-          verdictHighlight="AWS Bedrock Agents is the right call."
-          verdict="They want the toolkit, not the agent."
+          title="800-engineer enterprise. All-AWS. Internal agent service."
+          body="Platform team with AI engineers, a multi-year AWS contract, and a security review that already trusts Bedrock. They want to own the agent design and run it on the same bill as the rest of their platform."
+          verdictHighlight="Bedrock AgentCore is the right call."
+          verdict="They want the runtime, not the agent."
           headingId="scenario-platform"
         >
           <CloudProviderPageDoodle slot="doodle" kind="tower" />
@@ -185,10 +256,10 @@ const midsphereFit: string[] = [
 
         <ScenarioCard
           num="02"
-          title="5-person startup. AI feature. Live this month."
-          body="Five engineers, no AI specialist. Feature ships by month-end or it doesn’t. They’re still hunting for product-market fit."
+          title="8-person SaaS. AI feature on the roadmap. Live this quarter."
+          body="One or two of them used to write Python. None of them wants to be an AI engineer. The feature is one item on a long product roadmap, and the team needs it shipped before the quarterly review."
           verdictHighlight="Midsphere is the right call."
-          verdict="They want the feature, not the project."
+          verdict="An afternoon to a working demo, no AI engineer."
           headingId="scenario-startup"
         >
           <CloudProviderPageDoodle slot="doodle" kind="lightbulb" />
@@ -198,7 +269,7 @@ const midsphereFit: string[] = [
   </section>
 
   <ClosingPanel
-    eyebrow="if you’d rather ship the feature"
+    eyebrow="if your job is shipping the feature"
     primaryHref="https://platform.midsphere.ai"
     primaryLabel="Start building"
     secondaryHref="/docs"
@@ -206,10 +277,10 @@ const midsphereFit: string[] = [
     headingId="ship-headline"
   >
     <Fragment slot="headline">
-      They sell the building blocks.<br /><span class="hl text-on-inverse-1">We sell the result</span>.
+      Skip the runtime.<br /><span class="hl text-on-inverse-1">Ship the agent</span>.
     </Fragment>
     <Fragment slot="body">
-      You write the SDK call. You set the policies. We handle everything else.
+      Cloud runtimes hand you a place to run the agent your team wrote. We hand you the agent itself, and the controls to run it as a real product.
     </Fragment>
   </ClosingPanel>
 </PageLayout>

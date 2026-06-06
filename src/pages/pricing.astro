@@ -3,7 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import ClosingCTA from '../components/sections/ClosingCTA.astro';
 import PricingTier from '../components/ui/PricingTier.astro';
 
-// Suggested top-up amounts. Not tiers — convenient defaults. Any amount works.
+// Suggested top-up amounts. Not tiers. Convenient defaults. Any amount works.
 const topUps = ['$20', '$50', '$100', '$500'];
 
 const freeBullets = [
@@ -34,7 +34,7 @@ const exampleRuns = [
 ---
 
 <PageLayout
-  title="Pricing — Midsphere"
+  title="Pricing · Midsphere"
   description="Pay for the work. Not the seat. Not the month. Prepaid credits, no subscription, credits never expire."
   breadcrumbs={[
     { name: 'Home', url: 'https://midsphere.ai' },
@@ -137,8 +137,7 @@ const exampleRuns = [
       </div>
 
       <p class="mx-auto max-w-[680px] text-center text-fg-2" style="font-size: 17px; line-height: 1.6;">
-        Credits cover the actual work the agent does — model calls, compute time, tool invocations.
-        Heavy work costs more credits; light work costs fewer. There's no per-seat fee, no platform fee, no monthly minimum.
+        A credit covers the work, not the seat. Model calls, compute time, tool invocations. Heavy work costs more, light work costs less. <span class="hl-soft">No per-seat fee, no platform fee, no monthly minimum.</span>
       </p>
 
       <div class="mx-auto mt-10 max-w-[640px] rounded-[18px] border border-border-subtle p-7" style="background: var(--ms-bg-sunken);">

@@ -1,6 +1,6 @@
 ---
 title: "AI Agent Benchmarks in 2025: How Midsphere Stacks Up"
-description: "A breakdown of the leading AI agent benchmarks — GAIA, Terminal Bench, and IMO 2025 — and how Midsphere's scores compare to the competition."
+description: "A breakdown of the leading AI agent benchmarks (GAIA, Terminal Bench, IMO 2025) and how Midsphere's scores compare to the competition."
 pubDate: 2025-02-01
 author: "Midsphere Team"
 tags: ["benchmarks", "AI agents", "research"]
@@ -22,7 +22,7 @@ These scores place Midsphere among the top-performing autonomous agents on GAIA,
 
 ### Terminal Bench
 
-Terminal Bench evaluates an agent's ability to operate in a terminal environment — running commands, debugging errors, and completing software engineering tasks. It's the closest benchmark to real-world developer workflows.
+Terminal Bench evaluates an agent's ability to operate in a terminal environment. Running commands, debugging errors, completing software engineering tasks. It's the closest benchmark to real-world developer workflows.
 
 **Midsphere score: 35.2%**
 
@@ -44,7 +44,7 @@ Benchmarks are useful for comparison, but they don't capture everything that mat
 - **Reliability on repeat tasks**: Production agents need to work consistently, not just once.
 - **User experience**: How easy is it to go from prompt to result?
 
-We publish our benchmark scores transparently because we believe in measurable progress — but we also know that real-world performance is what counts.
+We publish our benchmark scores transparently because we believe in measurable progress. We also know real-world performance is what counts.
 
 ## How We Test
 
@@ -61,7 +61,7 @@ These are the same capabilities available to every Midsphere user.
 <details>
 <summary>What is GAIA and why does it matter?</summary>
 
-GAIA (General AI Assistants) is a benchmark developed to test AI agents on real-world, multi-step tasks. Unlike traditional NLP benchmarks, GAIA tasks require browsing the web, using tools, and reasoning across multiple steps — making it a strong proxy for actual agent utility.
+GAIA (General AI Assistants) is a benchmark developed to test AI agents on real-world, multi-step tasks. Unlike traditional NLP benchmarks, GAIA tasks require browsing the web, using tools, and reasoning across multiple steps, which makes it a strong proxy for actual agent utility.
 </details>
 
 <details>

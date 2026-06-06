@@ -1,118 +1,108 @@
 ---
 // "We brought the agent. You bring what makes it yours."
-// Three blocks (Tools / Skills / Knowledge) + a composition restatement.
+// Two grouped halves of three cards each.
+//   1. what it knows and can do: Tools, Knowledge, Skills (developer surface, primed by Hero code)
+//   2. how it behaves for your users: Per-user controls, Schedules, Policies (multi-tenant surface)
+// Followed by the configure → your-user-asks → they-get-back flow viz.
 import YoursPillarDoodle from '../ui/YoursPillarDoodle.astro';
 ---
 
 <section id="yours" class="section">
   <div class="container-x">
-    <!-- Anchor doodle: three icons converging -->
-    <div class="mx-auto mb-4 flex justify-center" aria-hidden="true">
-      <svg viewBox="0 0 260 90" width="200" height="70" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <!-- database cylinder (left) -->
-        <ellipse cx="40" cy="14" rx="20" ry="6"/>
-        <path d="M20 14 L 20 36 C 20 40, 30 42, 40 42 C 50 42, 60 40, 60 36 L 60 14"/>
-        <path d="M20 24 C 24 28, 34 30, 40 30 C 46 30, 56 28, 60 24"/>
-        <!-- recipe card (center) -->
-        <path d="M114 8 L 146 6 L 148 42 L 116 44 Z"/>
-        <path d="M120 18 L 140 17 M 120 26 L 140 25 M 120 34 L 134 33"/>
-        <!-- open book (right) -->
-        <path d="M198 12 L 218 8 L 218 40 L 198 44 Z"/>
-        <path d="M218 8 L 238 12 L 238 44 L 218 40"/>
-        <path d="M218 8 L 218 40"/>
-        <!-- converging lines -->
-        <path d="M40 48 C 60 60, 100 66, 130 70"/>
-        <path d="M132 48 L 132 66"/>
-        <path d="M218 48 C 200 60, 160 66, 134 70"/>
-        <!-- terminal circle -->
-        <circle cx="132" cy="78" r="6"/>
-      </svg>
-    </div>
-
-    <div class="mb-8 text-center">
+    <div class="mb-10 text-center">
       <div class="eyebrow">yours</div>
       <h2 id="yours-headline" class="h-section mx-auto mt-3 max-w-[760px]">
         We brought the agent. <span class="hl">You bring what makes it yours.</span>
       </h2>
       <p class="mx-auto mt-4 max-w-[640px] text-fg-2" style="font-size: 17px; line-height: 1.55;">
-        Capable out of the box for general work. The pieces below shape how it behaves for each user, when it runs on its own, and what it's allowed to do.
+        Capable out of the box for general work. You bring what it knows and can do, plus how it behaves for each of your users.
       </p>
     </div>
 
-    <div class="mx-auto mb-8 grid max-w-[1080px] grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
-      <!-- Tools — key ring -->
-      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+    <!-- Group 1: what the agent works with (developer surface, primed by Hero code) -->
+    <div class="mx-auto mb-3 max-w-[1080px] text-center sm:text-left">
+      <div class="eyebrow">what it knows and can do</div>
+    </div>
+    <div class="mx-auto mb-10 grid max-w-[1080px] grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+      <!-- Tools: key ring -->
+      <article class="card p-7">
         <div class="mb-4">
           <YoursPillarDoodle kind="tools" />
         </div>
         <h3 id="yours-tools" class="font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">Tools.</h3>
         <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.55;">
-          The actions the agent can take. Your APIs, integrations, custom functions — defined once, available across every run.
+          Your APIs, integrations, and custom functions, defined once. Whatever your backend can call, the agent can call too.
         </p>
       </article>
 
-      <!-- Knowledge — stack of papers / folder -->
-      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+      <!-- Knowledge: stack of papers / folder -->
+      <article class="card p-7">
         <div class="mb-4">
           <YoursPillarDoodle kind="knowledge" />
         </div>
         <h3 id="yours-knowledge" class="font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">Knowledge.</h3>
         <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.55;">
-          The context the agent needs. Your docs, files, structured data — editable in the dashboard, no redeploy.
+          What the agent should know before starting. Your docs, files, and workspace data, editable in the dashboard without a redeploy.
         </p>
       </article>
 
-      <!-- Skills — runbook with folded corner -->
-      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+      <!-- Skills: runbook with folded corner -->
+      <article class="card p-7">
         <div class="mb-4">
           <YoursPillarDoodle kind="skills" />
         </div>
         <h3 id="yours-skills" class="font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">Skills.</h3>
         <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.55;">
-          Reusable capabilities the agent applies across tasks. Stack them on top of your tools and your knowledge.
+          How your team does the job, written once. The agent applies it across tasks, on top of your tools and knowledge.
         </p>
       </article>
+    </div>
 
-      <!-- Per-user controls — sliders -->
-      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+    <!-- Group 2: how it shows up for your users (multi-tenant surface) -->
+    <div class="mx-auto mb-3 max-w-[1080px] text-center sm:text-left">
+      <div class="eyebrow">how it behaves for your users</div>
+    </div>
+    <div class="mx-auto mb-8 grid max-w-[1080px] grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+      <!-- Per-user controls: sliders -->
+      <article class="card p-7">
         <div class="mb-4">
           <YoursPillarDoodle kind="controls" />
         </div>
         <h3 id="yours-controls" class="font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">Per-user controls.</h3>
         <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.55;">
-          Credits, run counts, compute time, model tier, tool access. Pricing and abuse caps as config — not a quota system you write.
+          How much each of your users gets. Credits, runs, compute, models, tool access, all as config. You don't write a quota system.
         </p>
       </article>
 
-      <!-- Schedules — calendar -->
-      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+      <!-- Schedules: calendar -->
+      <article class="card p-7">
         <div class="mb-4">
           <YoursPillarDoodle kind="schedules" />
         </div>
         <h3 id="yours-schedules" class="font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">Schedules.</h3>
         <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.55;">
-          When the agent runs on its own. Cron-style per user, per workspace, or globally — weekly digests, monitors, daily prep.
+          When it runs on its own, per user or per workspace in your product. Weekly digests and Sunday-morning monitors as config, not a worker you maintain.
         </p>
       </article>
 
-      <!-- Policies and scoping — fence -->
-      <article class="rounded-[12px] border border-border-subtle bg-canvas p-7">
+      <!-- Policies and scoping: fence -->
+      <article class="card p-7">
         <div class="mb-4">
           <YoursPillarDoodle kind="policies" />
         </div>
         <h3 id="yours-policies" class="font-medium text-fg-1" style="font-size: 18px; letter-spacing: -0.015em;">Policies and scoping.</h3>
         <p class="mt-3 text-fg-2" style="font-size: 15px; line-height: 1.55;">
-          What the agent is and isn't allowed to do. Defined as scope, not runtime checks you'd have to remember to apply everywhere.
+          What it can and can't do per user, per workspace, or per tier in your product. Set as scope, not `if` checks you'll forget to add.
         </p>
       </article>
     </div>
 
-    <div class="mx-auto max-w-[820px] rounded-[14px] bg-sunken p-8 sm:p-10">
+    <div class="mx-auto max-w-[860px] rounded-[14px] bg-sunken p-8 sm:p-10">
       <div class="grid grid-cols-1 items-center gap-6 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:gap-4">
         <div class="text-center">
-          <div class="eyebrow">you bring</div>
+          <div class="eyebrow">you configure</div>
           <p class="mt-2 font-medium text-fg-1" style="font-size: 17px; line-height: 1.4;">
-            tools, skills, knowledge
+            the pieces above
           </p>
         </div>
 
@@ -124,9 +114,9 @@ import YoursPillarDoodle from '../ui/YoursPillarDoodle.astro';
         </div>
 
         <div class="text-center">
-          <div class="eyebrow">you say</div>
+          <div class="eyebrow">your user asks</div>
           <p class="mt-2 font-medium text-fg-1" style="font-size: 17px; line-height: 1.4;">
-            what you want, in plain English
+            for whatever they need
           </p>
         </div>
 
@@ -138,7 +128,7 @@ import YoursPillarDoodle from '../ui/YoursPillarDoodle.astro';
         </div>
 
         <div class="relative text-center">
-          <div class="eyebrow">you get back</div>
+          <div class="eyebrow">they get back</div>
           <p class="mt-2 font-medium text-fg-1" style="font-size: 17px; line-height: 1.4;">
             <span class="hl-soft">the work, done</span>
           </p>
@@ -151,7 +141,21 @@ import YoursPillarDoodle from '../ui/YoursPillarDoodle.astro';
     </div>
 
     <p class="mx-auto mt-8 max-w-[760px] text-center font-medium text-fg-1" style="font-size: 19px; line-height: 1.5; text-wrap: pretty;">
-      Same agent, three slots — enough to ship <span class="hl-soft">an internal tool, a consumer app, or a feature buried inside the product you already have</span>.
+      Same agent every time. Enough to ship <span class="hl-soft">an internal tool, a consumer app, or a feature buried inside the product you already have</span>.
+    </p>
+
+    <!-- Quiet footnote pointing at /agent. Matches Stack.astro's pattern: the
+         marketing surface stays uncluttered, but the reader who's curious what
+         the agent ships with has a deep-link to the elaboration page. -->
+    <p
+      class="mx-auto mt-10 text-center font-mono"
+      style="font-size: 12px; color: var(--ms-fg-3); letter-spacing: 0.04em;"
+    >
+      curious what the agent ships with?
+      <a
+        href="/agent"
+        style="color: var(--ms-fg-1); margin-left: 6px; text-decoration: underline; text-decoration-color: var(--ms-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;"
+      >see what's built in</a>
     </p>
   </div>
 </section>

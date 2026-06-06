@@ -15,14 +15,14 @@ const steps = [
         Plan, act, observe, <span class="hl">replan</span>.
       </h2>
       <p class="mx-auto mt-5 max-w-[520px] text-fg-2" style="font-size: 17px; line-height: 1.6;">
-        When reality and the plan disagree — a tool failed, the data wasn’t what was expected, a new constraint surfaced — the plan changes mid-run.
+        When reality and the plan disagree (a tool failed, the data wasn’t what was expected, a new constraint surfaced), the plan changes mid-run.
       </p>
     </div>
 
     <ol class="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-3 md:grid-cols-[1fr_28px_1fr_28px_1fr_28px_1fr]">
       {steps.flatMap((step, i, arr) => [
         (
-          <li class="rounded-[12px] border border-border-subtle bg-canvas p-5">
+          <li class="card p-5">
             <div class="flex items-baseline gap-2">
               <span class="font-mono text-fg-3" style="font-size: 12px; letter-spacing: 0.06em;">{step.num}</span>
               <span class="font-mono text-fg-1" style="font-size: 13px; letter-spacing: 0.02em;">{step.label}</span>
@@ -54,7 +54,7 @@ const steps = [
     <div class="mx-auto mt-12 max-w-[640px] rounded-[14px] bg-sunken p-7">
       <div class="eyebrow">steering, mid-run</div>
       <p class="mt-3 text-fg-1" style="font-size: 16px; line-height: 1.65;">
-        You can intervene through the SDK too. Adjust the goal, add a constraint, hand the agent new context — the planner folds your steer into the next plan revision. The agent doesn’t restart. <span class="hl-soft">It updates.</span>
+        You can intervene through the SDK too. Adjust the goal, add a constraint, hand the agent new context. The planner folds your steer into the next plan revision. The agent doesn’t restart. <span class="hl-soft">It updates.</span>
       </p>
     </div>
   </div>
